@@ -1,0 +1,43 @@
+name: Release Obsidian Plugin
+
+on:
+  push:
+    tags:
+      - "*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build Plugin
+        run: yarn build
+
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag_name="${GITHUB_REF#refs/tags/}"
+          if [ -z "$tag_name" ]; then
+            tag_name="release-$(date +'%Y%m%d%H%M%S')"
+          fi
+          # 获取最近的提交信息作为版本描述
+          commit_message=$(git log -1 --pretty=%B)
+
+          gh release create "$tag_name" \
+            --title "$tag_name" \
+            --notes "$commit_message" \
+            --draft \
+            dist/main.js src/styles.css manifest.json

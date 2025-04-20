@@ -1,0 +1,42 @@
+/* 小部件侧边栏设置面板样式 */
+.dms-widget-sidebar-settings {
+    /* 小部件列表容器样式 */
+    & .dms-widget-list-container {
+        margin-bottom: 1rem;
+        /* 单个小部件设置项样式 */
+        & > .dms-widget-item-setting {
+            padding: .5rem 1rem;
+            border-radius: .5rem;
+            display: flex;
+            /* 鼠标悬停效果 */
+            &:hover {
+                background-color: var(--background-modifier-hover);
+            }
+            /* 设置项标题样式 */
+            & > span:first-child {
+                flex-grow: 1;
+            }
+        }
+    }
+}
+
+/* 小部件编辑模态框样式 */
+.dms-widget-edit-modal {
+    /* 隐藏禁用状态的自定义类型设置项 */
+    .setting-item.dms-widget-custom-type.is-disabled {
+        display: none;
+    }
+}
+
+/* 小部件侧边栏内容区域样式 */
+.view-content.dms-widget-sidebar {
+    /** 默认样式 */
+    &[data-widget-sidebar-style="default"] {
+        /* 小部件容器样式：添加底部边框和间距 */
+        & > .dms-widget-container {
+            padding-bottom: .5rem;
+            border-bottom: 1px dashed var(--background-modifier-hover);
+            margin-bottom: .5rem;
+        }
+    }
+}
