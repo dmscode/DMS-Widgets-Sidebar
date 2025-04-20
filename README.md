@@ -1,5 +1,12 @@
 # DMS: Widget Sidebar
 
+<div align="middle">
+  <img src="https://img.shields.io/badge/English-gray?style=for-the-badge&logo=markdown" alt="English">
+  <a href="README_zh.md">
+    <img src="https://img.shields.io/badge/中文-blue?style=for-the-badge&logo=markdown" alt="中文">
+  </a>
+</div>
+
 A sidebar widget system for Obsidian.
 
 ## Installation
@@ -13,7 +20,7 @@ A sidebar widget system for Obsidian.
 - Activate the widget sidebar from the left Ribbon
 
 ## Widgets
-
+g
 ## Custom Types
 
 Custom type widgets are rendered as code blocks, with your specified type as the code block language. This can be used to add various specially rendered code blocks, such as `dataviewjs`.

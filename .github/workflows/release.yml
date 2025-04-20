@@ -6,6 +6,9 @@ on:
       - "*"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,6 +28,10 @@ jobs:
       - name: Build Plugin
         run: yarn build
 
+      - name: Create Release ZIP
+        run: |
+          zip release.zip dist/main.js src/styles.css manifest.json
+
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -40,4 +47,4 @@ jobs:
             --title "$tag_name" \
             --notes "$commit_message" \
             --draft \
-            dist/main.js src/styles.css manifest.json
+            release.zip dist/main.js src/styles.css manifest.json

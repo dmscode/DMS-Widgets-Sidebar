@@ -1,5 +1,12 @@
 # DMS: 挂件侧边栏
 
+<div align="middle">
+  <a href="README.md">
+    <img src="https://img.shields.io/badge/English-blue?style=for-the-badge&logo=markdown" alt="English">
+  </a>
+  <img src="https://img.shields.io/badge/中文-gray?style=for-the-badge&logo=markdown" alt="中文">
+</div>
+
 一个 Obsidion 的侧边栏挂件系统。
 
 ## 安装
