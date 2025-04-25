@@ -6,6 +6,9 @@ import { WidgetConfig } from '../types';
 
 // 组件导入
 import { renderHeader } from './Header';
+import { renderDigitalClock } from './DigitalClock';
+import { renderText } from './Markdown';
+import { renderTimeProgress } from './TimeProgress';
 
 // 定义渲染函数的类型接口
 type Render = {
@@ -16,6 +19,9 @@ type Render = {
 const render: Render = {
     'header_1': renderHeader,
     'header_3': renderHeader,
+    'digital_clock': renderDigitalClock,
+    'text': renderText,
+    'time_progress': renderTimeProgress,
 }
 
 // Widget 类：用于处理和渲染不同类型的小部件

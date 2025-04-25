@@ -1,76 +1,136 @@
 // 本地配置导入
-import { DEFAULT_SETTINGS } from './settings';
+import { default_settings } from './defaultSettings';  // 默认设置
 // 类型定义导入
 import { Listener, WidgetSidebarSettings } from './types';
-
+import { Timer } from './types';
 /**
- * 单例模式的设置存储类，用于管理插件设置和监听器
+ * 通用状态存储类，支持任意类型的状态管理
  */
-class Store {
-    // 单例实例
-    private static instance: Store;
-    // 存储所有监听器的集合
-    private listeners: Set<Listener> = new Set();
-    // 插件设置对象
-    private settings: WidgetSidebarSettings;
+class Store<T> {
+    // 单例实例映射，用于存储不同类型的状态实例
+    private static instances = new Map<string, Store<any>>();
+    // 存储所有监听器的映射，支持特定字段的订阅
+    private listeners: Map<string, Set<Listener>> = new Map();
+    // 状态对象
+    private state: T;
+    // 初始状态
+    private initialState: T;
+    // 是否允许重置
+    private canReset: boolean;
 
     /**
-     * 私有构造函数，初始化设置
+     * 私有构造函数，初始化状态
      */
-    private constructor(settings: WidgetSidebarSettings) {
-        this.settings = settings;
+    private constructor(initialState: T, canReset: boolean = false) {
+        this.state = initialState;
+        this.initialState = { ...initialState };
+        this.canReset = canReset;
     }
 
     /**
-     * 获取 Store 实例的静态方法
-     * @param settings - 可选的初始设置
+     * 获取指定类型的 Store 实例
+     * @param key - 状态类型的唯一标识符
+     * @param initialState - 可选的初始状态
      */
-    public static getInstance(settings?: WidgetSidebarSettings): Store {
-        // 如果实例不存在且提供了设置，则创建新实例
-        if (!Store.instance && settings) {
-            Store.instance = new Store(settings);
+    public static getInstance<S>(key: string, initialState?: S, canReset?: boolean): Store<S> {
+        if (!Store.instances.has(key) && initialState) {
+            Store.instances.set(key, new Store<S>(initialState, canReset));
         }
-        return Store.instance;
+        return Store.instances.get(key) as Store<S>;
     }
 
     /**
-     * 获取当前设置
+     * 获取当前状态
      */
-    public getSettings(): WidgetSidebarSettings {
-        return this.settings;
+    public getState(): T {
+        return this.state;
     }
 
     /**
-     * 更新设置并通知所有监听器
+     * 更新状态并通知相关监听器
+     * @param partialState - 部分状态更新
      */
-    public async updateSettings(settings: WidgetSidebarSettings): Promise<void> {
-        // 更新设置值
-        this.settings = settings;
-        // 触发所有监听器的回调
-        this.notifyListeners();
+    public async updateState(partialState: Partial<T>): Promise<void> {
+        const newState = { ...this.state, ...partialState };
+        this.state = newState;
+        
+        // 通知相关监听器
+        await this.notifyListeners(partialState);
     }
 
     /**
-     * 添加设置变更监听器
-     * @returns 返回用于取消监听的函数
+     * 订阅特定字段的状态变更
+     * @param path - 状态字段路径，空字符串表示订阅所有变更
+     * @param listener - 监听器回调函数
      */
-    public subscribe(listener: Listener): () => void {
-        // 添加监听器到集合
-        this.listeners.add(listener);
-        // 返回取消订阅的函数
+    public subscribe(path: string, listener: Listener): () => void {
+        if (!this.listeners.has(path)) {
+            this.listeners.set(path, new Set());
+        }
+        this.listeners.get(path)!.add(listener);
+        
         return () => {
-            this.listeners.delete(listener);
+            const listeners = this.listeners.get(path);
+            if (listeners) {
+                listeners.delete(listener);
+                if (listeners.size === 0) {
+                    this.listeners.delete(path);
+                }
+            }
         };
     }
 
     /**
-     * 通知所有监听器设置已更新
+     * 通知监听器状态已更新
      */
-    private notifyListeners(): void {
-        // 遍历并执行所有监听器
-        this.listeners.forEach(listener => listener());
+    private async notifyListeners(partialState: Partial<T>): Promise<void> {
+        const paths = Object.keys(partialState);
+        const notifiedListeners = new Set<Listener>();
+        // 触发特定字段的监听器
+        for (const path of paths) {
+            const listeners = this.listeners.get(path);
+            if (listeners) {
+                for (const listener of listeners) {
+                    if (!notifiedListeners.has(listener)) {
+                        await listener();
+                        notifiedListeners.add(listener);
+                    }
+                }
+            }
+        }
+
+        // 触发全局监听器
+        const globalListeners = this.listeners.get('');
+        if (globalListeners) {
+            for (const listener of globalListeners) {
+                if (!notifiedListeners.has(listener)) {
+                    await listener();
+                    notifiedListeners.add(listener);
+                }
+            }
+        }
+    }
+
+    /**
+     * 清除所有已注册的监听器
+     */
+    public clearAllSubscriptions(): void {
+        this.listeners.clear();
+    }
+
+    /**
+     * 重置状态到初始值并清除所有订阅
+     * @throws {Error} 如果实例不允许重置则抛出错误
+     */
+    public reset(): void {
+        if (!this.canReset) {
+            throw new Error('此Store实例不允许重置');
+        }
+        this.state = { ...this.initialState };
+        this.clearAllSubscriptions();
     }
 }
 
-// 导出默认实例
-export const store = Store.getInstance(DEFAULT_SETTINGS);
+// 导出默认的设置存储实例
+export const store = Store.getInstance<WidgetSidebarSettings>('settings', default_settings);
+export const timer = Store.getInstance<Timer>('timer', {}, true);

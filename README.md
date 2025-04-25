@@ -20,7 +20,25 @@ A sidebar widget system for Obsidian.
 - Activate the widget sidebar from the left Ribbon
 
 ## Widgets
-g
+
+### Title
+
+There are two types: large title and small title. They will be rendered as h1 and h3 headings respectively.
+
+The widget code will be used as the title content.
+
+### Digital Clock
+
+Displays the current time in `HH:mm` format. This widget does not require any code setting.
+
+### Time Progress
+
+Displays the progress of the year, month, week, and day. This widget does not require any code setting.
+
+### Text
+
+The widget code will be rendered as Markdown.
+
 ## Custom Types
 
 Custom type widgets are rendered as code blocks, with your specified type as the code block language. This can be used to add various specially rendered code blocks, such as `dataviewjs`.
