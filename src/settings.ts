@@ -17,18 +17,7 @@ import { Widget } from './widgets/widgets';       // 小部件基类
 // 类型定义导入
 import { 
     WidgetConfig,           // 小部件配置接口
-    WidgetSidebarSettings  // 插件设置接口
 } from './types';
-
-/**
- * 插件默认设置
- * @property {string} sidebarStyle - 侧边栏样式，默认为'default'
- * @property {Array} widgets - 小部件配置数组，初始为空
- */
-export const DEFAULT_SETTINGS: WidgetSidebarSettings = {
-    sidebarStyle: 'default',
-    widgets: [],
-}
 
 /**
  * 小部件侧边栏设置标签页类
@@ -78,6 +67,7 @@ export class WidgetSidebarSettingTab extends PluginSettingTab {
                // 添加样式选项
                .addOptions({
                     'default': 'default',
+                    'card': 'card',
                     'none': 'none',
                 })
                // 设置当前选中的样式值

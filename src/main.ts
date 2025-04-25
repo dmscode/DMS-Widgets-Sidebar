@@ -10,9 +10,10 @@ import {
     Setting,
     WorkspaceLeaf
 } from 'obsidian';
+import { default_settings } from './defaultSettings';  // 默认设置
 
 // 插件设置相关导入
-import { DEFAULT_SETTINGS, WidgetSidebarSettingTab } from './settings';
+import { WidgetSidebarSettingTab } from './settings';
 import { WidgetSidebarSettings } from './types';
 
 // 视图组件导入
@@ -33,19 +34,22 @@ export default class WidgetSidebar extends Plugin {
      * 插件加载时的初始化函数
      */
     async onload() {
-        // 加载插件设置
+        // 优先加载核心设置
         await this.loadSettings();
-        // 注册侧边栏视图
-        this.registerView(
-            WidgetSidebarView,
-            (leaf) => new SidebarView(leaf, this.app)
-        );
-        // 添加功能区图标，点击时激活侧边栏视图
-        this.addRibbonIcon('notebook-tabs', getLang('ribbon_button_title'), () => {
-            this.activateView();
+        // 将非核心功能延迟到界面准备就绪后加载
+        this.app.workspace.onLayoutReady(() => {
+            // 注册侧边栏视图
+            this.registerView(
+                WidgetSidebarView,
+                (leaf) => new SidebarView(leaf, this.app)
+            );
+            // 添加功能区图标
+            this.addRibbonIcon('notebook-tabs', getLang('ribbon_button_title'), () => {
+                this.activateView();
+            });
+            // 添加设置选项卡
+            this.addSettingTab(new WidgetSidebarSettingTab(this.app, this));
         });
-        // 添加设置选项卡，以便用户可以配置插件的各个方面
-        this.addSettingTab(new WidgetSidebarSettingTab(this.app, this));
     }
 
     /**
@@ -84,8 +88,8 @@ export default class WidgetSidebar extends Plugin {
      */
     async loadSettings() {
         // 合并默认设置和已保存的设置
-        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
-        store.updateSettings(this.settings);
+        this.settings = Object.assign({}, default_settings, await this.loadData());
+        store.updateState(this.settings);
     }
 
     /**
@@ -94,6 +98,6 @@ export default class WidgetSidebar extends Plugin {
     async saveSettings() {
         // 保存设置并更新store
         await this.saveData(this.settings);
-        store.updateSettings(this.settings);
+        store.updateState(this.settings);
     }
 }

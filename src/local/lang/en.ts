@@ -32,11 +32,24 @@ export const en =  {
     edit_widget_modal_widget_code_placeholder: 'Enter widget code...',
     edit_widget_modal_save_button_title: 'Save',
     edit_widget_modal_cancel_button_title: 'Cancel',
+    // Default Settings
+    default_widget_1_title: 'Big title',
+    default_widget_2_title: 'Digital Clock',
+    default_widget_3_title: 'Time Progress',
+    default_widget_0_title: 'Coffee time~',
+    default_widget_0_content: '[Pls buy me a cup of coffee~☕](https://afdian.com/a/daomishu)',
     // Widgets Types
+    // Header
     widget_type_header_1: 'Big title',
     widget_type_header_1_desc: 'Render a big title',
     widget_type_header_3: 'Sub title',
     widget_type_header_3_desc: 'Render a sub title',
+    // Digital Clock
+    widget_type_digital_clock: 'Digital Clock',
+    widget_type_digital_clock_desc: 'Render a digital clock',
+    // TimeProgress
+    widget_type_time_progress: 'Time Progress',
+    widget_type_time_progress_desc: 'Render a time progress bar',  // Custom
     widget_type_custom: 'Custom',
     widget_type_custom_desc: 'Render a code block, the type of the code block is determined by the custom type',
 };

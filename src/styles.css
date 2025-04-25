@@ -37,6 +37,109 @@
             padding-bottom: .5rem;
             border-bottom: 1px dashed var(--background-modifier-hover);
             margin-bottom: .5rem;
+            /** 小部件标题样式 */
+            &[data-widget-type="header_1"] > h1 {
+                text-align: center;
+                font-size: 2.6rem;
+                margin: .8em 0;
+                font-weight: bold;
+                font-family: serif;
+                color: rgba(62, 50, 50);
+            }
+            /** 数字时钟样式 */
+            &[data-widget-type="digital_clock"] {
+                text-align: center;
+                font-size: 3.8rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                & > .dms-widget-digital-clock-separator.blink {
+                    opacity: 0;
+                }
+                & > .dms-widget-digital-clock-minute {
+                    opacity: .6;
+                }
+            }
+        }
+    }
+    /** 卡片样式 */
+    &[data-widget-sidebar-style="card"] {
+        --dms-sidebar-background: var(--background-primary);
+        --dms-sidebar-text: var(--text-normal);
+        /* 小部件容器样式：添加底部边框和间距 */
+        & > .dms-widget-container {
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: .8rem;
+            background-color: var(--dms-sidebar-background);
+            box-shadow: inset 3px 3px 24px rgba(0, 0, 0, 0.12);
+            color: var(--dms-sidebar-text);
+            font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", "WenQuanYi Micro Hei", sans-serif;
+            /** 小部件标题样式 */
+            &[data-widget-type="header_1"] > h1 {
+                text-align: center;
+                font-size: 2.6rem;
+                margin: .2em 0;
+                font-weight: bold;
+                color: var(--corlor-orange);
+            }
+            /** 数字时钟样式 */
+            &[data-widget-type="digital_clock"] {
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                --dms-siderbar-clock-font-size: calc(var(--dms-sidebar-width) / 4);
+                & > .dms-digital-clock-digit {
+                    aspect-ratio: 1/1.6;
+                    width: 18%;
+                    flex-grow: 1;
+                    font-size: clamp(1.6rem, var(--dms-siderbar-clock-font-size), 20vw);
+                    line-height: 1;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    font-weight: bold;
+                    /** 分隔符样式 */
+                    &:nth-child(3) {
+                        width: 12%;
+                        transition: opacity .5s ease-in-out;
+                        opacity: .6;
+                        &.blink {
+                            opacity: .2;
+                        }
+                    }
+                    /** 小钟样式 */
+                    &:nth-child(1),
+                    &:nth-child(2) {
+                        color: var(--color-blue);
+                    }
+                    /** 分钟样式 */
+                    &:nth-child(4),
+                    &:nth-child(5) {
+                        opacity:.6;
+                    }
+                }
+            }
+            /** 时光进度样式 */
+            &[data-widget-type="time_progress"] {
+                & > .dms-time-progress-item {
+                    display: flex;
+                    gap: 1rem;
+                    opacity: .8;
+                    & > .dms-time-progress-label {
+                        width: 3rem;
+                    }
+                    & >.dms-time-progress-bar {
+                        flex-grow: 1;
+                    }
+                    & >.dms-time-progress-percent {
+                        opacity: .8;
+                        width: 3rem;
+                    }
+                }
+            }
         }
     }
 }

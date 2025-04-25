@@ -1,3 +1,4 @@
+import { moment } from "obsidian";
 /**
  * 全局类型定义
  * 包含小部件和侧边栏相关的接口及类型定义
@@ -39,3 +40,10 @@ export type setbackType = (widget: WidgetConfig) => void;
  * 用于定义无参数无返回值的回调函数
  */
 export type Listener = () => void;
+
+export type Timer = {
+    id?: number;
+    minute?: string | number;
+    second?: string | number;
+    moment?: moment.Moment;
+}
