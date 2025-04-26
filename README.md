@@ -35,9 +35,21 @@ Displays the current time in `HH:mm` format. This widget does not require any co
 
 Displays the progress of the year, month, week, and day. This widget does not require any code setting.
 
+### Week Calendar
+
+Displays the calendar for the current week. This widget does not require any code setting.
+
+### Month Calendar
+
+Displays the calendar for the current month. This widget does not require any code setting.
+
 ### Text
 
 The widget code will be rendered as Markdown.
+
+### Image
+
+The widget code will be used as the image path. You can use both online images and local images. For local images, the path should be relative to the repository root.
 
 ## Custom Types
 
