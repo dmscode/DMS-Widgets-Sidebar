@@ -32,11 +32,52 @@ export const zh = {
     edit_widget_modal_widget_code_placeholder: '请输入挂件代码...',
     edit_widget_modal_save_button_title: '保存',
     edit_widget_modal_cancel_button_title: '取消',
+    // Default Settings
+    default_widget_header_1_title: '大标题',
+    default_widget_digital_clcok_title: '数字时钟',
+    default_widget_time_progress_title: '时间进度',
+    default_widget_week_calendar_title: '周历',
+    default_widget_donate_title: '咖啡时间~',
+    default_widget_donate_content: '[请给我买杯咖啡~☕](https://afdian.com/a/daomishu)',
     // Widgets Types
+    // Header
     widget_type_header_1: '大标题',
     widget_type_header_1_desc: '渲染一个大标题',
     widget_type_header_3: '小标题',
     widget_type_header_3_desc: '渲染一个小标题',
+    // Digital Clock
+    widget_type_digital_clock: '数字时钟',
+    widget_type_digital_clock_desc: '渲染一个数字时钟',
+    // TimeProgress
+    widget_type_time_progress: '时间进度',
+    widget_type_time_progress_desc: '渲染一个时间进度条',
+    // Week Calendar
+    widget_type_week_calendar: '周历',
+    widget_type_week_calendar_desc: '渲染一个每周日历视图',
+    // Month Calendar
+    widget_type_month_calendar: '月历',
+    widget_type_month_calendar_desc: '渲染一个每月日历视图',
+    // Custom
     widget_type_custom: '自定义',
-    widget_type_custom_desc: '渲染一个代码块，代码块的类型由自定义类型决定'
+    widget_type_custom_desc: '渲染一个代码块，代码块的类型由自定义类型决定',
+    // Countdown Day
+    widget_type_countdown_day: '倒数日',
+    widget_type_countdown_day_desc: '显示距离特定日期还有多少天或已经过去多少天',
+    // Countdown Day Widget Text
+    countdown_unnamed_event: '未命名事件',
+    countdown_future_prefix: '距离 ',
+    countdown_future_suffix: ' 还有',
+    countdown_today_prefix: '今天是 ',
+    countdown_today_suffix: '',
+    countdown_today: '今天',
+    countdown_past_prefix: '',
+    countdown_past_suffix: ' 已经过去',
+    countdown_day_singular: '天',
+    countdown_day_plural: '天',
+    // Image
+    widget_type_image: '图片',
+    widget_type_image_desc: '渲染一张图片',
+    // Text
+    widget_type_text: '文本',
+    widget_type_text_desc: '以 Markdown 格式渲染文本',
 };

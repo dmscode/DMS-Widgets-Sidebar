@@ -10,24 +10,29 @@ export const default_settings: WidgetSidebarSettings = {
     sidebarStyle: 'card',
     widgets: [
         {
-            title: getLang('default_widget_1_title'),
+            title: getLang('default_widget_header_1_title'),
             type: 'header_1',
             code: 'Hello World!'
         },
         {
-            title: getLang('default_widget_2_title'),
+            title: getLang('default_widget_digital_clcok_title'),
             type: 'digital_clock',
             code: ''
         },
         {
-            title: getLang('default_widget_3_title'),
+            title: getLang('default_widget_week_calendar_title'),
+            type: 'week_calendar',
+            code: '',
+        },
+        {
+            title: getLang('default_widget_time_progress_title'),
             type: 'time_progress',
             code: ''
         },
         {
-            title: getLang('default_widget_0_title'),
+            title: getLang('default_widget_donate_title'),
             type: 'text',
-            code: getLang('default_widget_0_content'),
+            code: getLang('default_widget_donate_content'),
         },
     ],
 }

@@ -62,6 +62,8 @@ export class SidebarView extends ItemView {
         const initialData: Timer = {
             second: initialTime.second(),
             minute: initialTime.minute(),
+            hour: initialTime.hour(),
+            day: initialTime.date(),
             moment: initialTime
         };
         timer.updateState(initialData);
@@ -70,12 +72,16 @@ export class SidebarView extends ItemView {
             // 获取当前时间
             const time = moment();
             const second = time.second();
+            const minute = time.minute();
+            const hour = time.hour();
             
             // 构建计时器数据，只包含必要的更新
             const data: Partial<Timer> = {
                 second: second,
                 moment: time,
-                ...(second === 0 ? { minute: time.minute() } : {})
+                ...(second === 0 ? { minute } : {}),
+                ...(second === 0 && minute === 0 ? { hour } : {}),
+                ...(second === 0 && minute === 0 && hour === 0 ? { day: time.date() } : {})
             } as Timer;
             
             // 更新计时器状态

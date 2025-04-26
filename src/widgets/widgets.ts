@@ -9,6 +9,10 @@ import { renderHeader } from './Header';
 import { renderDigitalClock } from './DigitalClock';
 import { renderText } from './Markdown';
 import { renderTimeProgress } from './TimeProgress';
+import { renderWeekCalendar } from './WeekCalendar';
+import { renderMonthCalendar } from './MonthCalendar';
+import { renderCountdownDay } from './CountdownDay';
+import { renderImage } from './Image';
 
 // 定义渲染函数的类型接口
 type Render = {
@@ -20,8 +24,12 @@ const render: Render = {
     'header_1': renderHeader,
     'header_3': renderHeader,
     'digital_clock': renderDigitalClock,
-    'text': renderText,
     'time_progress': renderTimeProgress,
+    'week_calendar': renderWeekCalendar,
+    'month_calendar': renderMonthCalendar,
+    'countdown_day': renderCountdownDay,
+    'text': renderText,
+    'image': renderImage,
 }
 
 // Widget 类：用于处理和渲染不同类型的小部件

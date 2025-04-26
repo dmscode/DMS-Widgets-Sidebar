@@ -66,13 +66,16 @@
     &[data-widget-sidebar-style="card"] {
         --dms-sidebar-background: var(--background-primary);
         --dms-sidebar-text: var(--text-normal);
+        --dms-sidebar-card-out-shadow: 2px 2px 6px rgba(0, 0, 0, 0.12);
+        --dms-sidebar-card-padding: 1rem;
         /* 小部件容器样式：添加底部边框和间距 */
         & > .dms-widget-container {
             border-radius: 1rem;
-            padding: 1rem;
+            padding: var(--dms-sidebar-card-padding);
             margin-bottom: .8rem;
             background-color: var(--dms-sidebar-background);
-            box-shadow: inset 3px 3px 24px rgba(0, 0, 0, 0.12);
+            box-shadow: inset 3px 3px 24px rgba(0, 0, 0, 0.12),
+                              var(--dms-sidebar-card-out-shadow);
             color: var(--dms-sidebar-text);
             font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", "WenQuanYi Micro Hei", sans-serif;
             /** 小部件标题样式 */
@@ -138,6 +141,135 @@
                         opacity: .8;
                         width: 3rem;
                     }
+                }
+            }
+            /** 倒数日样式 */
+            &[data-widget-type="countdown_day"] {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+                & > .dms-sidebar-countdown-day-message {
+                    font-size: 1rem;
+                    opacity: 0.8;
+                }
+                & > .dms-sidebar-countdown-day-days {
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    line-height: calc(var(--dms-sidebar-width) / 3);
+                    & >.dms-sidebar-countdown-day-days-count {
+                        font-size: calc(var(--dms-sidebar-width) / 3);
+                        color: var(--color-red);
+                        &[data-status="future"] {
+                            color: var(--color-blue);
+                        }
+                        &[data-status="past"] {
+                            color: var(--color-orange);
+                        }
+                    }
+                }
+            }
+            /** 周历样式 */
+            &[data-widget-type="week_calendar"] {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                & > .dms-sidebar-week-calendar-row {
+                    display: flex;
+                    justify-content: space-between;
+                    & > .dms-sidebar-week-calendar-weekday {
+                        width: calc(100% / 7);
+                        text-align: center;
+                        opacity: 0.8;
+                        font-size: 0.9em;
+                    }
+                    & > .dms-sidebar-week-calendar-date {
+                        width: calc(100% / 7);
+                        text-align: center;
+                        padding: 0.3rem;
+                        border-radius: 0.3rem;
+                        cursor: pointer;
+                        &:hover {
+                            background-color: var(--background-modifier-hover);
+                        }
+                        &.dms-sidebar-week-calendar-current {
+                            background-color: var(--interactive-accent);
+                            color: var(--text-on-accent);
+                        }
+                    }
+                    & span:first-child,
+                    & span:last-child {
+                        color: var(--color-red);
+                        &.dms-sidebar-week-calendar-current {
+                            background-color: var(--color-red);
+                        }
+                    }
+                }
+            }
+            /** 月历样式 */
+            &[data-widget-type="month_calendar"] {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                & > .dms-sidebar-month-calendar-header {
+                    text-align: center;
+                    font-weight: bold;
+                    font-size: 1.2em;
+                    margin-bottom: 0.3rem;
+                }
+                & > .dms-sidebar-month-calendar-weekdays {
+                    display: flex;
+                    justify-content: space-between;
+                    & > .dms-sidebar-month-calendar-weekday {
+                        width: calc(100% / 7);
+                        text-align: center;
+                        opacity: 0.8;
+                        font-size: 0.9em;
+                    }
+                }
+                & > .dms-sidebar-month-calendar-grid {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.2rem;
+                    & > .dms-sidebar-month-calendar-row {
+                        display: flex;
+                        justify-content: space-between;
+                        & > .dms-sidebar-month-calendar-date {
+                            width: calc(100% / 7);
+                            text-align: center;
+                            padding: 0.2rem;
+                            border-radius: 0.3rem;
+                            cursor: pointer;
+                            aspect-ratio: 1/1;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            &:hover {
+                                background-color: var(--background-modifier-hover);
+                            }
+                            &.dms-sidebar-month-calendar-current {
+                                background-color: var(--interactive-accent);
+                                color: var(--text-on-accent);
+                            }
+                        }
+                        & > span:first-child,
+                        & > span:nth-child(7) {
+                            color: var(--color-red);
+                            &.dms-sidebar-month-calendar-current {
+                                background-color: var(--color-red);
+                            }
+                        }
+                    }
+                }
+            }
+            /** 图片样式 */
+            &[data-widget-type="image"] {
+                box-shadow: var(--dms-sidebar-card-out-shadow);
+                padding: 0;
+                overflow: hidden;
+                & > img {
+                    display: block;
+                    width: 100%;
                 }
             }
         }

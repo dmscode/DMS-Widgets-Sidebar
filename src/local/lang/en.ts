@@ -33,11 +33,12 @@ export const en =  {
     edit_widget_modal_save_button_title: 'Save',
     edit_widget_modal_cancel_button_title: 'Cancel',
     // Default Settings
-    default_widget_1_title: 'Big title',
-    default_widget_2_title: 'Digital Clock',
-    default_widget_3_title: 'Time Progress',
-    default_widget_0_title: 'Coffee time~',
-    default_widget_0_content: '[Pls buy me a cup of coffee~☕](https://afdian.com/a/daomishu)',
+    default_widget_header_1_title: 'Big title',
+    default_widget_digital_clcok_title: 'Digital Clock',
+    default_widget_time_progress_title: 'Time Progress',
+    default_widget_week_calendar_title: 'Week Calendar',
+    default_widget_donate_title: 'Coffee time~',
+    default_widget_donate_content: '[Pls buy me a cup of coffee~☕](https://afdian.com/a/daomishu)',
     // Widgets Types
     // Header
     widget_type_header_1: 'Big title',
@@ -49,7 +50,34 @@ export const en =  {
     widget_type_digital_clock_desc: 'Render a digital clock',
     // TimeProgress
     widget_type_time_progress: 'Time Progress',
-    widget_type_time_progress_desc: 'Render a time progress bar',  // Custom
+    widget_type_time_progress_desc: 'Render a time progress bar',
+    // Week Calendar
+    widget_type_week_calendar: 'Week Calendar',
+    widget_type_week_calendar_desc: 'Render a weekly calendar view',
+    // Month Calendar
+    widget_type_month_calendar: 'Month Calendar',
+    widget_type_month_calendar_desc: 'Render a monthly calendar view',
+    // Custom
     widget_type_custom: 'Custom',
     widget_type_custom_desc: 'Render a code block, the type of the code block is determined by the custom type',
+    // Countdown Day
+    widget_type_countdown_day: 'Countdown Day',
+    widget_type_countdown_day_desc: 'Display days remaining until or passed since a specific date',
+    // Countdown Day Widget Text
+    countdown_unnamed_event: 'Unnamed Event',
+    countdown_future_prefix: 'Until ',
+    countdown_future_suffix: '',
+    countdown_today_prefix: 'Today is ',
+    countdown_today_suffix: '',
+    countdown_today: 'Today',
+    countdown_past_prefix: '',
+    countdown_past_suffix: ' has passed for',
+    countdown_day_singular: 'day',
+    countdown_day_plural: 'days',
+    // Image
+    widget_type_image: 'Image',
+    widget_type_image_desc: 'Render an image',
+    // Text
+    widget_type_text: 'Text',
+    widget_type_text_desc: 'Render text as markdown',
 };

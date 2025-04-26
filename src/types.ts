@@ -43,7 +43,9 @@ export type Listener = () => void;
 
 export type Timer = {
     id?: number;
-    minute?: string | number;
     second?: string | number;
+    minute?: string | number;
+    hour?: string | number;
+    day?: string | number;
     moment?: moment.Moment;
 }

@@ -1,12 +1,13 @@
 {
 	"name": "dms-widget-sidebar",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "A sidebar widget system for Obsidian.",
 	"main": "dist/main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-		"version": "node version-bump.mjs && git add *"
+		"version": "node version-bump.mjs && git add *",
+		"newver": "node version-bump.mjs"
 	},
 	"keywords": [],
 	"author": "稻米鼠",
