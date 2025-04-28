@@ -69,31 +69,17 @@ function getIconType(icon: string): 'img' | 'icon' | 'emoji' {
 function createNavItem(container: HTMLElement, item: NavItem) {
     // 创建导航项容器
     const navItem = container.createEl('a', {
-        cls: `dms-sidebar-quick-nav-item dms-sidebar-quick-nav-item-${item.iconType}`,
+        cls: `internal-link dms-sidebar-quick-nav-item dms-sidebar-quick-nav-item-${item.iconType}`,
         attr: {
-            dataHref: item.link,
+            href: item.link,
+            target: '_blank',
+            rel: 'noopener',
         }
     });
     setTooltip(navItem, item.description, {
         placement: 'top',
     });
-    // 添加点击事件监听器
-    navItem.addEventListener('click', (event) => {
-        event.preventDefault();
-        
-        // 判断是否为外部链接
-        const isExternalLink = /^(https?|obsidian):\/\//i.test(item.link);
-        
-        if (isExternalLink) {
-            // 外部链接：在新标签页中打开
-            window.open(item.link, '_blank', 'noopener');
-        } else {
-            // 内部链接：使用 Obsidian API 在新标签页中打开
-            const leaf = this.app.workspace.getLeaf('tab');
-            leaf.openFile(this.app.vault.getAbstractFileByPath(item.link));
-        }
-    });
-    
+
     if (item.iconType === 'img') {
         // 创建图片元素
         navItem.createEl('img', {

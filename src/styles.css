@@ -26,6 +26,18 @@
     .setting-item.dms-widget-custom-type.is-disabled {
         display: none;
     }
+    .setting-item.dms-widget-code {
+        flex-wrap: wrap;
+        & > .setting-item-control {
+                width: 100%;
+                margin: 1rem 0;
+                & > textarea {
+                    width: 100%;
+                    min-height: 8rem;
+                }
+            ;
+        }
+    }
 }
 
 /* 小部件侧边栏内容区域样式 */

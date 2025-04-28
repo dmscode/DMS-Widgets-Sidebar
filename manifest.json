@@ -1,7 +1,7 @@
 {
 	"id": "dms-widget-sidebar",
 	"name": "DMS: Widget Sidebar",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"minAppVersion": "0.15.0",
 	"description": "A sidebar widget system.",
 	"author": "稻米鼠",

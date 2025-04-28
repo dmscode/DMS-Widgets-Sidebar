@@ -390,9 +390,10 @@ class WidgetEditModal extends Modal {
 
         // 4. 创建代码编辑区域设置项
         new Setting(contentEl)
-           .setName(getLang('edit_widget_modal_widget_code'))
-           .setDesc(getLang('edit_widget_modal_widget_code_desc'))
-           .addTextArea(text => text
+            .setName(getLang('edit_widget_modal_widget_code'))
+            .setDesc(getLang('edit_widget_modal_widget_code_desc'))
+            .setClass('dms-widget-code')
+            .addTextArea(text => text
               .setPlaceholder(getLang('edit_widget_modal_widget_code_placeholder'))
               .setValue(this.widget.code)
               .onChange((value) => {
