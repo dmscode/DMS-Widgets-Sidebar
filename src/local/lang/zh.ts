@@ -77,6 +77,9 @@ export const zh = {
     // Image
     widget_type_image: '图片',
     widget_type_image_desc: '渲染一张图片',
+    // Quick Nav
+    widget_type_quick_nav: '快速导航',
+    widget_type_quick_nav_desc: '渲染一个快速导航栏，每个条目都是一个链接。您可以在插件文档中找到详细的使用说明。',
     // Text
     widget_type_text: '文本',
     widget_type_text_desc: '以 Markdown 格式渲染文本',

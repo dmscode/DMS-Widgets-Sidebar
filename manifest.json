@@ -1,9 +1,9 @@
 {
 	"id": "dms-widget-sidebar",
 	"name": "DMS: Widget Sidebar",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"minAppVersion": "0.15.0",
-	"description": "A sidebar widget system for Obsidian.",
+	"description": "A sidebar widget system.",
 	"author": "稻米鼠",
 	"authorUrl": "https://zji.me",
 	"fundingUrl": "https://afdian.com/a/daomishu",

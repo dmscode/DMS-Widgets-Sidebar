@@ -77,6 +77,9 @@ export const en =  {
     // Image
     widget_type_image: 'Image',
     widget_type_image_desc: 'Render an image',
+    // Quick Nav
+    widget_type_quick_nav: 'Quick Nav',
+    widget_type_quick_nav_desc: 'Render a quick navigation bar, each item is a link. You can find detailed usage instructions in the plugin documentation.',
     // Text
     widget_type_text: 'Text',
     widget_type_text_desc: 'Render text as markdown',

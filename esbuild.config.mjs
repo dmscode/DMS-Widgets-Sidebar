@@ -52,18 +52,28 @@ const context = await esbuild.context({
 	minify: prod,
 });
 
-const copyFiles = async (target) => {
-	const files = [
-		"manifest.json",
-		"src/styles.css",
-		"dist/main.js",
-	];
-	for (const file of files) {
-		if (fs.existsSync(file)) {
-			fs.copyFileSync(file, path.join(target, file.replace(/^.*\//, "")));
+/** 同步到 Obsidian 中 */
+const fileList = [
+	'manifest.json',
+	'src/styles.css',
+	'dist/main.js',
+]
+const sync = (target) => {
+  /** 如果目标文件夹不存在 */
+  if (!fs.existsSync(target)) {
+    console.log('同步目标文件夹不存在')
+    return
+  }
+	fileList.forEach(file => {
+		if(!fs.existsSync(file)) {
+			console.log(`文件不存在：${file}`)
+			return
 		}
-	}
-};
+		/** 将文件复制到目标文件夹下同名文件 */
+		fs.copyFileSync(file, `${target}/${file.replace(/^.*\//, '')}`);
+		console.log(`同步文件：${file}`)
+	})
+}
 
 if (prod) {
 	await context.rebuild();
@@ -71,6 +81,6 @@ if (prod) {
 } else {
 	// await context.watch();
 	await context.rebuild();
-	copyFiles('F:/Obsidian/.obsidian/plugins/DMS-Widget-Sidebar');
+	sync('F:/Obsidian/.obsidian/plugins/DMS-Widget-Sidebar');
 	process.exit(0);
 }

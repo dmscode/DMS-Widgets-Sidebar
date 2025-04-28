@@ -13,6 +13,7 @@ import { renderWeekCalendar } from './WeekCalendar';
 import { renderMonthCalendar } from './MonthCalendar';
 import { renderCountdownDay } from './CountdownDay';
 import { renderImage } from './Image';
+import { renderQuickNav } from './QuickNav';
 
 // 定义渲染函数的类型接口
 type Render = {
@@ -30,6 +31,7 @@ const render: Render = {
     'countdown_day': renderCountdownDay,
     'text': renderText,
     'image': renderImage,
+    'quick_nav': renderQuickNav,
 }
 
 // Widget 类：用于处理和渲染不同类型的小部件
