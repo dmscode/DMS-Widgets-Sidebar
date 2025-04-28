@@ -43,6 +43,28 @@ Displays the calendar for the current week. This widget does not require any cod
 
 Displays the calendar for the current month. This widget does not require any code setting.
 
+### Quick Navigation
+
+Used to create navigation items, or more appropriately called quick action buttons. The most basic function is to open notes or links. However, when combined with [Obsidian URI](https://help.obsidian.md/Extending+Obsidian/Obsidian+URI) functionality or plugins like [Advanced URI](https://github.com/Vinzent03/obsidian-advanced-uri), it can do many things. For example, you can pin commands to the sidebar for one-click activation. If you use it with QuickAdd's Capture feature, you can quickly record ideas. Feel free to be creative here.
+
+The Code format is as follows:
+
+```text
+Link description, shown on hover | Link icon | Link address
+```
+
+For example:
+
+```text
+Open note | 📝 | obsidian://open?vault=Vault&file=note
+```
+
+For icons, you can use:
+
+- An image URL (starts with http or ends with a file extension, which is considered an image URL).
+- An Emoji.
+- An Obsidian icon (name, such as: `search`). Refer to icon names in [Lucide](https://lucide.dev/icons/search).
+
 ### Text
 
 The widget code will be rendered as Markdown.
