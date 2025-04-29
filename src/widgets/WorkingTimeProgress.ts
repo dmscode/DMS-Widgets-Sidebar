@@ -10,13 +10,11 @@ import { getLang } from "../local/lang";
  */
 function getConfig(code: string): { startTime: string; endTime: string } {
     // 默认值
-    const defaultResult = { 
+    const defaultResult = {
         startTime: '09:00',
         endTime: '18:00'
     };
-    
     if (!code || code.trim() === '') return defaultResult;
-    
     try {
         // 按行分割并解析每一行的键值对
         return parseYaml(code)
@@ -54,8 +52,12 @@ function calculateWorkProgress(currentTime: moment.Moment, startTime: string, en
     remainingTimeText: string;
     isNextDay: boolean;
 } {
-    let start = moment(startTime, 'HH:mm');
-    let end = moment(endTime, 'HH:mm');
+    // 创建基于当前时间的时间点
+    const now = moment(currentTime);
+    
+    // 创建今天的开始和结束时间点
+    let start = moment(currentTime).startOf('day').add(moment.duration(startTime));
+    let end = moment(currentTime).startOf('day').add(moment.duration(endTime));
     let isNextDay = false;
 
     // 如果结束时间小于开始时间或以+开头，则结束时间为第二天
@@ -64,34 +66,21 @@ function calculateWorkProgress(currentTime: moment.Moment, startTime: string, en
         isNextDay = true;
     }
 
-    // 设置开始和结束时间为今天的对应时间点
-    start = moment(currentTime).set({
-        hour: start.hour(),
-        minute: start.minute(),
-        second: 0,
-        millisecond: 0
-    });
-
-    end = moment(currentTime).set({
-        hour: end.hour(),
-        minute: end.minute(),
-        second: 0,
-        millisecond: 0
-    });
-
-    if (isNextDay) {
-        end.add(1, 'day');
+    // 如果当前时间在今天的开始时间之前，但实际上是昨天开始的工作时间范围内
+    if (isNextDay && now.isBefore(end) && now.isBefore(start)) {
+        start.subtract(1, 'day');
+        end.subtract(1, 'day');
     }
 
-    const isWorking = currentTime.isBetween(start, end);
+    const isWorking = now.isBetween(start, end, null, '[]');
     let progress = 0;
     let remainingMinutes = 0;
 
     if (isWorking) {
-        progress = ((currentTime.valueOf() - start.valueOf()) / (end.valueOf() - start.valueOf())) * 100;
-        remainingMinutes = end.diff(currentTime, 'minutes');
-    } else if (currentTime.isBefore(start)) {
-        remainingMinutes = start.diff(currentTime, 'minutes');
+        progress = ((now.valueOf() - start.valueOf()) / (end.valueOf() - start.valueOf())) * 100;
+        remainingMinutes = Math.round(end.diff(now, 'seconds')/60);
+    } else if (now.isBefore(start)) {
+        remainingMinutes = Math.round(start.diff(now, 'seconds')/60);
     }
 
     return {
