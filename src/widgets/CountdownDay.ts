@@ -1,4 +1,4 @@
-import { App, ItemView, moment } from "obsidian";
+import { App, ItemView, moment, parseYaml } from "obsidian";
 import { WidgetConfig } from "../types";
 import { timer } from "../store";
 import { getLang } from "../local/lang";
@@ -8,31 +8,14 @@ import { getLang } from "../local/lang";
  * @param code YAML格式的代码字符串
  * @returns 解析后的对象，包含name和date属性
  */
-function parseYaml(code: string): { name: string; date: string } {
+function getConfig(code: string): { name: string; date: string } {
     // 默认值
     const defaultResult = { name: getLang('countdown_unnamed_event', '未命名事件'), date: moment().format('YYYY-MM-DD') };
     
     if (!code || code.trim() === '') return defaultResult;
     
     try {
-        // 按行分割并解析每一行的键值对
-        const lines = code.split('\n');
-        const result: Record<string, string> = {};
-        
-        lines.forEach(line => {
-            const trimmedLine = line.trim();
-            if (trimmedLine && trimmedLine.includes(':')) {
-                const [key, value] = trimmedLine.split(':').map(part => part.trim());
-                if (key && value) {
-                    result[key] = value;
-                }
-            }
-        });
-        
-        return {
-            name: result.name || defaultResult.name,
-            date: result.date || defaultResult.date
-        };
+        return parseYaml(code) as { name: string; date: string };
     } catch (error) {
         console.error('解析YAML失败:', error);
         return defaultResult;
@@ -67,7 +50,7 @@ export function renderCountdownDay(
     const daysUnitEl = daysEl.createSpan({ cls: 'dms-sidebar-countdown-day-days-unit' });
     
     // 解析配置
-    const config = parseYaml(this.widget.code);
+    const config = getConfig(this.widget.code);
     
     // 更新显示函数
     function updateDisplay(currentTime: moment.Moment | undefined) {

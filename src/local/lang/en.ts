@@ -89,4 +89,13 @@ export const en =  {
     // File Stats
     widget_type_file_stats: 'File Stats',
     widget_type_file_stats_desc: 'Display statistics of different file types in the repository',
+    // Working Time Progress
+    widget_type_working_time_progress: 'Working Time Progress',
+    widget_type_working_time_progress_desc: 'Display the progress of working time in a day',
+    // Working Time Progress Widget Text
+    working_time_progress_working: 'Working',
+    working_time_progress_resting: 'Resting',
+    working_time_progress_working_is_remaining: 'remaining',
+    working_time_progress_hour: 'hour(s)',
+    working_time_progress_minute: 'minute(s)',
 };

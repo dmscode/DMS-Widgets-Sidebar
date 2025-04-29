@@ -47,6 +47,19 @@
 
 显示当前年的点阵进度。此挂件无需设置代码。
 
+### 工作时间进度
+
+显示今天剩余的工作时间。默认工作时间为 9:00 到 18:00。设置方法如下:
+
+```text
+startTime: 9:00
+endTime: 18:00
+```
+
+如果结束时间早于起始时间，则视为工作至第 2 天的对应时间。
+
+如果结束时间以加号开头，如 `endTime: +18:00`，则视为工作至第 2 天的 18:00。
+
 ### 快速导航
 
 用来创建一些导航项，或者叫做快速操作按钮可能更为合适。最基础的功能就是用来打开笔记或者链接。但如果搭配 [Obsidian 的 URI](https://help.obsidian.md/Extending+Obsidian/Obsidian+URI) 功能或者[Advanced URI](https://github.com/Vinzent03/obsidian-advanced-uri) 之类的插件，可以做到非常多的事情。比如将一些命令固定在侧边栏，实现一键唤起。如果是换取 QuickAdd 的捕获（Capture）功能，就可以实现快速记录灵感。此处可以自由发挥自己的创意。

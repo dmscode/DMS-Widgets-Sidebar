@@ -47,6 +47,19 @@ Displays the calendar for the current month. This widget does not require any co
 
 Displays the grid points for the current year progress. This widget does not require any code setting.
 
+### Working Time Progress
+
+Displays the remaining working time for today. The default working time are from 9:00 to 18:00. Configuration method is as follows:
+
+```text
+startTime: 9:00
+endTime: 18:00
+```
+
+If the end time is earlier than the start time, it will be considered as working until the corresponding time on the 2nd day.
+
+If the end time starts with a plus sign, such as `endTime: +18:00`, it will be considered as working until 18:00 on the 2nd day.
+
 ### Quick Navigation
 
 Used to create navigation items, or more appropriately called quick action buttons. The most basic function is to open notes or links. However, when combined with [Obsidian URI](https://help.obsidian.md/Extending+Obsidian/Obsidian+URI) functionality or plugins like [Advanced URI](https://github.com/Vinzent03/obsidian-advanced-uri), it can do many things. For example, you can pin commands to the sidebar for one-click activation. If you use it with QuickAdd's Capture feature, you can quickly record ideas. Feel free to be creative here.

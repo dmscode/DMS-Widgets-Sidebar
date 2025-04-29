@@ -89,4 +89,13 @@ export const zh = {
     // File Stats
     widget_type_file_stats: '文件统计',
     widget_type_file_stats_desc: '显示仓库中不同类型文件的数量统计',
+    // Working Time Progress
+    widget_type_working_time_progress: '工作时间进度',
+    widget_type_working_time_progress_desc: '显示一天中的工作时间进度',
+    // Working Time Progress Widget Text
+    working_time_progress_working: '工作中',
+    working_time_progress_resting: '休息中',
+    working_time_progress_working_is_remaining: '剩余',
+    working_time_progress_hour: '小时',
+    working_time_progress_minute: '分钟',
 };
