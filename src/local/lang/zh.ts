@@ -86,4 +86,7 @@ export const zh = {
     // Text
     widget_type_text: '文本',
     widget_type_text_desc: '以 Markdown 格式渲染文本',
+    // File Stats
+    widget_type_file_stats: '文件统计',
+    widget_type_file_stats_desc: '显示仓库中不同类型文件的数量统计',
 };

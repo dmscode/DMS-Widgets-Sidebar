@@ -366,6 +366,48 @@
                     }
                 }
             }
+            /** 文件统计样式 */
+            &[data-widget-type="file_stats"] {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                & > .dms-sidebar-file-stat-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    opacity: 0.8;
+                    width: calc(50% - 0.25rem);
+                    min-width: 8rem;
+                    max-width: 12rem;
+                    & .dms-sidebar-file-stat-icon {
+                        width: 1.2rem;
+                        height: 1.2rem;
+                        display: inline-flex;
+                        justify-content: center;
+                        align-items: center;
+                        & > svg {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                    & > .dms-sidebar-file-stat-count {
+                        font-weight: bold;
+                        color: var(--color-blue);
+                        margin-left: auto;
+                    }
+                    &:first-child {
+                        width: 100%;
+                        max-width: 100%;
+                        font-size: 1.8em;
+                        & .dms-sidebar-file-stat-icon {
+                            display: none;
+                        }
+                        & > .dms-sidebar-file-stat-count {
+                            font-weight: normal;
+                        }
+                    }
+                }
+            }
         }
     }
 }

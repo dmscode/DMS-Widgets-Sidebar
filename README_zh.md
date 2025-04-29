@@ -69,6 +69,10 @@ Code 部分的格式如下：
 - 一个 Emoji 表情。
 - 一个 Obsidian 的图标（名称，如：`search`）。参考 [Lucide](https://lucide.dev/icons/search) 中的图标名称。
 
+### 文件统计
+
+简单显示仓库中各种文件的数量。此挂件无需设置代码。
+
 ### 文本
 
 挂件的代码会被当作 Markdown 渲染。

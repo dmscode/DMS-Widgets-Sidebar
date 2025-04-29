@@ -77,6 +77,10 @@ The widget code will be rendered as Markdown.
 
 The widget code will be used as the image path. You can use both online images and local images. For local images, the path should be relative to the repository root.
 
+### File Statistics
+
+Simply displays the number of various files in the repository. This widget does not require any code setting.
+
 ## Custom Types
 
 Custom type widgets are rendered as code blocks, with your specified type as the code block language. This can be used to add various specially rendered code blocks, such as `dataviewjs`.

@@ -86,4 +86,7 @@ export const en =  {
     // Text
     widget_type_text: 'Text',
     widget_type_text_desc: 'Render text as markdown',
+    // File Stats
+    widget_type_file_stats: 'File Stats',
+    widget_type_file_stats_desc: 'Display statistics of different file types in the repository',
 };
