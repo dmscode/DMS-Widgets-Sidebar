@@ -80,6 +80,9 @@ export const en =  {
     // Quick Nav
     widget_type_quick_nav: 'Quick Nav',
     widget_type_quick_nav_desc: 'Render a quick navigation bar, each item is a link. You can find detailed usage instructions in the plugin documentation.',
+    // Year Points
+    widget_type_year_points: 'Year Points',
+    widget_type_year_points_desc: 'Render a year progress bar',
     // Text
     widget_type_text: 'Text',
     widget_type_text_desc: 'Render text as markdown',

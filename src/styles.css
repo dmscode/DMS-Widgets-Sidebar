@@ -157,6 +157,47 @@
                     }
                 }
             }
+            /** 年度点阵进度样式 */
+            &[data-widget-type="year_points"] {
+                & > .dms-sidebar-year-points-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 0.5rem;
+                    & > .dms-sidebar-year-points-year {
+                        font-size: 2.4rem;
+                        padding: .3rem 0;
+                        font-weight: bold;
+                        opacity: 0.8;
+                    }
+                    & > .dms-sidebar-year-points-progress {
+                        font-size: 1.6rem;
+                        padding: 1.1rem 0 .3rem;
+                        opacity: 0.6;
+                    }
+                }
+                & > .dms-sidebar-year-points-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(.6rem, 1fr));
+                    gap: 0.2rem;
+                    & > .dms-sidebar-year-points-day {
+                        aspect-ratio: 1/1;
+                        border-radius: 0.2rem;
+                        background-color: var(--interactive-accent);
+                        opacity: 0.6;
+                        transition: all 0.2s ease;
+                        &.dms-sidebar-year-points-past {
+                            background-color: var(--background-modifier-border);
+                            opacity: 0.3;
+                        }
+                        &.dms-sidebar-year-points-today {
+                            background-color: var(--color-yellow);
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
             /** 倒数日样式 */
             &[data-widget-type="countdown_day"] {
                 display: flex;
@@ -294,6 +335,7 @@
                 box-shadow: none;
                 background: none;
                 margin-bottom: 0;
+                padding: 0;
                 & > a {
                     display: flex;
                     align-items: center;
@@ -313,7 +355,7 @@
                                 var(--dms-sidebar-card-out-shadow);
                     &.dms-sidebar-quick-nav-item-img,
                     &.dms-sidebar-quick-nav-item-icon {
-                        /* padding: .4rem; */
+                        padding: .4rem;
                         & > svg,
                         & > img {
                             display: block;

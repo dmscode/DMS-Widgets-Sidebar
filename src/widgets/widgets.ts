@@ -14,6 +14,7 @@ import { renderMonthCalendar } from './MonthCalendar';
 import { renderCountdownDay } from './CountdownDay';
 import { renderImage } from './Image';
 import { renderQuickNav } from './QuickNav';
+import { renderYearPoints } from './YearPoints';
 
 // 定义渲染函数的类型接口
 type Render = {
@@ -32,6 +33,7 @@ const render: Render = {
     'text': renderText,
     'image': renderImage,
     'quick_nav': renderQuickNav,
+    'year_points': renderYearPoints,
 }
 
 // Widget 类：用于处理和渲染不同类型的小部件

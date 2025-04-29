@@ -43,6 +43,10 @@ Displays the calendar for the current week. This widget does not require any cod
 
 Displays the calendar for the current month. This widget does not require any code setting.
 
+### Year Points
+
+Displays the grid points for the current year progress. This widget does not require any code setting.
+
 ### Quick Navigation
 
 Used to create navigation items, or more appropriately called quick action buttons. The most basic function is to open notes or links. However, when combined with [Obsidian URI](https://help.obsidian.md/Extending+Obsidian/Obsidian+URI) functionality or plugins like [Advanced URI](https://github.com/Vinzent03/obsidian-advanced-uri), it can do many things. For example, you can pin commands to the sidebar for one-click activation. If you use it with QuickAdd's Capture feature, you can quickly record ideas. Feel free to be creative here.
