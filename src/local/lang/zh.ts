@@ -88,7 +88,7 @@ export const zh = {
     widget_type_text_desc: '以 Markdown 格式渲染文本',
     // File Stats
     widget_type_file_stats: '文件统计',
-    widget_type_file_stats_desc: '显示仓库中不同类型文件的数量统计',
+    widget_type_file_stats_desc: '显示仓库中不同类型文件的数量统计，code 可以包含要排除的内容，每行一个项目。如果笔记路径以任何项目内容开头，该笔记将被排除',
     // Working Time Progress
     widget_type_working_time_progress: '工作时间进度',
     widget_type_working_time_progress_desc: '显示一天中的工作时间进度',
@@ -98,4 +98,10 @@ export const zh = {
     working_time_progress_working_is_remaining: '剩余',
     working_time_progress_hour: '小时',
     working_time_progress_minute: '分钟',
+    // Random Notes
+    widget_type_random_notes: '随机笔记',
+    widget_type_random_notes_desc: '显示仓库中的随机笔记，code 可以包含要排除的内容，每行一个项目。如果笔记路径以任何项目内容开头，该笔记将被排除',
+    // Random Notes Widget Text
+    random_notes_title: '随机笔记',
+    random_notes_refresh_tooltip: '刷新随机笔记',
 };

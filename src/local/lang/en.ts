@@ -88,7 +88,7 @@ export const en =  {
     widget_type_text_desc: 'Render text as markdown',
     // File Stats
     widget_type_file_stats: 'File Stats',
-    widget_type_file_stats_desc: 'Display statistics of different file types in the repository',
+    widget_type_file_stats_desc: 'Display statistics of different file types in the Vault, code can include content to exclude, one item per line. If a note path starts with any item content, that note will be excluded',
     // Working Time Progress
     widget_type_working_time_progress: 'Working Time Progress',
     widget_type_working_time_progress_desc: 'Display the progress of working time in a day',
@@ -98,4 +98,10 @@ export const en =  {
     working_time_progress_working_is_remaining: 'remaining',
     working_time_progress_hour: 'hour(s)',
     working_time_progress_minute: 'minute(s)',
+    // Random Notes
+    widget_type_random_notes: 'Random Notes',
+    widget_type_random_notes_desc: 'Display random notes from the Vault, code can include content to exclude, one item per line. If a note path starts with any item content, that note will be excluded',
+    // Random Notes Widget Text
+    random_notes_title: 'Random Notes',
+    random_notes_refresh_tooltip: 'Refresh Random Notes',
 };

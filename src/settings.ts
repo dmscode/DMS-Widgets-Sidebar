@@ -66,7 +66,6 @@ export class WidgetSidebarSettingTab extends PluginSettingTab {
             .addDropdown(dropdown => dropdown
                // 添加样式选项
                .addOptions({
-                    'default': 'default',
                     'card': 'card',
                     'none': 'none',
                 })

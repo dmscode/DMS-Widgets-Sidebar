@@ -17,6 +17,7 @@ import { renderQuickNav } from './QuickNav';
 import { renderYearPoints } from './YearPoints';
 import { renderFileStats } from './FileStats';
 import { renderWorkingTimeProgress } from './WorkingTimeProgress';
+import { renderRandomNotes } from './RandomNotes';
 
 // 定义渲染函数的类型接口
 type Render = {
@@ -38,6 +39,7 @@ const render: Render = {
     'year_points': renderYearPoints,
     'file_stats': renderFileStats,
     'working_time_progress': renderWorkingTimeProgress,
+    'random_notes': renderRandomNotes,
 }
 
 // Widget 类：用于处理和渲染不同类型的小部件

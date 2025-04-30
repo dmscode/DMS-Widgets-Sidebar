@@ -21,12 +21,20 @@ interface FileStatItem {
 export function renderFileStats(this: { container: HTMLElement, widget: WidgetConfig, app: App }) {
     // 获取所有文件
     const files = this.app.vault.getFiles();
-    
+    // 获取排除规则
+    const excludePatterns = this.widget.code.split('\n')
+    .map(line => line.trim())
+    .filter(line => line.length > 0);
+
+    // 过滤掉被排除的文件
+    const filteredFiles = files.filter(file => {
+        const filePath = file.path;
+        return !excludePatterns.some(pattern => filePath.startsWith(pattern));
+    });
     // 统计不同类型的文件
-    const stats = getFileStats(files).filter(item => item.count > 0);
+    const stats = getFileStats(filteredFiles).filter(item => item.count > 0);
     // 按数量从多到少排序
     stats.sort((a, b) => b.count - a.count);
-    
     // 渲染统计结果
     stats.forEach(item => createStatItem(this.container, item));
 }

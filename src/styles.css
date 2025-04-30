@@ -42,38 +42,6 @@
 
 /* 小部件侧边栏内容区域样式 */
 .view-content.dms-widget-sidebar {
-    /** 默认样式 */
-    &[data-widget-sidebar-style="default"] {
-        /* 小部件容器样式：添加底部边框和间距 */
-        & > .dms-widget-container {
-            padding-bottom: .5rem;
-            border-bottom: 1px dashed var(--background-modifier-hover);
-            margin-bottom: .5rem;
-            /** 小部件标题样式 */
-            &[data-widget-type="header_1"] > h1 {
-                text-align: center;
-                font-size: 2.6rem;
-                margin: .8em 0;
-                font-weight: bold;
-                font-family: serif;
-                color: rgba(62, 50, 50);
-            }
-            /** 数字时钟样式 */
-            &[data-widget-type="digital_clock"] {
-                text-align: center;
-                font-size: 3.8rem;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                & > .dms-widget-digital-clock-separator.blink {
-                    opacity: 0;
-                }
-                & > .dms-widget-digital-clock-minute {
-                    opacity: .6;
-                }
-            }
-        }
-    }
     /** 卡片样式 */
     &[data-widget-sidebar-style="card"] {
         --dms-sidebar-background: var(--background-primary);
@@ -98,7 +66,15 @@
                 font-size: 2.6rem;
                 margin: .2em 0;
                 font-weight: bold;
-                color: var(--corlor-orange);
+                color: var(--interactive-accent);
+            }
+            &[data-widget-type="header_3"] > h3 {
+                text-align: center;
+                font-size: 1.8rem;
+                margin: .2em 0;
+                font-weight: normal;
+                color: var(--interactive-accent);
+                opacity: .8;
             }
             /** 数字时钟样式 */
             &[data-widget-type="digital_clock"] {
@@ -441,6 +417,25 @@
                     & >.dms-sidebar-working-time-remaining {
                         display: none;
                     }
+                }
+            }
+            /** 随机笔记样式 */
+            &[data-widget-type="random_notes"] {
+                & > .dms-sidebar-random-notes-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: baseline;
+                    padding-bottom: .8rem;
+                    & > h3 {
+                        margin: 0;
+                        padding: 0;
+                        font-size: 1.6rem;
+                        line-height: 1.6rem;
+                    }
+                }
+                & .dms-sidebar-random-notes-item {
+                    display: flex;
+                    gap: 0.5rem;
                 }
             }
         }
