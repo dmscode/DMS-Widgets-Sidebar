@@ -30,7 +30,9 @@ jobs:
 
       - name: Create Release ZIP
         run: |
-          zip release.zip dist/main.js src/styles.css manifest.json
+          cd dist && zip ../release.zip main.js
+          cd ../src && zip ../release.zip styles.css
+          cd .. && zip release.zip manifest.json
 
       - name: Create Release
         env:
