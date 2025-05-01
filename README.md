@@ -47,6 +47,17 @@ Displays the calendar for the current month. This widget does not require any co
 
 Displays the grid points for the current year progress. This widget does not require any code setting.
 
+### Countdown Day
+
+Displays the number of days between today and a specific date, whether it's a past or future date. Two parameters need to be set: the name of the date and the specific time.
+
+The code format is as follows:
+
+```text
+name: Labor Day
+date: 2023-05-01
+```
+
 ### Working Time Progress
 
 Displays the remaining working time for today. The default working time are from 9:00 to 18:00. Configuration method is as follows:
