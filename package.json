@@ -1,6 +1,6 @@
 {
 	"name": "dms-widget-sidebar",
-	"version": "0.0.10",
+	"version": "0.0.11",
 	"description": "A sidebar widget system for Obsidian.",
 	"main": "dist/main.js",
 	"scripts": {
