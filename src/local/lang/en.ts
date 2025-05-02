@@ -104,4 +104,8 @@ export const en =  {
     // Random Notes Widget Text
     random_notes_title: 'Random Notes',
     random_notes_refresh_tooltip: 'Refresh Random Notes',
+    
+    // Battery Status
+    widget_type_battery_status: 'Battery Status',
+    widget_type_battery_status_desc: 'Display device battery level and charging status',
 };

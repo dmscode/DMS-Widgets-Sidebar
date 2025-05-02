@@ -18,6 +18,7 @@ import { renderYearPoints } from './YearPoints';
 import { renderFileStats } from './FileStats';
 import { renderWorkingTimeProgress } from './WorkingTimeProgress';
 import { renderRandomNotes } from './RandomNotes';
+import { renderBatteryStatus } from './BatteryStatus';
 
 // 定义渲染函数的类型接口
 type Render = {
@@ -40,6 +41,7 @@ const render: Render = {
     'file_stats': renderFileStats,
     'working_time_progress': renderWorkingTimeProgress,
     'random_notes': renderRandomNotes,
+    'battery_status': renderBatteryStatus,
 }
 
 // Widget 类：用于处理和渲染不同类型的小部件

@@ -105,6 +105,10 @@ The widget code will be used as the image path. You can use both online images a
 
 Displays 5 random notes. The widget code serves as an exclusion list, configured in the same way as above.
 
+### Battery Status
+
+Displays the current device's battery level and charging status. It shows different colors based on the battery level and indicates the charging status. This widget does not require any code setting. While this widget may not be particularly useful on mobile devices, I find it quite helpful when using a laptop. Since the status information is updated every minute, the charging status won't change immediately when plugging or unplugging the charger. Most of the time, we don't need such instantaneous information, so it's good to understand this imperfect detail.
+
 ### File Statistics
 
 Simply displays the number of various files in the repository. The widget code serves as an exclusion list, with one rule per line. If a file path matches any of these rules (matching starts from the beginning of the path), it will be excluded. For example:

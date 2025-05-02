@@ -438,6 +438,54 @@
                     gap: 0.5rem;
                 }
             }
+            &[data-widget-type="battery_status"] {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                min-height: 6rem;
+                max-height: 8rem;
+                overflow: hidden;
+                position: relative;
+                color: rgba(255, 255, 255, 0.8);
+                & > .dms-sidebar-battery-level {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+                    border-radius: 5px;
+                    background-color: var(--interactive-accent);
+                    transition: width 0.3s ease;
+                    opacity: .6;
+                    &[data-level="80"] {
+                        background-color: var(--color-green);
+                    }
+                    &[data-level="60"] {
+                        background-color: var(--color-blue);
+                    }
+                    &[data-level="40"] {
+                        background-color: var(--color-yellow);
+                    }
+                    &[data-level="20"] {
+                        background-color: var(--color-orange);
+                    }
+                    &[data-level="0"] {
+                        background-color: var(--color-red);
+                    }
+                }
+                & > .dms-sidebar-battery-icon {
+                    position: absolute;
+                    top: .5rem;
+                    left: 1rem;
+                    --icon-size: 2rem;
+                    z-index: 1;
+                }
+                & > .dms-sidebar-battery-percent {
+                    font-weight: bold;
+                    font-size: 2.4rem;
+                    z-index: 1;
+                }
+            }
         }
     }
 }

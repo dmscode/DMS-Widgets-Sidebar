@@ -104,4 +104,8 @@ export const zh = {
     // Random Notes Widget Text
     random_notes_title: '随机笔记',
     random_notes_refresh_tooltip: '刷新随机笔记',
+    
+    // Battery Status
+    widget_type_battery_status: '电池状态',
+    widget_type_battery_status_desc: '显示设备电量和充电状态',
 };
