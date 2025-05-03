@@ -1,0 +1,41 @@
+/**
+ * 数字时钟小部件样式
+ */
+&[data-widget-type="digital_clock"] {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    --dms-siderbar-clock-font-size: calc(var(--dms-sidebar-width) / 4);
+    > .dms-digital-clock-digit {
+        aspect-ratio: 1/1.6;
+        width: 18%;
+        flex-grow: 1;
+        font-size: clamp(1.6rem, var(--dms-siderbar-clock-font-size), 20vw);
+        line-height: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-weight: bold;
+        /** 分隔符样式 */
+        &:nth-child(3) {
+            width: 12%;
+            transition: opacity .5s ease-in-out;
+            opacity: .6;
+            &.blink {
+                opacity: .2;
+            }
+        }
+        /** 小钟样式 */
+        &:nth-child(1),
+        &:nth-child(2) {
+            color: var(--color-blue);
+        }
+        /** 分钟样式 */
+        &:nth-child(4),
+        &:nth-child(5) {
+            opacity:.6;
+        }
+    }
+}

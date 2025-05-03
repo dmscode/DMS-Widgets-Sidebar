@@ -1,0 +1,24 @@
+/**
+ * 小部件侧边栏设置面板样式
+ */
+
+.dms-widget-sidebar-settings {
+    /* 小部件列表容器样式 */
+    .dms-widget-list-container {
+        margin-bottom: 1rem;
+        /* 单个小部件设置项样式 */
+        > .dms-widget-item-setting {
+            padding: .5rem 1rem;
+            border-radius: .5rem;
+            display: flex;
+            /* 鼠标悬停效果 */
+            &:hover {
+                background-color: var(--background-modifier-hover);
+            }
+            /* 设置项标题样式 */
+            > span:first-child {
+                flex-grow: 1;
+            }
+        }
+    }
+}

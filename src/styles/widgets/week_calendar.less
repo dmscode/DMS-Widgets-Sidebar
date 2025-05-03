@@ -1,0 +1,37 @@
+  /** 周历样式 */
+  &[data-widget-type="week_calendar"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    & > .dms-sidebar-week-calendar-row {
+        display: flex;
+        justify-content: space-between;
+        & > .dms-sidebar-week-calendar-weekday {
+            width: calc(100% / 7);
+            text-align: center;
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+        & > .dms-sidebar-week-calendar-date {
+            width: calc(100% / 7);
+            text-align: center;
+            padding: 0.3rem;
+            border-radius: 0.3rem;
+            cursor: pointer;
+            &:hover {
+                background-color: var(--background-modifier-hover);
+            }
+            &.dms-sidebar-week-calendar-current {
+                background-color: var(--interactive-accent);
+                color: var(--text-on-accent);
+            }
+        }
+        & span:first-child,
+        & span:last-child {
+            color: var(--color-red);
+            &.dms-sidebar-week-calendar-current {
+                background-color: var(--color-red);
+            }
+        }
+    }
+}

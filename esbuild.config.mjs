@@ -55,7 +55,7 @@ const context = await esbuild.context({
 /** 同步到 Obsidian 中 */
 const fileList = [
 	'manifest.json',
-	'src/styles.css',
+	'dist/styles.css',
 	'dist/main.js',
 ]
 const sync = (target) => {

@@ -1,0 +1,21 @@
+/**
+ * 时光进度小部件样式
+ */
+
+&[data-widget-type="time_progress"] {
+    > .dms-time-progress-item {
+        display: flex;
+        gap: 1rem;
+        opacity: .8;
+        > .dms-time-progress-label {
+            width: 3rem;
+        }
+        > .dms-time-progress-bar {
+            flex-grow: 1;
+        }
+        > .dms-time-progress-percent {
+            opacity: .8;
+            width: 3rem;
+        }
+    }
+}

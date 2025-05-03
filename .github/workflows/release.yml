@@ -30,9 +30,7 @@ jobs:
 
       - name: Create Release ZIP
         run: |
-          cd dist && zip ../release.zip main.js
-          cd ../src && zip ../release.zip styles.css
-          cd .. && zip release.zip manifest.json
+          zip -j release.zip dist/main.js dist/styles.css manifest.json
 
       - name: Create Release
         env:
@@ -49,4 +47,4 @@ jobs:
             --title "$tag_name" \
             --notes "$commit_message" \
             --draft \
-            release.zip dist/main.js src/styles.css manifest.json
+            release.zip dist/main.js dist/styles.css manifest.json

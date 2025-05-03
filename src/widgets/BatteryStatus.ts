@@ -67,6 +67,7 @@ export function renderBatteryStatus(
         batteryLevel.setAttribute('style', `width: ${level}%`);
         // 更新电量文本
         batteryPercent.setText(`${level}%`);
+        batteryPercent.dataset.level = `${level}%`
         // 更新充电状态
         if (charging) {
             setIcon(batteryIcon, 'battery-charging');

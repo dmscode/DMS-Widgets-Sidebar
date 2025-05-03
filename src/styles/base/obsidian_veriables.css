@@ -1,0 +1,110 @@
+/* === 基色 === */
+/* 中性色系，通常由主题定义。数值越大颜色越深 */
+:root {
+    --color-base-00 : #ffffff; /* 亮色模式-最浅色 / 暗色模式-最浅色: #1e1e1e */
+    --color-base-05 : #fcfcfc; /* 亮色模式        / 暗色模式       : #212121 */
+    --color-base-10 : #fafafa; /* 亮色模式        / 暗色模式       : #242424 */
+    --color-base-20 : #f6f6f6; /* 亮色模式        / 暗色模式       : #262626 */
+    --color-base-25 : #e3e3e3; /* 亮色模式        / 暗色模式       : #2a2a2a */
+    --color-base-30 : #e0e0e0; /* 亮色模式        / 暗色模式       : #363636 */
+    --color-base-35 : #d4d4d4; /* 亮色模式        / 暗色模式       : #3f3f3f */
+    --color-base-40 : #bdbdbd; /* 亮色模式        / 暗色模式       : #555555 */
+    --color-base-50 : #ababab; /* 亮色模式        / 暗色模式       : #666666 */
+    --color-base-60 : #707070; /* 亮色模式        / 暗色模式       : #999999 */
+    --color-base-70 : #5a5a5a; /* 亮色模式        / 暗色模式       : #bababa */
+    --color-base-100: #222222; /* 亮色模式-最深色 / 暗色模式-最深色: #dadada */
+  }
+  
+  /* === 强调色 === */
+  /* 用于交互元素（链接/主要按钮），用户可在设置中覆盖 */
+  :root {
+    --accent-h: 254;   /* 色相 */
+    --accent-s: 80%;   /* 饱和度 */
+    --accent-l: 68%;   /* 明度 */
+    /* 提示：使用CSS计算生成不同深浅 */
+  }
+  
+  /* === 扩展颜色（含RGB变量） === */
+  /* 用于状态消息/标注/语法高亮等，RGB变量可用于透明度控制 */
+  /* 示例：background-color: rgba(var(--color-red-rgb), 0.2); */
+  :root {
+    /* 标准颜色 */
+    --color-red   : #e93147; /* 暗色模式: #fb464c */
+    --color-orange: #ec7500; /* 暗色模式: #e9973f */
+    --color-yellow: #e0ac00; /* 暗色模式: #e0de71 */
+    --color-green : #08b94e; /* 暗色模式: #44cf6e */
+    --color-cyan  : #00bfbc; /* 暗色模式: #53dfdd */
+    --color-blue  : #086ddd; /* 暗色模式: #027aff */
+    --color-purple: #7852ee; /* 暗色模式: #a882ff */
+    --color-pink  : #d53984; /* 暗色模式: #fa99cd */
+  
+    /* RGB颜色变量 */
+    --color-red-rgb   : 233, 49, 71;  /* 暗色模式: 251, 70, 76 */
+    --color-orange-rgb: 236, 117, 0;  /* 暗色模式: 233, 151, 63 */
+    --color-yellow-rgb: 224, 172, 0;  /* 暗色模式: 224, 222, 113 */
+    --color-green-rgb : 8, 185, 78;   /* 暗色模式: 68, 207, 110 */
+    --color-cyan-rgb  : 0, 191, 188;  /* 暗色模式: 83, 223, 221 */
+    --color-blue-rgb  : 8, 109, 221;  /* 暗色模式: 2, 122, 255 */
+    --color-purple-rgb: 120, 82, 238; /* 暗色模式: 168, 130, 255 */
+    --color-pink-rgb  : 213, 57, 132; /* 暗色模式: 250, 153, 205 */
+  }
+  
+  /* === 黑白颜色 === */
+  /* 用于创建透明遮罩，请避免修改 */
+  :root {
+    --mono-rgb-0: 255, 255, 255;  /* 亮色模式-白色 / 暗色模式-黑色: 0, 0, 0 */
+    --mono-rgb-100: 0, 0, 0;       /* 亮色模式-黑色 / 暗色模式-白色: 255, 255, 255 */
+  }
+  
+  /* === 语义颜色 - 表面 === */
+  :root {
+    --background-primary: ;                /* 主背景 */
+    --background-primary-alt: ;            /* 主背景上的元素背景 */
+    --background-secondary: ;              /* 次级背景 */
+    --background-secondary-alt: ;          /* 次级背景上的元素背景 */
+    --background-modifier-hover: ;         /* 悬停元素背景 */
+    --background-modifier-active-hover: ;  /* 激活悬停元素背景 */
+    --background-modifier-border: ;        /* 边框颜色 */
+    --background-modifier-border-hover: ;  /* 悬停边框颜色 */
+    --background-modifier-border-focus: ;  /* 聚焦边框颜色 */
+    --background-modifier-error-rgb: ;     /* 错误背景（RGB） */
+    --background-modifier-error: ;         /* 错误背景 */
+    --background-modifier-error-hover: ;   /* 悬停错误背景 */
+    --background-modifier-success-rgb: ;   /* 成功背景（RGB） */
+    --background-modifier-success: ;       /* 成功背景 */
+    --background-modifier-message: ;       /* 消息背景 */
+    --background-modifier-form-field: ;    /* 表单字段背景 */
+  }
+  
+  /* === 语义颜色 - 交互 === */
+  :root {
+    --interactive-normal: ;          /* 标准交互元素背景 */
+    --interactive-hover: ;           /* 标准交互元素悬停背景 */
+    --interactive-accent: ;          /* 强调交互元素背景 */
+    --interactive-accent-hsl: ;      /* 强调交互元素背景（HSL格式） */
+    --interactive-accent-hover: ;    /* 强调交互元素悬停背景 */
+  }
+  
+  /* === 语义颜色 - 文本 === */
+  :root {
+    /* 前景色 */
+    --text-normal: ;                 /* 常规文本 */
+    --text-muted: ;                  /* 弱化文本 */
+    --text-faint: ;                  /* 微弱文本 */
+    --text-on-accent: ;              /* 深色强调背景上的文本 */
+    --text-on-accent-inverted: ;     /* 浅色强调背景上的文本 */
+    --text-success: ;                /* 成功文本 */
+    --text-warning: ;                /* 警告文本 */
+    --text-error: ;                  /* 错误文本 */
+    --text-accent: ;                 /* 强调文本 */
+    --text-accent-hover: ;           /* 悬停强调文本 */
+  
+    /* 背景色 */
+    --text-selection: ;              /* 文本选中背景 */
+    --text-highlight-bg: ;           /* 文本高亮背景 */
+  }
+  
+  /* === 插入符号颜色 === */
+  :root {
+    --caret-color: ;  /* 文本输入光标颜色 */
+  }

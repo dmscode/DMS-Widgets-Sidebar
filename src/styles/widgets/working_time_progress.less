@@ -1,0 +1,35 @@
+  /** 工作时间进度样式 */
+  &[data-widget-type="working_time_progress"] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    & >.dms-sidebar-working-time-progress-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-blue);
+        opacity: 0.3;
+        transition: all 0.2s ease;
+    }
+    & >.dms-sidebar-working-time-title {
+        font-size: 3.2rem;
+        font-weight: bold;
+        text-align: center;
+        z-index: 10;
+    }
+    & >.dms-sidebar-working-time-remaining {
+        text-align: center;
+        z-index: 10;
+    }
+    &[data-status="resting"] {
+        & >.dms-sidebar-working-time-progress-bar,
+        & >.dms-sidebar-working-time-remaining {
+            display: none;
+        }
+    }
+}

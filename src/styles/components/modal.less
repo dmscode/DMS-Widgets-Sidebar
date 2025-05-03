@@ -1,0 +1,21 @@
+/**
+ * 小部件编辑模态框样式
+ */
+
+.dms-widget-edit-modal {
+    /* 隐藏禁用状态的自定义类型设置项 */
+    .setting-item.dms-widget-custom-type.is-disabled {
+        display: none;
+    }
+    .setting-item.dms-widget-code {
+        flex-wrap: wrap;
+        > .setting-item-control {
+            width: 100%;
+            margin: 1rem 0;
+            > textarea {
+                width: 100%;
+                min-height: 8rem;
+            }
+        }
+    }
+}

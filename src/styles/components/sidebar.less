@@ -1,0 +1,38 @@
+/**
+ * 小部件侧边栏内容区域样式
+ */
+
+.view-content.dms-widget-sidebar {
+    /** 卡片样式 */
+    &[data-widget-sidebar-style="card"] {
+        --dms-sidebar-card-in-shadow : inset 3px 3px 24px rgba(0, 0, 0, 0.12);
+        --dms-sidebar-card-out-shadow: 2px 2px 6px rgba(0, 0, 0, 0.12);
+        --dms-sidebar-card-padding   : 1rem;
+        --dms-sidebar-card-radius    : 1rem;
+        /* 小部件容器样式：添加底部边框和间距 */
+        > .dms-widget-container {
+            border-radius: var(--dms-sidebar-card-radius);
+            padding: var(--dms-sidebar-card-padding);
+            margin-bottom: .8rem;
+            background-color: var(--background-primary);
+            box-shadow: var(--dms-sidebar-card-in-shadow),
+                        var(--dms-sidebar-card-out-shadow);
+            color: var(--text-normal);
+            font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", "WenQuanYi Micro Hei", sans-serif;
+            // 导入小部件样式
+            @import "../widgets/header.less";
+            @import "../widgets/digital_clock.less";
+            @import "../widgets/time_progress.less";
+            @import "../widgets/year_points.less";
+            @import "../widgets/countdown_day.less";
+            @import "../widgets/week_calendar.less";
+            @import "../widgets/month_calendar.less";
+            @import "../widgets/image.less";
+            @import "../widgets/quick_nav.less";
+            @import "../widgets/file_stats.less";
+            @import "../widgets/working_time_progress.less";
+            @import "../widgets/random_notes.less";
+            @import "../widgets/battery_status.less";
+        }
+    }
+}

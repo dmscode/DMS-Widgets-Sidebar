@@ -1,0 +1,26 @@
+  /** 倒数日样式 */
+  &[data-widget-type="countdown_day"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    & > .dms-sidebar-countdown-day-message {
+        font-size: 1rem;
+        opacity: 0.8;
+    }
+    & > .dms-sidebar-countdown-day-days {
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: calc(var(--dms-sidebar-width) / 3);
+        & >.dms-sidebar-countdown-day-days-count {
+            font-size: calc(var(--dms-sidebar-width) / 3);
+            color: var(--color-red);
+            &[data-status="future"] {
+                color: var(--color-blue);
+            }
+            &[data-status="past"] {
+                color: var(--color-orange);
+            }
+        }
+    }
+}
