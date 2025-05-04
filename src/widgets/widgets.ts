@@ -19,6 +19,7 @@ import { renderFileStats } from './FileStats';
 import { renderWorkingTimeProgress } from './WorkingTimeProgress';
 import { renderRandomNotes } from './RandomNotes';
 import { renderBatteryStatus } from './BatteryStatus';
+import { renderCountdownTimer } from './CountdownTimer';
 
 // 定义渲染函数的类型接口
 type Render = {
@@ -42,6 +43,7 @@ const render: Render = {
     'working_time_progress': renderWorkingTimeProgress,
     'random_notes': renderRandomNotes,
     'battery_status': renderBatteryStatus,
+    // 'countdown_timer': renderCountdownTimer,
 }
 
 // Widget 类：用于处理和渲染不同类型的小部件

@@ -15,12 +15,12 @@ export interface WidgetConfig {
     title: string;
     type: string;
     code: string;
+    style: string;
 }
 
 /**
  * 侧边栏设置接口
  * @interface WidgetSidebarSettings
- * @property {string} sidebarStyle - 侧边栏样式
  * @property {WidgetConfig[]} widgets - 小部件配置数组
  */
 export interface WidgetSidebarSettings {

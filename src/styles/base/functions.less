@@ -1,0 +1,7 @@
+// 定义混入函数
+.widget-style(@style, @rules) {
+    // 动态生成选择器（注意插值语法 @{style}）
+    & > .dms-widget-container[data-widget-style="@{style}"] {
+        @rules(); // 插入传入的样式代码块
+    }
+}

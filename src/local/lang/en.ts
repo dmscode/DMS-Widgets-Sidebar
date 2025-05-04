@@ -21,6 +21,11 @@ export const en =  {
     edit_widget_modal_widget_title: 'Widget Name',
     edit_widget_modal_widget_title_desc: 'The widget name is only used to distinguish widgets in settings.',
     edit_widget_modal_widget_title_placeholder: 'Enter widget name...',
+    edit_widget_modal_widget_style: 'Widget Style',
+    edit_widget_modal_widget_style_desc: 'Choose the style for this widget. "none" means no additional styles. "default" inherits global sidebar style settings.',
+    edit_widget_modal_widget_custom_style: 'Custom Style',
+    edit_widget_modal_widget_custom_style_desc: 'Enter a custom style for the widget. This will only take effect when the style is set to "custom".',
+    edit_widget_modal_widget_custom_style_placeholder: 'Enter custom style...',
     edit_widget_modal_widget_type: 'Widget Type',
     edit_widget_modal_widget_type_desc: 'The widget type determines the specific rendering method. Please refer to the plugin documentation for supported types. For unlisted types, the type will be treated as a code language and the widget code will be rendered as a code block. (This method can be used to invoke other plugins for rendering, such as using the dataviewjs type to render Dataview views)',
     edit_widget_modal_widget_type_placeholder: 'Enter widget type...',
@@ -104,8 +109,10 @@ export const en =  {
     // Random Notes Widget Text
     random_notes_title: 'Random Notes',
     random_notes_refresh_tooltip: 'Refresh Random Notes',
-    
     // Battery Status
     widget_type_battery_status: 'Battery Status',
     widget_type_battery_status_desc: 'Display device battery level and charging status',
+    // 倒计时挂件
+    countdown_timer_title: 'Countdown Timer',
+    countdown_timer_desc: 'A countdown timer widget that can be set in minutes',
 };

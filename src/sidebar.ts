@@ -134,7 +134,8 @@ export class SidebarView extends ItemView {
         this.container.setAttr('data-widget-sidebar-style', settings.sidebarStyle);
         // 遍历并创建所有小部件
         settings.widgets.forEach(async (widget, index) => {
-            const widgetContainer = this.container.createDiv({ cls: 'dms-widget-container', attr: { 
+            const widgetContainer = this.container.createDiv({ cls: 'dms-widget-container', attr: {
+                'data-widget-style': (!widget.style || widget.style==='default') ? settings.sidebarStyle : widget.style,
                 'data-widget-type': widget.type,
                 'data-widget-index': index.toString(),
             } });

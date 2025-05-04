@@ -7,12 +7,17 @@ import {
     PluginSettingTab,  // 插件设置页面基类
     Setting,           // 设置项组件
     TextComponent,     // 文本输入组件
+    DropdownComponent, // 下拉选择组件
 } from 'obsidian';
 
 // 本地模块导入
 import WidgetSidebar from './main';              // 插件主类
 import { getLang } from './local/lang';          // 国际化工具函数
 import { Widget } from './widgets/widgets';       // 小部件基类
+
+
+// 从主题模块导入主题和小部件样式列表获取函数
+import { ThemeList, widgetStyleList } from './theme';
 
 // 类型定义导入
 import { 
@@ -65,10 +70,7 @@ export class WidgetSidebarSettingTab extends PluginSettingTab {
             .setDesc(getLang('widget_style_selector_desc'))
             .addDropdown(dropdown => dropdown
                // 添加样式选项
-               .addOptions({
-                    'card': 'card',
-                    'none': 'none',
-                })
+               .addOptions(ThemeList)
                // 设置当前选中的样式值
                .setValue(this.plugin.settings.sidebarStyle)
                // 监听样式变更并保存
@@ -93,7 +95,8 @@ export class WidgetSidebarSettingTab extends PluginSettingTab {
                     const newWidget: WidgetConfig = {
                         title: `Widget-${this.plugin.settings.widgets.length + 1}`,
                         type: 'text',
-                        code: ''
+                        style: 'default',
+                        code: '',
                     }
                     // 保存新小部件并更新界面
                     this.plugin.settings.widgets.push(newWidget);
@@ -258,6 +261,10 @@ class WidgetEditModal extends Modal {
     private widgetTypeName: HTMLElement;
     // 类型描述元素
     private widgetTypeDesc: HTMLElement;
+    // 样式选择框组件
+    private styleChoice: DropdownComponent;
+    // 自定义样式输入框组件
+    private customStyleComponent: TextComponent;
 
     /**
      * 构造函数
@@ -290,6 +297,36 @@ class WidgetEditModal extends Modal {
      */
     isCustomType(): boolean {
         return !this.types.includes(this.widget.type);
+    }
+
+    /**
+     * 检查当前小部件样式是否为自定义样式
+     * @returns {boolean} 如果样式不在预定义样式列表中返回true，否则返回false
+     */
+    isCustomStyle(): boolean {
+        // 检查当前小部件的样式是否存在于该类型的预定义样式列表中
+        return this.widget.style === 'custom' || !Object.keys(this.getWidgetStyleList(this.widget.type)).includes(this.widget.style);
+    }
+    getWidgetStyleList(type: string) {
+        return widgetStyleList[type] || {
+            default: 'default',
+            custom: 'custom',
+            none: 'none',
+        }
+    }
+    /**
+     * 初始化类型描述区域
+     * 创建包含类型名称和描述的文档片段
+     */
+    /**
+     * 初始化样式相关组件
+     * 设置样式选择和自定义样式输入的初始状态
+     */
+    private initStyleComponents(): void {
+        // 如果没有设置样式，默认使用'none'
+        if (!this.widget.style) {
+            this.widget.style = 'default';
+        }
     }
 
     /**
@@ -326,6 +363,8 @@ class WidgetEditModal extends Modal {
         const {contentEl} = this;
         // 清空现有内容
         this.contentEl.empty();
+        // 初始化样式相关组件
+        this.initStyleComponents();
 
         // 1. 创建标题输入设置项
         new Setting(contentEl)
@@ -365,6 +404,7 @@ class WidgetEditModal extends Modal {
                     }
                     this.hasChanged = true;
                     this.refreshTypeDesc(value);
+                    this.refreshStyleList();
                 }))
 
         // 3. 创建自定义类型输入框设置项
@@ -383,11 +423,55 @@ class WidgetEditModal extends Modal {
                         // 更新类型值并标记变更状态
                         this.widget.type = value;
                         this.hasChanged = true;
+                        this.refreshStyleList();
                     })
                 }
             );
 
-        // 4. 创建代码编辑区域设置项
+        // 4. 创建样式选择设置项
+         new Setting(contentEl)
+            .setName(getLang('edit_widget_modal_widget_style'))
+            .setDesc(getLang('edit_widget_modal_widget_style_desc'))
+            .addDropdown(dropdown => {
+                this.styleChoice = dropdown;
+                dropdown
+                // 构建样式选项列表
+                .addOptions(this.getWidgetStyleList(this.widget.type))
+                // 设置当前选中的样式值
+                .setValue(this.isCustomStyle()? 'custom' : this.widget.style)
+                .onChange((value) => {
+                    // 处理样式选择变更
+                    if(value === 'custom') {
+                        // 启用自定义样式输入框
+                        customStyle.setDisabled(false);
+                        this.customStyleComponent.setValue(this.widget.style || 'default');
+                    } else {
+                        // 禁用自定义样式输入框
+                        customStyle.setDisabled(true);
+                        this.widget.style = value;
+                    }
+                    this.hasChanged = true;
+                })
+            });
+
+        // 5. 创建自定义样式输入框设置项
+        const customStyle = new Setting(contentEl)
+            .setName(getLang('edit_widget_modal_widget_custom_style'))
+            .setDesc(getLang('edit_widget_modal_widget_custom_style_desc'))
+            .setClass('dms-widget-custom-style')
+            .setDisabled(this.widget.style !== 'custom')
+            .addText(text => {
+                this.customStyleComponent = text;
+                return text
+                    .setPlaceholder(getLang('edit_widget_modal_widget_custom_style_placeholder'))
+                    .setValue(this.widget.style || 'default')
+                    .onChange((value) => {
+                        this.widget.style = value;
+                        this.hasChanged = true;
+                    });
+            });
+
+        // 6. 创建代码编辑区域设置项
         new Setting(contentEl)
             .setName(getLang('edit_widget_modal_widget_code'))
             .setDesc(getLang('edit_widget_modal_widget_code_desc'))
@@ -410,6 +494,13 @@ class WidgetEditModal extends Modal {
         this.widgetTypeName.setText(getLang('widget_type_'+type, '') || type);
         // 更新类型描述显示，优先使用本地化文本，若无则显示空字符串
         this.widgetTypeDesc.setText(getLang('widget_type_'+type+'_desc', '') || '');
+    }
+    refreshStyleList() {
+        // 刷新样式选项列表
+        this.styleChoice.selectEl.empty();
+        this.styleChoice.addOptions(this.getWidgetStyleList(this.widget.type));
+        // 根据当前样式设置是否启用自定义样式输入框
+        this.customStyleComponent.setDisabled(!this.isCustomStyle());
     }
     /**
      * 关闭模态框时的回调函数
