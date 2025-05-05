@@ -1,91 +1,67 @@
 // 第三方库导入
-import { App, ItemView, MarkdownRenderer } from "obsidian";
-
+import { App, ItemView, MarkdownRenderer, Component } from "obsidian";
+// 组件基类导入
+import { WidgetComponent } from "../components/widgetComponent";
 // 类型定义导入
 import { WidgetConfig } from '../types';
 
 // 组件导入
-import { renderHeader } from './Header';
-import { renderDigitalClock } from './DigitalClock';
-import { renderText } from './Markdown';
-import { renderTimeProgress } from './TimeProgress';
-import { renderWeekCalendar } from './WeekCalendar';
-import { renderMonthCalendar } from './MonthCalendar';
-import { renderCountdownDay } from './CountdownDay';
-import { renderImage } from './Image';
-import { renderQuickNav } from './QuickNav';
-import { renderYearPoints } from './YearPoints';
-import { renderFileStats } from './FileStats';
-import { renderWorkingTimeProgress } from './WorkingTimeProgress';
-import { renderRandomNotes } from './RandomNotes';
-import { renderBatteryStatus } from './BatteryStatus';
-import { renderCountdownTimer } from './CountdownTimer';
+import { Codeblock } from './Codeblock';
+import { Header } from './Header';
+import { DigitalClock } from './DigitalClock';
+import { Markdown } from './Markdown';
+import { TimeProgress } from './TimeProgress';
+import { WeekCalendar } from './WeekCalendar';
+import { MonthCalendar } from './MonthCalendar';
+import { CountdownDay } from './CountdownDay';
+import { Image } from './Image';
+import { QuickNav } from './QuickNav';
+import { YearPoints } from './YearPoints';
+import { FileStats } from './FileStats';
+import { WorkingTimeProgress } from './WorkingTimeProgress';
+import { RandomNotes } from './RandomNotes';
+import { BatteryStatus } from './BatteryStatus';
+// import { CountdownTimer } from './CountdownTimer';
 
 // 定义渲染函数的类型接口
 type Render = {
-    [key: string]: () => void;
+    [key: string]: typeof WidgetComponent;
 }
 
 // 渲染函数映射表
 const render: Render = {
-    'header_1': renderHeader,
-    'header_3': renderHeader,
-    'digital_clock': renderDigitalClock,
-    'time_progress': renderTimeProgress,
-    'week_calendar': renderWeekCalendar,
-    'month_calendar': renderMonthCalendar,
-    'countdown_day': renderCountdownDay,
-    'text': renderText,
-    'image': renderImage,
-    'quick_nav': renderQuickNav,
-    'year_points': renderYearPoints,
-    'file_stats': renderFileStats,
-    'working_time_progress': renderWorkingTimeProgress,
-    'random_notes': renderRandomNotes,
-    'battery_status': renderBatteryStatus,
-    // 'countdown_timer': renderCountdownTimer,
+    'header_1': Header,
+    'header_3': Header,
+    'digital_clock': DigitalClock,
+    'time_progress': TimeProgress,
+    'week_calendar': WeekCalendar,
+    'month_calendar': MonthCalendar,
+    'countdown_day': CountdownDay,
+    'text': Markdown,
+    'image': Image,
+    'quick_nav': QuickNav,
+    'year_points': YearPoints,
+    'file_stats': FileStats,
+    'working_time_progress': WorkingTimeProgress,
+    'random_notes': RandomNotes,
+    'battery_status': BatteryStatus,
+    // 'countdown_timer': CountdownTimer,
 }
+// 导出组件类型
+export const widgetTypes = Object.keys(render);
 
-// Widget 类：用于处理和渲染不同类型的小部件
-export class Widget {
-    widget: WidgetConfig;
-    view: ItemView;
-    container: HTMLElement;
-    app: App;
-    render: Render = {};
-
-    constructor (
-        container: HTMLElement,
-        widget: WidgetConfig,
-        view: ItemView,
-    ){
-        // 初始化基本属性
-        this.container = container;
-        this.widget = widget;
-        this.view = view;
-        this.app = view.app;
-
-        // 绑定所有渲染函数到当前实例
-        Object.keys(render).forEach((key) => {
-            this.render[key] = render[key].bind(this);
-        });
-
-        // 根据小部件类型选择对应的渲染方法
-        if (this.render[this.widget.type]) {
-            this.render[this.widget.type]();
-        }else {
-            this.defaultRender();
-        }
-    }
-
-    // 默认渲染方法：将代码渲染为 Markdown 代码块
-    async defaultRender() {
-        const codeblock = '```'+this.widget.type+'\n'+this.widget.code+'\n```';
-        await MarkdownRenderer.render(this.app, codeblock, this.container, '', this.view);
-    }
-
-    // 获取所有支持的小部件类型
-    static getTypes() {
-        return Object.keys(render);
-    }
+/**
+ * 根据指定的组件类型创建并返回对应的组件实例
+ * @param container - 用于承载组件的HTML容器元素
+ * @param widget - 组件的配置信息
+ * @param app - Obsidian应用实例
+ * @returns 返回创建的组件实例，如果找不到对应类型则返回默认的Codeblock组件
+ */
+export const getWidgetComponent = (
+    container: HTMLElement,
+    widget: WidgetConfig,
+    app: App
+):WidgetComponent => {
+    // 根据type在render映射表中查找对应的组件类，如果未找到则使用默认的Codeblock组件
+    return new (render[widget.type] || Codeblock)(container, widget, app);
 }

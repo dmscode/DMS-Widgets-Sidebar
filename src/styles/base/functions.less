@@ -5,3 +5,41 @@
         @rules(); // 插入传入的样式代码块
     }
 }
+
+.reverse-progress-level {
+        // 进度条颜色
+        & [data-level="100"],
+        & [data-level="80"] {
+            background-color: var(--color-green);
+        }
+        & [data-level="60"] {
+            background-color: var(--color-blue);
+        }
+        & [data-level="40"] {
+            background-color: var(--color-yellow);
+        }
+        & [data-level="20"] {
+            background-color: var(--color-orange);
+        }
+        & [data-level="0"] {
+            background-color: var(--color-red);
+        }
+        &.dms-sidebar-progress-level-reverse {
+            & [data-level="100"],
+            & [data-level="80"] {
+                background-color: var(--color-red);
+            }
+            & [data-level="60"] {
+                background-color: var(--color-orange);
+            }
+            & [data-level="40"] {
+                background-color: var(--color-yellow);
+            }
+            & [data-level="20"] {
+                background-color: var(--color-blue);
+            }
+            & [data-level="0"] {
+                background-color: var(--color-green);
+            }
+        }
+}

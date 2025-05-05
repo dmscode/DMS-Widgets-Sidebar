@@ -1,0 +1,62 @@
+// 特定组件的必备样式
+// 进度挂件
+& .dms-sidebar-progress-widget {
+    position: relative;
+    overflow: hidden;
+    & > .dms-sidebar-progress-widget-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        opacity: .6;
+        border-radius: .5rem;
+        transition: width 0.3s ease;
+        // 进度条方向-垂直
+        &[data-direction="vertical"] {
+            width: 100%;
+            height: 0;
+            top: auto;
+            bottom: 0;
+        }
+        // 进度条方向-水平 并右对齐
+        &[data-direction="horizontal"][data-align="end"] {
+            left: auto;
+            right: 0;
+        }
+        // 进度条方向-垂直 并顶部对齐
+        &[data-direction="vertical"][data-align="start"] {
+            top: 0;
+            bottom: auto;
+        }
+    }
+    .reverse-progress-level()
+}
+// 进度条组件
+& .dms-sidebar-progress-bar-wrapper {
+    display: flex;
+    gap: 1rem;
+    line-height: var(--progress-size);
+    padding: .3rem;
+    & > .dms-sidebar-progress-bar-title,
+    & > .dms-sidebar-progress-bar-precent {
+        width: 3rem;
+    }
+    & > .dms-sidebar-progress-bar-track {
+        flex-grow: 1;
+        position: relative;
+        overflow: hidden;
+        background-color: var(--background-modifier-border);
+        border-radius: calc(var(--progress-size) / 2);
+        & > .dms-sidebar-progress-bar-indicator {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: var(--progress-size);
+            border-radius:.5rem;
+            transition: width 0.3s ease;
+        }
+    }
+    .reverse-progress-level()
+}

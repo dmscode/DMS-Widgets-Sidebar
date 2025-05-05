@@ -12,26 +12,31 @@ export const default_settings: WidgetSidebarSettings = {
         {
             title: getLang('default_widget_header_1_title'),
             type: 'header_1',
+            style: 'default',
             code: 'Hello World!'
         },
         {
             title: getLang('default_widget_digital_clcok_title'),
             type: 'digital_clock',
+            style: 'default',
             code: ''
         },
         {
             title: getLang('default_widget_week_calendar_title'),
             type: 'week_calendar',
+            style: 'default',
             code: '',
         },
         {
             title: getLang('default_widget_time_progress_title'),
             type: 'time_progress',
+            style: 'default',
             code: ''
         },
         {
             title: getLang('default_widget_donate_title'),
             type: 'text',
+            style: 'default',
             code: getLang('default_widget_donate_content'),
         },
     ],

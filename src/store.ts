@@ -1,7 +1,7 @@
 // 本地配置导入
 import { default_settings } from './defaultSettings';  // 默认设置
 // 类型定义导入
-import { Listener, WidgetSidebarSettings } from './types';
+import { voidFunc, WidgetSidebarSettings } from './types';
 import { Timer } from './types';
 /**
  * 通用状态存储类，支持任意类型的状态管理
@@ -10,7 +10,7 @@ class Store<T> {
     // 单例实例映射，用于存储不同类型的状态实例
     private static instances = new Map<string, Store<any>>();
     // 存储所有监听器的映射，支持特定字段的订阅
-    private listeners: Map<string, Set<Listener>> = new Map();
+    private listeners: Map<string, Set<voidFunc>> = new Map();
     // 状态对象
     private state: T;
     // 初始状态
@@ -63,7 +63,7 @@ class Store<T> {
      * @param path - 状态字段路径，空字符串表示订阅所有变更
      * @param listener - 监听器回调函数
      */
-    public subscribe(path: string, listener: Listener): () => void {
+    public subscribe(path: string, listener: voidFunc): voidFunc {
         if (!this.listeners.has(path)) {
             this.listeners.set(path, new Set());
         }
@@ -85,7 +85,7 @@ class Store<T> {
      */
     private async notifyListeners(partialState: Partial<T>): Promise<void> {
         const paths = Object.keys(partialState);
-        const notifiedListeners = new Set<Listener>();
+        const notifiedListeners = new Set<voidFunc>();
         // 触发特定字段的监听器
         for (const path of paths) {
             const listeners = this.listeners.get(path);

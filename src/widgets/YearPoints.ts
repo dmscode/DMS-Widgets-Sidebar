@@ -1,28 +1,31 @@
-import { App, ItemView, moment, setTooltip } from "obsidian";
-import { WidgetConfig } from "../types";
+import { App, moment, setTooltip } from "obsidian";
+import { WidgetComponent } from "../components/widgetComponent";
+import { voidFunc, WidgetConfig } from "../types";
 import { timer } from "../store";
 
 /**
- * 渲染年度点阵进度组件
- * @param this 组件上下文，包含widget配置、视图实例、容器元素和应用实例
+ * 年度点阵进度挂件类
  */
-export function renderYearPoints(
-    this: {
-        widget: WidgetConfig;
-        view: ItemView;
-        container: HTMLElement;
-        app: App;
-    }) {
-    // 创建年份和进度显示容器
-    const yearContainer = this.container.createDiv({ cls: 'dms-sidebar-year-points-header' });
-    const yearText = yearContainer.createSpan({ cls: 'dms-sidebar-year-points-year' });
-    const progressText = yearContainer.createSpan({ cls: 'dms-sidebar-year-points-progress' });
+export class YearPoints extends WidgetComponent {
+    private yearContainer: HTMLElement;
+    private yearText: HTMLElement;
+    private progressText: HTMLElement;
+    private pointsContainer: HTMLElement;
+    private subscription: voidFunc[] = [];
 
-    // 创建点阵容器
-    const pointsContainer = this.container.createDiv({ cls: 'dms-sidebar-year-points-grid' });
+    constructor(
+        container: HTMLElement,
+        widget: WidgetConfig,
+        app: App,
+    ) {
+        super(container, widget, app);
+    }
 
-    // 更新显示函数
-    function updateDisplay(currentTime: moment.Moment) {
+    /**
+     * 更新显示
+     * @param currentTime 当前时间
+     */
+    private updateDisplay(currentTime: moment.Moment) {
         const currentYear = currentTime.year();
         const isLeapYear = moment([currentYear]).isLeapYear();
         const totalDays = isLeapYear ? 366 : 365;
@@ -30,11 +33,11 @@ export function renderYearPoints(
         const progress = (dayOfYear / totalDays * 100).toFixed(1);
 
         // 更新年份和进度文本
-        yearText.setText(String(currentYear));
-        progressText.setText(` ${progress}%`);
+        this.yearText.setText(String(currentYear));
+        this.progressText.setText(` ${progress}%`);
 
         // 清空并重新创建点阵
-        pointsContainer.empty();
+        this.pointsContainer.empty();
 
         // 创建所有日期点
         for (let day = 1; day <= totalDays; day++) {
@@ -43,25 +46,38 @@ export function renderYearPoints(
                 ...(day < dayOfYear ? ['dms-sidebar-year-points-past'] : []),
                 ...(day === dayOfYear? ['dms-sidebar-year-points-today'] : [])
             ].join(' ');
-            const point = pointsContainer.createDiv({ cls: className });
+            const point = this.pointsContainer.createDiv({ cls: className });
             setTooltip(point, `${moment([currentYear]).dayOfYear(day).format('MM-DD')} (${day}/${totalDays})`, { placement: 'top' });
         }
     }
 
-    // 初始更新
-    const initialTime = timer.getState().moment;
-    if (initialTime) {
-        updateDisplay(initialTime);
+    onload(): void {
+        // 创建年份和进度显示容器
+        this.yearContainer = this.container.createDiv({ cls: 'dms-sidebar-year-points-header' });
+        this.yearText = this.yearContainer.createSpan({ cls: 'dms-sidebar-year-points-year' });
+        this.progressText = this.yearContainer.createSpan({ cls: 'dms-sidebar-year-points-progress' });
+
+        // 创建点阵容器
+        this.pointsContainer = this.container.createDiv({ cls: 'dms-sidebar-year-points-grid' });
+
+        // 初始更新
+        const initialTime = timer.getState().moment;
+        if (initialTime) {
+            this.updateDisplay(initialTime);
+        }
+
+        // 订阅时间变化，每天更新一次
+        this.subscription.push(
+            timer.subscribe('day', () => {
+                const time = timer.getState().moment;
+                if (time) {
+                    this.updateDisplay(time);
+                }
+            })
+        );
     }
 
-    // 订阅时间变化，每天更新一次
-    const unsubscribe = timer.subscribe('day', () => {
-        const time = timer.getState().moment;
-        if (time) {
-            updateDisplay(time);
-        }
-    });
-
-    // 在视图关闭时取消订阅
-    this.view.register(() => unsubscribe());
+    onunload(): void {
+        this.subscription.forEach(v => v());
+    }
 }

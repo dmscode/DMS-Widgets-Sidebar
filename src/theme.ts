@@ -1,4 +1,4 @@
-import { Widget } from "./widgets/widgets";
+import { widgetTypes } from "./widgets/widgets";
 /**
  * 全局主题
  * 具备所有插件样式的主题。
@@ -48,7 +48,7 @@ const getWidgetStyleList = (type: string) => {
     )
 }
 export const ThemeList = ArrayToObject(globalTheme.concat(['none']))
-export const widgetStyleList = Widget.getTypes().reduce((obj, type) => {
+export const widgetStyleList = widgetTypes.reduce((obj, type) => {
     obj[type] = getWidgetStyleList(type)
     return obj
 }, {} as Record<string, Record<string, string>>)

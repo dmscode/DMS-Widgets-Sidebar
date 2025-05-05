@@ -34,18 +34,42 @@ export interface WidgetSidebarSettings {
  * @returns {void}
  */
 export type setbackType = (widget: WidgetConfig) => void;
+/**
+ * 空函数类型定义
+ * @returns {void} 无返回值
+ */
+export type voidFunc = () => void;
 
 /**
- * 监听器类型
- * 用于定义无参数无返回值的回调函数
+ * 计时器接口定义
+ * @interface Timer
+ * @property {number} [id] - 计时器ID
+ * @property {string|number} [second] - 秒数
+ * @property {string|number} [minute] - 分钟数
+ * @property {string|number} [hour] - 小时数
+ * @property {string|number} [day] - 天数
+ * @property {moment.Moment} [moment] - moment时间对象
  */
-export type Listener = () => void;
-
-export type Timer = {
+export interface Timer {
     id?: number;
     second?: string | number;
     minute?: string | number;
     hour?: string | number;
     day?: string | number;
     moment?: moment.Moment;
+}
+
+/**
+ * 进度配置接口
+ * @interface progressConfg
+ * @property {string} [title] - 进度标题 (可选)
+ * @property {number} progress - 进度值
+ * @property {string} [precent] - 进度百分比 (可选)
+ * @property {string[]} [cls] - 进度条样式类名数组 (可选)
+ */
+export interface progressConfg {
+    title?: string;
+    progress: number;
+    precent?: string;
+    cls?: string[];
 }

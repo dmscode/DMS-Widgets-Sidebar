@@ -1,10 +1,10 @@
 import { WidgetComponent } from "../components/widgetComponent";
 // 第三方库导入
-import { App, ItemView } from "obsidian";
+import { App } from "obsidian";
 // 类型定义导入
 import { WidgetConfig } from '../types';
 
-export class Markdown extends WidgetComponent {
+export class Codeblock extends WidgetComponent {
     constructor(
         container: HTMLElement,
         widget: WidgetConfig,
@@ -12,12 +12,8 @@ export class Markdown extends WidgetComponent {
     ) {
         super(container, widget, app);
     }
-
-    /**
-     * 渲染Markdown内容
-     * 使用Obsidian的MarkdownRenderer进行渲染
-     */
     onload(): void {
-        this.markdownRender(this.container, this.widget.code);
+        const codeblock = '```'+this.widget.type+'\n'+this.widget.code+'\n```';
+        this.markdownRender(this.container, codeblock)
     }
 }

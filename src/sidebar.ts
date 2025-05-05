@@ -1,5 +1,5 @@
 // 核心依赖
-import { App, ItemView, WorkspaceLeaf, MarkdownRenderer } from 'obsidian';
+import { App, ItemView, WorkspaceLeaf, Component } from 'obsidian';
 import { moment } from "obsidian";
 
 // 本地化与状态管理
@@ -8,7 +8,7 @@ import { store } from './store';
 import { timer } from './store';
 
 // 组件
-import { Widget } from './widgets/widgets';
+import { getWidgetComponent } from './widgets/widgets';
 import { Timer } from './types';
 
 // 定义侧边栏视图的唯一标识符
@@ -20,7 +20,9 @@ export const WidgetSidebarView = 'Widget-Sidebar-view';
  */
 export class SidebarView extends ItemView {
     app: App;
-    container: Element;
+    private container: Element;
+    private widgets: Component[] = [];
+
     constructor(leaf: WorkspaceLeaf, app:App) {
         super(leaf);
         this.app = app;
@@ -31,25 +33,38 @@ export class SidebarView extends ItemView {
         });
     }
 
-    // 返回视图类型标识符
-    getViewType() {
+    // ItemView 接口实现
+    getViewType(): string {
         return WidgetSidebarView;
     }
 
-    // 返回视图显示的标题文本
-    getDisplayText() {
+    getDisplayText(): string {
         return getLang('view_title');
     }
 
-    // 返回视图的图标名称
-    getIcon() {
+    getIcon(): string {
         return 'notebook-tabs';
     }
-    /**
-     * 注册计时器
-     * 用于每秒更新时间状态，并在每分钟开始时更新分钟状态
-     */
-    registerTimer() {
+
+    // 生命周期方法
+    async onOpen(): Promise<void> {
+        this.registerTimer();
+        await this.refreshView();
+        this.container.addEventListener('click', this.linkClickHandler.bind(this));
+    }
+
+    async onClose(): Promise<void> {
+        this.unregisterTimer();
+        this.container.removeEventListener('click', this.linkClickHandler.bind(this));
+        this.unloadWidgets();
+    }
+
+    onResize(): void {
+        this.container.setAttr('style',`--dms-sidebar-width: ${this.container.clientWidth + 'px'}`)
+    }
+
+    // 计时器管理
+    private registerTimer(): void {
         // 清除已存在的计时器
         this.unregisterTimer();
         
@@ -63,6 +78,7 @@ export class SidebarView extends ItemView {
             moment: initialTime
         };
         timer.updateState(initialData);
+
         // 创建新的计时器并获取其ID
         const id = this.registerInterval(window.setInterval(() => {
             // 获取当前时间
@@ -83,24 +99,50 @@ export class SidebarView extends ItemView {
             // 更新计时器状态
             timer.updateState(data);
         }, 1000));
+
         // 保存计时器ID
         timer.updateState({id});
     }
 
-    /**
-     * 注销计时器
-     * 如果存在计时器ID，则重置计时器状态
-     */
-    unregisterTimer() {
+    private unregisterTimer(): void {
         if(timer.getState().id) {
             timer.reset();
         }
     }
-    /**
-     * 处理链接点击事件
-     * @param e 鼠标事件对象
-     */
-    linkClickHandler(e: MouseEvent) {
+
+    // 小部件管理
+    private async refreshView(): Promise<void> {
+        this.unloadWidgets();
+        // 获取当前设置
+        const settings = store.getState();
+        // 获取容器元素尺寸
+        this.onResize();
+        // 清空容器内容
+        this.container.empty();
+        // 添加侧边栏样式类
+        this.container.classList.add('dms-widget-sidebar');
+        // 设置侧边栏样式属性
+        this.container.setAttr('data-widget-sidebar-style', settings.sidebarStyle);
+        // 遍历并创建所有小部件
+        for (const [index, widget] of settings.widgets.entries()) {
+            const widgetContainer = this.container.createDiv({ cls: 'dms-widget-container', attr: {
+                'data-widget-style': (!widget.style || widget.style==='default') ? settings.sidebarStyle : widget.style,
+                'data-widget-type': widget.type,
+                'data-widget-index': index.toString(),
+            } });
+            const render = getWidgetComponent(widgetContainer, widget, this.app);
+            this.widgets.push(render);
+            render.load();
+        }
+    }
+
+    private unloadWidgets(): void {
+        this.widgets.forEach(widget => widget.unload());
+        this.widgets = [];
+    }
+
+    // 事件处理
+    private linkClickHandler(e: MouseEvent): void {
         // 检查点击目标是否为内部链接的锚标签
         if(e.target instanceof HTMLElement && e.target.tagName === 'A' && e.target.classList.contains('internal-link')) {
             // 阻止默认的链接跳转行为
@@ -120,39 +162,6 @@ export class SidebarView extends ItemView {
             }
         }
     }
-    // 刷新视图的具体实现
-    async refreshView() {
-        // 获取当前设置
-        const settings = store.getState();
-        // 获取容器元素尺寸
-        this.onResize();
-        // 清空容器内容
-        this.container.empty();
-        // 添加侧边栏样式类
-        this.container.classList.add('dms-widget-sidebar');
-        // 设置侧边栏样式属性
-        this.container.setAttr('data-widget-sidebar-style', settings.sidebarStyle);
-        // 遍历并创建所有小部件
-        settings.widgets.forEach(async (widget, index) => {
-            const widgetContainer = this.container.createDiv({ cls: 'dms-widget-container', attr: {
-                'data-widget-style': (!widget.style || widget.style==='default') ? settings.sidebarStyle : widget.style,
-                'data-widget-type': widget.type,
-                'data-widget-index': index.toString(),
-            } });
-            new Widget(widgetContainer, widget, this);
-        });
-    }
-    // 视图打开时的处理函数
-    async onOpen() {
-        this.registerTimer();
-        this.refreshView();
-        this.container.addEventListener('click', this.linkClickHandler.bind(this));
-    }
-    async onClose() {
-        this.unregisterTimer();
-        this.container.removeEventListener('click', this.linkClickHandler.bind(this));
-    }
-    async onResize() {
-        this.container.setAttr('style',`--dms-sidebar-width: ${this.container.clientWidth + 'px'}`)
-    }
+
+    
 }

@@ -13,7 +13,7 @@ import {
 // 本地模块导入
 import WidgetSidebar from './main';              // 插件主类
 import { getLang } from './local/lang';          // 国际化工具函数
-import { Widget } from './widgets/widgets';       // 小部件基类
+import { widgetTypes } from './widgets/widgets';       // 小部件基类
 
 
 // 从主题模块导入主题和小部件样式列表获取函数
@@ -278,7 +278,7 @@ class WidgetEditModal extends Modal {
         // 添加模态框的自定义CSS类
         this.containerEl.classList.add('dms-widget-edit-modal');
         // 初始化可用的小部件类型列表
-        this.types = [...Widget.getTypes()];
+        this.types = widgetTypes;
     }
     /**
      * 设置模态框数据和回调函数
