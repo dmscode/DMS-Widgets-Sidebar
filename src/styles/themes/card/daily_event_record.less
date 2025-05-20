@@ -1,0 +1,73 @@
+// 倒数日样式
+&[data-widget-type="daily_event_record"] {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    justify-content: center;
+    & > h3.dms-sidebar-daily-event-record-title,
+    & > h4.dms-sidebar-daily-event-record-list-title {
+        margin: 0;
+        color: var(--text-normal);
+        text-align: center;
+    }
+    & > h3.dms-sidebar-daily-event-record-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    & > h4.dms-sidebar-daily-event-record-list-title {
+        font-size: 1rem;
+        font-weight: normal;
+    }
+    & > .dms-sidebar-daily-event-record-matrix {
+        display: flex;
+        justify-content: flex-end;
+        overflow: hidden;
+        gap: .2rem;
+        & > .dms-sidebar-daily-event-record-column {
+            display: flex;
+            flex-direction: column;
+            gap:.2rem;
+            position: relative;
+            padding-top: 2rem;
+            & > .dms-sidebar-daily-event-record-date {
+                position: absolute;
+                left: -0.7rem;
+                top:.5rem;
+                font-size: .6rem;
+                line-height: .6rem;
+                color: var(--text-normal);
+                text-align: center;
+                transform: rotate(90deg);
+                width: 2rem;
+                opacity: .6;
+            }
+            & > .dms-sidebar-daily-event-record-dot {
+                width: .6rem;
+                height: .6rem;
+                border-radius: 2px;
+                background-color: var(--color-green);
+                opacity: .6;
+            }
+        }
+    }
+    & > .dms-sidebar-daily-event-record-list {
+        padding: 0 1rem;
+    }
+    & .dms-sidebar-daily-event-record-list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        & > .dms-sidebar-daily-event-record-list-item-buttons {
+            display: flex;
+            & > * {
+                cursor: pointer;
+            }
+        }
+    }
+    & > .dms-sidebar-daily-event-record-button-container {
+        text-align: center;
+    }
+    & .dms-sidebar-daily-event-record-add-button {
+        background-color: rgba(var(--color-blue-rgb), .3);
+    }
+}

@@ -21,6 +21,7 @@ import { FileStats } from './FileStats';
 import { WorkingTimeProgress } from './WorkingTimeProgress';
 import { RandomNotes } from './RandomNotes';
 import { BatteryStatus } from './BatteryStatus';
+import { DailyEventRecord } from './DailyEventRecord';
 // import { CountdownTimer } from './CountdownTimer';
 
 // 定义渲染函数的类型接口
@@ -45,6 +46,7 @@ const render: Render = {
     'working_time_progress': WorkingTimeProgress,
     'random_notes': RandomNotes,
     'battery_status': BatteryStatus,
+    'daily_event_record': DailyEventRecord,
     // 'countdown_timer': CountdownTimer,
 }
 // 导出组件类型

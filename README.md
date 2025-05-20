@@ -119,6 +119,23 @@ FolderName/
 
 This will exclude all files that start with `FolderName/`.
 
+### Daily Event Tracker
+
+Used to record and display daily event completion times, including a dot matrix chart showing historical records and a list of today's records. The dot matrix chart displays records from the last 20 days, with each dot representing a record time. The today's record list shows all specific times recorded for the day and provides editing and deletion functions.
+
+This widget can be used to record things like medication times or exercise frequency, etc.
+
+The code format is as follows:
+
+```text
+title: Daily Event Tracker
+note: Record file path
+```
+
+Where `title` is the widget title; `note` is the path to the note file where records are saved, this item must be set for the widget to function properly.
+
+The record format is `MM-DD / HH:mm | HH:mm`, with one date per line, followed by all record times for that day, with times separated by `|`. Manual modification of the data file is not recommended. If you need to modify it manually, please restart Obsidian after modification to ensure the plugin loads the data correctly.
+
 ## Custom Types
 
 Custom type widgets are rendered as code blocks, with your specified type as the code block language. This can be used to add various specially rendered code blocks, such as `dataviewjs`.
