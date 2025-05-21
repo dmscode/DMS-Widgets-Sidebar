@@ -1,9 +1,9 @@
 export const en =  {
     // main.ts
-    ribbon_button_title: 'Widget Sidebar',
+    ribbon_button_title: 'Widget sidebar',
     cannot_create_leaf: 'Could not create a new Sidebar',
     // sidebar.ts
-    view_title: 'Widget Sidebar',
+    view_title: 'Widget sidebar',
     // setting.ts
     widget_style_title: 'Widget Style',
     widget_style_selector_title: 'Choice Widget Style',

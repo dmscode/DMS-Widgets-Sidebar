@@ -1,13 +1,7 @@
 // 核心依赖导入
 import {
-    App,
-    Editor,
-    MarkdownView,
-    Modal,
     Notice,
     Plugin,
-    PluginSettingTab,
-    Setting,
     WorkspaceLeaf
 } from 'obsidian';
 import { default_settings } from './defaultSettings';  // 默认设置
@@ -41,7 +35,7 @@ export default class WidgetSidebar extends Plugin {
             // 注册侧边栏视图
             this.registerView(
                 WidgetSidebarView,
-                (leaf) => new SidebarView(leaf, this.app)
+                (leaf) => new SidebarView(leaf)
             );
             // 添加功能区图标
             this.addRibbonIcon('notebook-tabs', getLang('ribbon_button_title'), () => {

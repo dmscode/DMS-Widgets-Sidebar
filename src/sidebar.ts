@@ -12,20 +12,18 @@ import { getWidgetComponent } from './widgets/widgets';
 import { Timer } from './types';
 
 // 定义侧边栏视图的唯一标识符
-export const WidgetSidebarView = 'Widget-Sidebar-view';
+export const WidgetSidebarView = 'DMS-Widget-Sidebar-view';
 
 /**
  * 小部件侧边栏视图类
  * 继承自 Obsidian 的 ItemView 类
  */
 export class SidebarView extends ItemView {
-    app: App;
     private container: Element;
     private widgets: Component[] = [];
 
-    constructor(leaf: WorkspaceLeaf, app:App) {
+    constructor(leaf: WorkspaceLeaf) {
         super(leaf);
-        this.app = app;
         this.container = this.containerEl.children[1];
         // 订阅 store 的变更，当数据更新时刷新视图
         store.subscribe('', () => {

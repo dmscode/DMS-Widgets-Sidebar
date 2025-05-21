@@ -64,7 +64,9 @@ export class WidgetSidebarSettingTab extends PluginSettingTab {
         containerEl.classList.add('dms-widget-sidebar-settings');
         
         // 渲染侧边栏样式设置区域
-        containerEl.createEl('h2', { text: getLang('widget_style_title') });
+        new Setting(containerEl)
+          .setName(getLang('widget_style_title'))
+          .setHeading()
         new Setting(containerEl)
             .setName(getLang('widget_style_selector_title'))
             .setDesc(getLang('widget_style_selector_desc'))
@@ -81,7 +83,9 @@ export class WidgetSidebarSettingTab extends PluginSettingTab {
            );
 
         // 渲染小部件列表区域
-        containerEl.createEl('h2', { text: getLang('widget_list_title') });
+        new Setting(containerEl)
+          .setName(getLang('widget_list_title'))
+          .setHeading()
         this.widgetListContainer = containerEl.createEl('div', { cls: 'dms-widget-list-container' });
         this.refreshWidgetList();
 
