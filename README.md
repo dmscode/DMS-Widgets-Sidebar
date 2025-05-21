@@ -23,31 +23,45 @@ A sidebar widget system for Obsidian.
 
 ### Title
 
+![Title Widget](screenshots/Header.png)
+
 There are two types: large title and small title. They will be rendered as h1 and h3 headings respectively.
 
 The widget code will be used as the title content.
 
 ### Digital Clock
 
+![Digital Clock](screenshots/DigitalClock.png)
+
 Displays the current time in `HH:mm` format. This widget does not require any code setting.
 
 ### Time Progress
+
+![Time Progress](screenshots/TimeProgress.png)
 
 Displays the progress of the year, month, week, and day. This widget does not require any code setting.
 
 ### Week Calendar
 
+![Week Calendar](screenshots/WeekCalendar.png)
+
 Displays the calendar for the current week. This widget does not require any code setting.
 
 ### Month Calendar
+
+![Month Calendar](screenshots/MonthCalendar.png)
 
 Displays the calendar for the current month. This widget does not require any code setting.
 
 ### Year Points
 
+![Year Points](screenshots/YearPoints.png)
+
 Displays the grid points for the current year progress. This widget does not require any code setting.
 
 ### Countdown Day
+
+![Countdown Day](screenshots/CountdownDay.png)
 
 Displays the number of days between today and a specific date, whether it's a past or future date. Two parameters need to be set: the name of the date and the specific time.
 
@@ -59,6 +73,8 @@ date: 2023-05-01
 ```
 
 ### Working Time Progress
+
+![Working Time Progress](screenshots/WorkingTimeProgress.png)
 
 Displays the remaining working time for today. The default working time are from 9:00 to 18:00. Configuration method is as follows:
 
@@ -72,6 +88,8 @@ If the end time is earlier than the start time, it will be considered as working
 If the end time starts with a plus sign, such as `endTime: +18:00`, it will be considered as working until 18:00 on the 2nd day.
 
 ### Quick Navigation
+
+![Quick Navigation](screenshots/QuickNav.png)
 
 Used to create navigation items, or more appropriately called quick action buttons. The most basic function is to open notes or links. However, when combined with [Obsidian URI](https://help.obsidian.md/Extending+Obsidian/Obsidian+URI) functionality or plugins like [Advanced URI](https://github.com/Vinzent03/obsidian-advanced-uri), it can do many things. For example, you can pin commands to the sidebar for one-click activation. If you use it with QuickAdd's Capture feature, you can quickly record ideas. Feel free to be creative here.
 
@@ -99,17 +117,25 @@ The widget code will be rendered as Markdown.
 
 ### Image
 
+![Image Widget](screenshots/Image.png)
+
 The widget code will be used as the image path. You can use both online images and local images. For local images, the path should be relative to the repository root.
 
 ### Random Notes
+
+![Random Notes](screenshots/RandomNotes.png)
 
 Displays 5 random notes. The widget code serves as an exclusion list, configured in the same way as above.
 
 ### Battery Status
 
+![Battery Status](screenshots/BatteryStatus.png)
+
 Displays the current device's battery level and charging status. It shows different colors based on the battery level and indicates the charging status. This widget does not require any code setting. While this widget may not be particularly useful on mobile devices, I find it quite helpful when using a laptop. Since the status information is updated every minute, the charging status won't change immediately when plugging or unplugging the charger. Most of the time, we don't need such instantaneous information, so it's good to understand this imperfect detail.
 
 ### File Statistics
+
+![File Statistics](screenshots/FileStats.png)
 
 Simply displays the number of various files in the repository. The widget code serves as an exclusion list, with one rule per line. If a file path matches any of these rules (matching starts from the beginning of the path), it will be excluded. For example:
 
@@ -120,6 +146,8 @@ FolderName/
 This will exclude all files that start with `FolderName/`.
 
 ### Daily Event Tracker
+
+![Daily Event Tracker](screenshots/DailyEventRecord.png)
 
 Used to record and display daily event completion times, including a dot matrix chart showing historical records and a list of today's records. The dot matrix chart displays records from the last 36 days (hiding earlier records if they don't fit), with each dot representing a record time. The today's record list shows all specific times recorded for the day and provides editing and deletion functions.
 
