@@ -148,8 +148,8 @@ export class DailyEventRecord extends WidgetComponent {
     private createDotMatrix(): void {
         const matrixContainer = this.container.createDiv({ cls: 'dms-sidebar-daily-event-record-matrix' });
 
-        // 获取最近20条记录（或全部记录，如果少于20条）
-        const recentRecords = this.recordData.slice(-20);
+        // 获取最近20条记录（或全部记录，如果少于36条）
+        const recentRecords = this.recordData.slice(-36);
 
         // 创建每条记录的点阵列
         for (const record of recentRecords) {

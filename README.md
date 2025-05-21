@@ -121,7 +121,7 @@ This will exclude all files that start with `FolderName/`.
 
 ### Daily Event Tracker
 
-Used to record and display daily event completion times, including a dot matrix chart showing historical records and a list of today's records. The dot matrix chart displays records from the last 20 days, with each dot representing a record time. The today's record list shows all specific times recorded for the day and provides editing and deletion functions.
+Used to record and display daily event completion times, including a dot matrix chart showing historical records and a list of today's records. The dot matrix chart displays records from the last 36 days (hiding earlier records if they don't fit), with each dot representing a record time. The today's record list shows all specific times recorded for the day and provides editing and deletion functions.
 
 This widget can be used to record things like medication times or exercise frequency, etc.
 
