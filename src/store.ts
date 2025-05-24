@@ -53,7 +53,7 @@ class Store<T> {
     public async updateState(partialState: Partial<T>): Promise<void> {
         const newState = { ...this.state, ...partialState };
         this.state = newState;
-        
+
         // 通知相关监听器
         await this.notifyListeners(partialState);
     }
@@ -68,7 +68,7 @@ class Store<T> {
             this.listeners.set(path, new Set());
         }
         this.listeners.get(path)!.add(listener);
-        
+
         return () => {
             const listeners = this.listeners.get(path);
             if (listeners) {

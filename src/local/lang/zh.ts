@@ -104,7 +104,7 @@ export const zh = {
     // Random Notes Widget Text
     random_notes_title: '随机笔记',
     random_notes_refresh_tooltip: '刷新随机笔记',
-    
+
     // Battery Status
     widget_type_battery_status: '电池状态',
     widget_type_battery_status_desc: '显示设备电量和充电状态',
@@ -122,7 +122,7 @@ export const zh = {
     daily_event_record_edit_tooltip: '编辑记录',
     daily_event_record_delete_tooltip: '删除记录',
     daily_event_record_edit_prompt: '请输入新的时间（HH:mm）',
-    daily_event_record_invalid_time: '时间格式无效，请使用HH:mm格式',
+    daily_event_record_invalid_time: '时间格式无效，请使用 HH:mm 格式开头',
     daily_event_record_edit_success: '记录已更新',
     daily_event_record_edit_error: '编辑记录失败',
     daily_event_record_delete_confirm: '确定要删除此条记录吗？',

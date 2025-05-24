@@ -22,7 +22,7 @@ export class DigitalClock extends WidgetComponent {
     private updateTimeDisplay() {
         const time = timer.getState().moment;
         if (!time) return;
-        
+
         // 更新小时和分钟显示
         time.format('HH').split('').forEach((v, i) => {
             this.els[i].setText(v);

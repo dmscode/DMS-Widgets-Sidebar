@@ -65,7 +65,7 @@ export class SidebarView extends ItemView {
     private registerTimer(): void {
         // 清除已存在的计时器
         this.unregisterTimer();
-        
+
         // 首先进行一次初始化
         const initialTime = moment();
         const initialData: Timer = {
@@ -84,7 +84,7 @@ export class SidebarView extends ItemView {
             const second = time.second();
             const minute = time.minute();
             const hour = time.hour();
-            
+
             // 构建计时器数据，只包含必要的更新
             const data: Partial<Timer> = {
                 second: second,
@@ -93,7 +93,7 @@ export class SidebarView extends ItemView {
                 ...(second === 0 && minute === 0 ? { hour } : {}),
                 ...(second === 0 && minute === 0 && hour === 0 ? { day: time.date() } : {})
             } as Timer;
-            
+
             // 更新计时器状态
             timer.updateState(data);
         }, 1000));
@@ -161,5 +161,5 @@ export class SidebarView extends ItemView {
         }
     }
 
-    
+
 }

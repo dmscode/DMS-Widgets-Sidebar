@@ -126,7 +126,7 @@ export const en =  {
     daily_event_record_edit_tooltip: 'Edit Record',
     daily_event_record_delete_tooltip: 'Delete Record',
     daily_event_record_edit_prompt: 'Please enter a new time (HH:mm)',
-    daily_event_record_invalid_time: 'Invalid time format, please use HH:mm format',
+    daily_event_record_invalid_time: 'Invalid time format, please use HH:mm format at start',
     daily_event_record_edit_success: 'Record updated',
     daily_event_record_edit_error: 'Failed to edit record',
     daily_event_record_delete_confirm: 'Are you sure you want to delete this record?',

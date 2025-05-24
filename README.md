@@ -162,7 +162,7 @@ note: Record file path
 
 Where `title` is the widget title; `note` is the path to the note file where records are saved, this item must be set for the widget to function properly.
 
-The record format is `MM-DD / HH:mm | HH:mm`, with one date per line, followed by all record times for that day, with times separated by `|`. Manual modification of the data file is not recommended. If you need to modify it manually, please restart Obsidian after modification to ensure the plugin loads the data correctly.
+The record format is `MM-DD / HH:mm | HH:mm`, with one date per line, followed by all record times for that day, with times separated by `|`. Manual modification of the data file is not recommended. If you need to modify it manually, please restart Obsidian after modification to ensure the plugin loads the data correctly. If needed, you can add brief additional information after the time, but be careful not to use the separators mentioned above to avoid parsing issues.
 
 ## Custom Types
 

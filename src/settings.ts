@@ -58,11 +58,11 @@ export class WidgetSidebarSettingTab extends PluginSettingTab {
      */
     display(): void {
         const {containerEl} = this;
-        
+
         // 初始化设置容器
         containerEl.empty();
         containerEl.classList.add('dms-widget-sidebar-settings');
-        
+
         // 渲染侧边栏样式设置区域
         new Setting(containerEl)
           .setName(getLang('widget_style_title'))
@@ -132,13 +132,13 @@ export class WidgetSidebarSettingTab extends PluginSettingTab {
      */
     private addWidgetListItem(widget: WidgetConfig, index:number): void {
         if (!this.widgetListContainer) return;
-        
+
         // 创建小部件项的容器元素
         const widgetContainer = this.widgetListContainer.createEl('div', { cls: 'dms-widget-item-setting' });
 
         // 添加小部件标题显示
         widgetContainer?.createEl('span', { text: widget.title });
-        
+
         // 添加控制按钮组
         // 1. 向上移动按钮：第一个项目禁用
         new ButtonComponent(widgetContainer)
@@ -146,20 +146,20 @@ export class WidgetSidebarSettingTab extends PluginSettingTab {
             .setTooltip(getLang('move_up_button_title'))
             .setDisabled(index === 0)
             .onClick(() => this.moveWidgetUp(index));
-            
+
         // 2. 向下移动按钮：最后一个项目禁用
         new ButtonComponent(widgetContainer)
             .setIcon('down-chevron-glyph')
             .setTooltip(getLang('move_down_button_title'))
             .setDisabled(index === this.plugin.settings.widgets.length - 1)
             .onClick(() => this.moveWidgetDown(index));
-            
+
         // 3. 编辑按钮：打开编辑模态框
         new ButtonComponent(widgetContainer)
            .setIcon('edit')
            .setTooltip(getLang('edit_widget_button_title'))
            .onClick(() => this.editWidget(index));
-           
+
         // 4. 删除按钮：移除当前小部件
         new ButtonComponent(widgetContainer)
             .setIcon('trash')
@@ -340,22 +340,22 @@ class WidgetEditModal extends Modal {
     initTypeDesc() {
         // 确定显示的类型：自定义类型显示'custom'，否则显示实际类型
         const type = this.isCustomType() ? 'custom' : this.widget.type;
-        
+
         // 创建文档片段用于存储类型描述内容
         this.typeDescFragment = document.createDocumentFragment();
-        
+
         // 添加类型描述的标题段落
         this.typeDescFragment.createEl('p', { text: getLang('edit_widget_modal_widget_type_desc') });
-        
+
         // 创建类型详细信息段落
         const widgetTypeDescPara = this.typeDescFragment.createEl('p');
-        
+
         // 添加类型名称（粗体显示）
         this.widgetTypeName = widgetTypeDescPara.createEl('strong', { text: getLang('widget_type_'+type, '') || type });
-        
+
         // 添加分隔符
         widgetTypeDescPara.createEl('span', { text: ': ' });
-        
+
         // 添加类型描述文本
         this.widgetTypeDesc = widgetTypeDescPara.createEl('span', { text: getLang('widget_type_'+type+'_desc', '') || '' });
     }

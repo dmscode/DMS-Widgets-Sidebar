@@ -198,37 +198,37 @@ export class DailyEventRecord extends WidgetComponent {
                 const itemEl = listContainer.createEl('div', {
                     cls: 'dms-sidebar-daily-event-record-list-item'
                 });
-                
+
                 // 创建记录文本
                 const textEl = itemEl.createEl('span', {
                     text: `✅ ${time}`,
                     cls: 'dms-sidebar-daily-event-record-list-item-text'
                 });
-                
+
                 // 创建按钮容器
                 const buttonsEl = itemEl.createEl('div', {
                     cls: 'dms-sidebar-daily-event-record-list-item-buttons'
                 });
-                
+
                 // 创建编辑按钮
                 const editButton = buttonsEl.createEl('div', {
                     cls: 'dms-sidebar-daily-event-record-edit-button'
                 });
                 setIcon(editButton, 'pencil');
                 setTooltip(editButton, getLang('daily_event_record_edit_tooltip', '编辑记录'));
-                
+
                 // 创建删除按钮
                 const deleteButton = buttonsEl.createEl('div', {
                     cls: 'dms-sidebar-daily-event-record-delete-button'
                 });
                 setIcon(deleteButton, 'trash');
                 setTooltip(deleteButton, getLang('daily_event_record_delete_tooltip', '删除记录'));
-                
+
                 // 添加编辑按钮点击事件
                 const editListener = () => this.editRecord(i);
                 editButton.addEventListener('click', editListener);
                 this.subscription.push(() => editButton.removeEventListener('click', editListener));
-                
+
                 // 添加删除按钮点击事件
                 const deleteListener = () => this.deleteRecord(i);
                 deleteButton.addEventListener('click', deleteListener);
@@ -268,25 +268,25 @@ export class DailyEventRecord extends WidgetComponent {
      */
     private async saveAndReloadData(successMessage?: string, errorMessage?: string, errorLogPrefix?: string): Promise<boolean> {
         if (!this.noteFile) return false;
-        
+
         try {
             // 更新笔记内容
             const content = this.recordData.map(record => {
                 return `- ${record.date} / ${record.times.join(' | ')}`;
             }).join('\n');
-            
+
             // 写入笔记
             await this.app.vault.modify(this.noteFile, content);
-            
+
             // 重新加载组件
             this.container.empty();
             await this.onload();
-            
+
             // 显示成功消息（如果提供）
             if (successMessage) {
                 new Notice(successMessage);
             }
-            
+
             return true;
         } catch (error) {
             // 记录错误并显示错误消息
@@ -295,51 +295,114 @@ export class DailyEventRecord extends WidgetComponent {
             } else {
                 console.error('保存数据失败:', error);
             }
-            
+
             if (errorMessage) {
                 new Notice(errorMessage);
             }
-            
+
             return false;
         }
     }
-    
+
     /**
-     * 添加新记录
+     * 添加新记录的回调函数
+     * @param newTime 新的时间值
      */
-    private async addRecord(): Promise<void> {
-        // 如果用户取消确认，则返回
-        if (!confirm(getLang('daily_event_record_add_button_confirm', '确定添加记录吗？'))) {
+    private async handleAddRecord(newTime: string): Promise<void> {
+        // 如果用户取消或输入为空，则返回
+        if (!newTime || newTime.trim() === '') return;
+
+        // 验证时间格式
+        if (!this.validateTimeFormat(newTime)) {
             return;
         }
+
         await this.loadNoteData();
-        
-        // 获取当前日期和时间
+
+        // 获取当前日期
         const today = window.moment().format('MM-DD');
-        const currentTime = window.moment().format('HH:mm');
 
         // 查找今天的记录
         const todayRecordIndex = this.recordData.findIndex(record => record.date === today);
 
         if (todayRecordIndex >= 0) {
             // 如果今天已有记录，添加新时间
-            this.recordData[todayRecordIndex].times.push(currentTime);
+            this.recordData[todayRecordIndex].times.push(newTime);
         } else {
             // 如果今天没有记录，创建新记录
             this.recordData.push({
                 date: today,
-                times: [currentTime]
+                times: [newTime]
             });
         }
 
         // 保存数据并重新加载组件
         await this.saveAndReloadData(
-            undefined,
+            getLang('daily_event_record_add_success', '记录已添加'),
             getLang('daily_event_record_add_error', '添加记录失败'),
             '添加记录失败'
         );
     }
-    
+
+    /**
+     * 添加新记录
+     */
+    private async addRecord(): Promise<void> {
+        // 获取当前时间作为默认值
+        const currentTime = window.moment().format('HH:mm');
+        
+        // 弹出对话框让用户输入时间
+        new EditModal(this.app, currentTime, this.handleAddRecord.bind(this)).open();
+    }
+
+    /**
+     * 编辑记录的回调函数
+     * @param index 记录索引
+     * @param originalTime 原始时间值
+     * @param newTime 新的时间值
+     */
+    private async handleEditRecord(index: number, originalTime: string, newTime: string): Promise<void> {
+        // 如果用户取消或输入为空，或时间未改变，则返回
+        if (!newTime || newTime.trim() === '' || newTime === originalTime) return;
+
+        // 验证时间格式
+        if (!this.validateTimeFormat(newTime)) {
+            return;
+        }
+
+        await this.loadNoteData();
+        
+        // 获取今天的日期
+        const today = window.moment().format('MM-DD');
+        // 查找今天的记录
+        const todayRecordIndex = this.recordData.findIndex(record => record.date === today);
+        if (todayRecordIndex < 0 || !this.noteFile) return;
+
+        // 更新时间
+        this.recordData[todayRecordIndex].times[index] = newTime;
+
+        // 保存数据并重新加载组件
+        await this.saveAndReloadData(
+            getLang('daily_event_record_edit_success', '记录已更新'),
+            getLang('daily_event_record_edit_error', '编辑记录失败'),
+            '编辑记录失败'
+        );
+    }
+
+    /**
+     * 验证时间格式
+     * @param time 时间字符串
+     * @returns 是否为有效格式
+     */
+    private validateTimeFormat(time: string): boolean {
+        const timePattern = /^([01]\d|2[0-3]):([0-5]\d)/;
+        if (!timePattern.test(time)) {
+            new Notice(getLang('daily_event_record_invalid_time', '无效的时间格式，请使用 HH:mm 格式'));
+            return false;
+        }
+        return true;
+    }
+
     /**
      * 编辑记录
      * @param index 记录索引
@@ -351,34 +414,16 @@ export class DailyEventRecord extends WidgetComponent {
         // 查找今天的记录
         const todayRecordIndex = this.recordData.findIndex(record => record.date === today);
         if (todayRecordIndex < 0 || !this.noteFile) return;
-        
+
         // 获取当前时间值
         const currentTime = this.recordData[todayRecordIndex].times[index];
-        
+
         // 弹出对话框让用户输入新时间
-        new EditModal(this.app, currentTime, async (newTime: string) => {
-        	// 如果用户取消或输入为空，则返回
-            if (!newTime || newTime.trim() === '' || newTime === currentTime) return;
-            
-            // 验证时间格式
-            const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
-            if (!timePattern.test(newTime)) {
-                new Notice(getLang('daily_event_record_invalid_time', '无效的时间格式，请使用 HH:mm 格式'));
-                return;
-            }
-            
-            // 更新时间
-            this.recordData[todayRecordIndex].times[index] = newTime;
-            
-            // 保存数据并重新加载组件
-            await this.saveAndReloadData(
-                getLang('daily_event_record_edit_success', '记录已更新'),
-                getLang('daily_event_record_edit_error', '编辑记录失败'),
-                '编辑记录失败'
-            );
+        new EditModal(this.app, currentTime, (newTime: string) => {
+            this.handleEditRecord(index, currentTime, newTime);
         }).open();
     }
-    
+
     /**
      * 删除记录
      * @param index 记录索引
@@ -390,23 +435,23 @@ export class DailyEventRecord extends WidgetComponent {
         // 查找今天的记录
         const todayRecordIndex = this.recordData.findIndex(record => record.date === today);
         if (todayRecordIndex < 0 || !this.noteFile) return;
-        
+
         // 获取要删除的时间
         const timeToDelete = this.recordData[todayRecordIndex].times[index];
-        
+
         // 确认删除
         if (!confirm(getLang('daily_event_record_delete_confirm', `确定要删除 ${timeToDelete} 的记录吗？`))) {
             return;
         }
-        
+
         // 删除时间
         this.recordData[todayRecordIndex].times.splice(index, 1);
-        
+
         // 如果删除后没有时间记录，则删除整个日期记录
         if (this.recordData[todayRecordIndex].times.length === 0) {
             this.recordData.splice(todayRecordIndex, 1);
         }
-        
+
         // 保存数据并重新加载组件
         await this.saveAndReloadData(
             getLang('daily_event_record_delete_success', '记录已删除'),
@@ -414,7 +459,7 @@ export class DailyEventRecord extends WidgetComponent {
             '删除记录失败'
         );
     }
-    
+
     async onunload(): Promise<void> {
         // 在这里执行组件卸载时的清理操作，移除所有事件监听器
         this.subscription.forEach(unsubscribe => unsubscribe());

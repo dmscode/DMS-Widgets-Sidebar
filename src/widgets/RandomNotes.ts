@@ -25,18 +25,18 @@ export class RandomNotes extends WidgetComponent {
     onload(): void {
         // 创建标题行
         const headerEl = this.container.createEl('div', { cls: 'dms-sidebar-random-notes-header' });
-        
+
         // 添加标题
         headerEl.createEl('h3', { text: getLang('random_notes_title') });
-        
+
         // 添加刷新按钮
         const refreshButton = headerEl.createEl('a', { cls: 'dms-sidebar-random-notes-refresh' });
         setIcon(refreshButton, 'refresh-cw');
         setTooltip(refreshButton, getLang('random_notes_refresh_tooltip'), { placement: 'top' });
-        
+
         // 创建内容容器
         this.contentEl = this.container.createDiv({ cls: 'dms-sidebar-random-notes-content' });
-        
+
         // 获取排除列表
         const excludeList = this.widget.code ? this.widget.code.split('\n').filter(line => line.trim() !== '') : [];
 

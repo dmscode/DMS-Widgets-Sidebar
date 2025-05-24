@@ -32,9 +32,9 @@ export class CountdownDay extends WidgetComponent {
             name: getLang('countdown_unnamed_event', '未命名事件'), 
             date: moment().format('YYYY-MM-DD') 
         };
-        
+
         if (!code || code.trim() === '') return defaultResult;
-        
+
         try {
             return parseYaml(code) as { name: string; date: string };
         } catch (error) {
@@ -58,10 +58,10 @@ export class CountdownDay extends WidgetComponent {
      */
     private updateDisplay(currentTime: moment.Moment | undefined) {
         if (!currentTime) return;
-        
+
         const targetDate = moment(this.config.date, 'YYYY-MM-DD');
         const daysDiff = this.calculateDaysDifference(targetDate, currentTime);
-        
+
         // 根据日期差值显示不同的消息
         if (daysDiff > 0) {
             // 未来日期

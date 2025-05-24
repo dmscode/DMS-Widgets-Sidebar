@@ -23,18 +23,18 @@ export class BatteryStatus extends ProgressWidgetComponent {
     private async getBatteryStatus(): Promise<{ level: number; charging: boolean }> {
         // 默认值
         const defaultStatus = { level: 100, charging: false };
-        
+
         try {
             // 检查浏览器是否支持Battery API
             if (!('getBattery' in navigator)) {
                 console.warn('Battery API not supported');
                 return defaultStatus;
             }
-            
+
             // 获取电池信息
             // @ts-ignore - 某些环境下TypeScript可能不认识navigator.getBattery
             const battery = await navigator.getBattery();
-            
+
             // 返回电池状态
             return {
                 level: Math.floor(battery.level * 100),

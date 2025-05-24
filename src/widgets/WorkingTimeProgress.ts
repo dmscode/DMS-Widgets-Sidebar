@@ -71,7 +71,7 @@ export class WorkingTimeProgress extends ProgressWidgetComponent {
     } {
         // 创建基于当前时间的时间点
         const now = moment(currentTime);
-        
+
         // 创建今天的开始和结束时间点
         let start = moment(currentTime).startOf('day').add(moment.duration(this.config.startTime));
         let end = moment(currentTime).startOf('day').add(moment.duration(this.config.endTime));

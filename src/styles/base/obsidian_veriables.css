@@ -14,7 +14,7 @@
     --color-base-70 : #5a5a5a; /* 亮色模式        / 暗色模式       : #bababa */
     --color-base-100: #222222; /* 亮色模式-最深色 / 暗色模式-最深色: #dadada */
   }
-  
+
   /* === 强调色 === */
   /* 用于交互元素（链接/主要按钮），用户可在设置中覆盖 */
   :root {
@@ -23,7 +23,7 @@
     --accent-l: 68%;   /* 明度 */
     /* 提示：使用CSS计算生成不同深浅 */
   }
-  
+
   /* === 扩展颜色（含RGB变量） === */
   /* 用于状态消息/标注/语法高亮等，RGB变量可用于透明度控制 */
   /* 示例：background-color: rgba(var(--color-red-rgb), 0.2); */
@@ -37,7 +37,7 @@
     --color-blue  : #086ddd; /* 暗色模式: #027aff */
     --color-purple: #7852ee; /* 暗色模式: #a882ff */
     --color-pink  : #d53984; /* 暗色模式: #fa99cd */
-  
+
     /* RGB颜色变量 */
     --color-red-rgb   : 233, 49, 71;  /* 暗色模式: 251, 70, 76 */
     --color-orange-rgb: 236, 117, 0;  /* 暗色模式: 233, 151, 63 */
@@ -48,14 +48,14 @@
     --color-purple-rgb: 120, 82, 238; /* 暗色模式: 168, 130, 255 */
     --color-pink-rgb  : 213, 57, 132; /* 暗色模式: 250, 153, 205 */
   }
-  
+
   /* === 黑白颜色 === */
   /* 用于创建透明遮罩，请避免修改 */
   :root {
     --mono-rgb-0: 255, 255, 255;  /* 亮色模式-白色 / 暗色模式-黑色: 0, 0, 0 */
     --mono-rgb-100: 0, 0, 0;       /* 亮色模式-黑色 / 暗色模式-白色: 255, 255, 255 */
   }
-  
+
   /* === 语义颜色 - 表面 === */
   :root {
     --background-primary: ;                /* 主背景 */
@@ -75,7 +75,7 @@
     --background-modifier-message: ;       /* 消息背景 */
     --background-modifier-form-field: ;    /* 表单字段背景 */
   }
-  
+
   /* === 语义颜色 - 交互 === */
   :root {
     --interactive-normal: ;          /* 标准交互元素背景 */
@@ -84,7 +84,7 @@
     --interactive-accent-hsl: ;      /* 强调交互元素背景（HSL格式） */
     --interactive-accent-hover: ;    /* 强调交互元素悬停背景 */
   }
-  
+
   /* === 语义颜色 - 文本 === */
   :root {
     /* 前景色 */
@@ -98,12 +98,12 @@
     --text-error: ;                  /* 错误文本 */
     --text-accent: ;                 /* 强调文本 */
     --text-accent-hover: ;           /* 悬停强调文本 */
-  
+
     /* 背景色 */
     --text-selection: ;              /* 文本选中背景 */
     --text-highlight-bg: ;           /* 文本高亮背景 */
   }
-  
+
   /* === 插入符号颜色 === */
   :root {
     --caret-color: ;  /* 文本输入光标颜色 */
