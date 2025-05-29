@@ -1,7 +1,7 @@
 import { App, moment, setTooltip } from "obsidian";
 import { WidgetComponent } from "../components/widgetComponent";
 import { voidFunc, WidgetConfig } from "../types";
-import { timer } from "../store";
+import { timerStore } from "../store";
 
 export class WeekCalendar extends WidgetComponent {
     private weekDays: HTMLElement[] = [];
@@ -55,12 +55,12 @@ export class WeekCalendar extends WidgetComponent {
         });
 
         // 初始化时更新一次显示
-        this.updateCalendarDisplay(timer.getState().moment);
+        this.updateCalendarDisplay(timerStore.getState().moment);
 
         // 订阅时间状态更新（每小时更新一次）
         this.subscription.push(
-            timer.subscribe('hours', () => {
-                this.updateCalendarDisplay(timer.getState().moment);
+            timerStore.subscribe('hours', () => {
+                this.updateCalendarDisplay(timerStore.getState().moment);
             })
         );
     }

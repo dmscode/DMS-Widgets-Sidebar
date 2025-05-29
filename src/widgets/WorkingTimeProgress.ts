@@ -1,7 +1,7 @@
 import { App, moment, parseYaml } from "obsidian";
 import { ProgressWidgetComponent } from "../components/widgetComponent";
 import { voidFunc, WidgetConfig } from "../types";
-import { timer } from "../store";
+import { timerStore } from "../store";
 import { getLang } from "../local/lang";
 
 /**
@@ -50,11 +50,11 @@ export class WorkingTimeProgress extends ProgressWidgetComponent {
      */
     private formatRemainingTime(minutes: number): string {
         if (minutes < 60) {
-            return `${minutes} ${getLang('working_time_progress_minute')}`;
+            return `${minutes} ${getLang('working_time_progress_minute', '分钟')}`;
         }
         const hours = Math.floor(minutes / 60);
         const remainingMinutes = minutes % 60;
-        return `${hours} ${getLang('working_time_progress_hour')} ${remainingMinutes} ${getLang('working_time_progress_minute')}`;
+        return `${hours} ${getLang('working_time_progress_hour', '小时')} ${remainingMinutes} ${getLang('working_time_progress_minute', '分钟')}`;
     }
 
     /**
@@ -118,13 +118,13 @@ export class WorkingTimeProgress extends ProgressWidgetComponent {
         const progress = this.calculateWorkProgress(currentTime);
 
         // 更新标题
-        this.titleEl.setText(progress.isWorking ? getLang('working_time_progress_working') : getLang('working_time_progress_resting'));
+        this.titleEl.setText(progress.isWorking ? getLang('working_time_progress_working', '工作中') : getLang('working_time_progress_resting', '休息中'));
         this.container.dataset.status = progress.isWorking ? 'working' : 'resting';
 
         // 更新时间范围显示
         this.timeRemainingEl.setText(
             progress.isWorking ?
-            `${getLang('working_time_progress_working_is_remaining')} ${progress.remainingTimeText}` :
+            `${getLang('working_time_progress_working_is_remaining', '剩余')} ${progress.remainingTimeText}` :
             ''
         );
 
@@ -142,15 +142,15 @@ export class WorkingTimeProgress extends ProgressWidgetComponent {
         this.setDirection('vertical', 'end');
 
         // 初始更新
-        const initialTime = timer.getState().moment;
+        const initialTime = timerStore.getState().moment;
         if (initialTime) {
             this.updateDisplay(initialTime);
         }
 
         // 订阅时间变化
         this.subscription.push(
-            timer.subscribe('minute', () => {
-                this.updateDisplay(timer.getState().moment);
+            timerStore.subscribe('minute', () => {
+                this.updateDisplay(timerStore.getState().moment);
             })
         );
     }

@@ -16,8 +16,12 @@ A sidebar widget system for Obsidian.
 
 ## Usage
 
-- Add multiple widgets to the sidebar in the plugin settings
-- Activate the widget sidebar from the left Ribbon
+- You can create multiple sidebars in the plugin settings
+- You can add multiple widgets to each sidebar in the plugin settings
+- Activate the [Default] widget sidebar from the left Ribbon
+- Type `Widget Sidebar` in the command palette to list commands for activating all sidebars. These commands can be used to open your newly created sidebars.
+- Sidebars can be dragged to various positions for better layout customization.
+- However, it's recommended to keep the default sidebar on the right side for better mobile usage.
 
 ## Widgets
 

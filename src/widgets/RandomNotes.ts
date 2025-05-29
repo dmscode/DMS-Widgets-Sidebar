@@ -27,12 +27,12 @@ export class RandomNotes extends WidgetComponent {
         const headerEl = this.container.createEl('div', { cls: 'dms-sidebar-random-notes-header' });
 
         // 添加标题
-        headerEl.createEl('h3', { text: getLang('random_notes_title') });
+        headerEl.createEl('h3', { text: getLang('random_notes_title', '随机笔记') });
 
         // 添加刷新按钮
         const refreshButton = headerEl.createEl('a', { cls: 'dms-sidebar-random-notes-refresh' });
         setIcon(refreshButton, 'refresh-cw');
-        setTooltip(refreshButton, getLang('random_notes_refresh_tooltip'), { placement: 'top' });
+        setTooltip(refreshButton, getLang('random_notes_refresh_tooltip', '刷新'), { placement: 'top' });
 
         // 创建内容容器
         this.contentEl = this.container.createDiv({ cls: 'dms-sidebar-random-notes-content' });

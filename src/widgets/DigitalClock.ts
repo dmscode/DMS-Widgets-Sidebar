@@ -1,7 +1,7 @@
 import { WidgetComponent } from "../components/widgetComponent";
 import { App } from "obsidian";
 import { voidFunc, WidgetConfig } from '../types';
-import { timer } from '../store';
+import { timerStore } from '../store';
 
 export class DigitalClock extends WidgetComponent {
     private els: HTMLElement[] = [];
@@ -20,7 +20,7 @@ export class DigitalClock extends WidgetComponent {
      * @param time moment对象
      */
     private updateTimeDisplay() {
-        const time = timer.getState().moment;
+        const time = timerStore.getState().moment;
         if (!time) return;
 
         // 更新小时和分钟显示
@@ -45,7 +45,7 @@ export class DigitalClock extends WidgetComponent {
 
         // 订阅时间状态更新
         this.subscription.push(
-            timer.subscribe('second', () => {
+            timerStore.subscribe('second', () => {
                 this.updateTimeDisplay();
             })
         );

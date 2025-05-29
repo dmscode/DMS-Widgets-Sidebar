@@ -1,7 +1,7 @@
 import { App, moment, parseYaml } from "obsidian";
 import { WidgetComponent } from "../components/widgetComponent";
 import { voidFunc, WidgetConfig } from "../types";
-import { timer } from "../store";
+import { timerStore } from "../store";
 import { getLang } from "../local/lang";
 
 export class CountdownDay extends WidgetComponent {
@@ -29,7 +29,7 @@ export class CountdownDay extends WidgetComponent {
     private getConfig(code: string): { name: string; date: string } {
         // 默认值
         const defaultResult = { 
-            name: getLang('countdown_unnamed_event', '未命名事件'), 
+            name: getLang('countdown_unnamed_event', '未命名事件'),
             date: moment().format('YYYY-MM-DD') 
         };
 
@@ -106,15 +106,15 @@ export class CountdownDay extends WidgetComponent {
         this.daysUnitEl = this.daysEl.createSpan({ cls: 'dms-sidebar-countdown-day-days-unit' });
 
         // 初始更新
-        const initialTime = timer.getState().moment;
+        const initialTime = timerStore.getState().moment;
         if (initialTime) {
             this.updateDisplay(initialTime);
         }
 
         // 订阅时间变化，每天更新一次
         this.subscription.push(
-            timer.subscribe('day', () => {
-                const time = timer.getState().moment;
+            timerStore.subscribe('day', () => {
+                const time = timerStore.getState().moment;
                 if (time) {
                     this.updateDisplay(time);
                 }

@@ -1,7 +1,7 @@
 import { App, setIcon } from "obsidian";
 import { ProgressWidgetComponent } from "../components/widgetComponent";
 import { voidFunc, WidgetConfig } from "../types";
-import { timer } from "../store";
+import { timerStore } from "../store";
 
 export class BatteryStatus extends ProgressWidgetComponent {
     private batteryIcon: HTMLElement;
@@ -75,7 +75,7 @@ export class BatteryStatus extends ProgressWidgetComponent {
         this.updateBatteryDisplay();
 
         // 每分钟更新一次电池状态
-        const unsubscribe = timer.subscribe('minute', () => {
+        const unsubscribe = timerStore.subscribe('minute', () => {
             this.updateBatteryDisplay();
         });
 

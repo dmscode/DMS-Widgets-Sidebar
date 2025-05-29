@@ -1,7 +1,7 @@
 import { App, ItemView, moment, setTooltip } from "obsidian";
 import { WidgetComponent } from "../components/widgetComponent";
 import { voidFunc, WidgetConfig } from "../types";
-import { timer } from "../store";
+import { timerStore } from "../store";
 
 export class MonthCalendar extends WidgetComponent {
     private yearMonthEl: HTMLElement;
@@ -111,12 +111,12 @@ export class MonthCalendar extends WidgetComponent {
         }
 
         // 初始化时更新一次显示
-        this.updateCalendarDisplay(timer.getState().moment);
+        this.updateCalendarDisplay(timerStore.getState().moment);
 
         // 订阅时间状态更新（每天更新一次）
         this.subscription.push(
-            timer.subscribe('day', () => {
-                this.updateCalendarDisplay(timer.getState().moment);
+            timerStore.subscribe('day', () => {
+                this.updateCalendarDisplay(timerStore.getState().moment);
             })
         );
     }

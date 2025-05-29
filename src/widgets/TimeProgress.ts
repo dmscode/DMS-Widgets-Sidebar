@@ -2,7 +2,7 @@ import { WidgetComponent } from "../components/widgetComponent";
 import { ProgressComponent } from "../components/progressComponent";
 import { App, moment } from "obsidian";
 import { voidFunc, WidgetConfig } from '../types';
-import { timer } from "../store";
+import { timerStore } from "../store";
 
 type ItemType = {
     type: string;
@@ -57,14 +57,14 @@ export class TimeProgress extends WidgetComponent {
         }));
 
         // 初始化时更新一次进度
-        const initialTime = timer.getState().moment;
+        const initialTime = timerStore.getState().moment;
         if (initialTime) {
             this.updateProgressUI(initialTime);
         }
 
         // 订阅时间状态更新
-        this.subscription.push(timer.subscribe('minute', () => {
-                const time = timer.getState().moment;
+        this.subscription.push(timerStore.subscribe('minute', () => {
+                const time = timerStore.getState().moment;
                 if (time) {
                     this.updateProgressUI(time);
                 }

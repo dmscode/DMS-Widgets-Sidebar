@@ -1,7 +1,7 @@
 // 本地配置导入
-import { default_settings } from './defaultSettings';  // 默认设置
+import { default_settings } from './settings/defaultSettings';  // 默认设置
 // 类型定义导入
-import { voidFunc, WidgetSidebarSettings } from './types';
+import { voidFunc, WidgetSidebarGlobal, WidgetSidebarsConfig } from './types';
 import { Timer } from './types';
 /**
  * 通用状态存储类，支持任意类型的状态管理
@@ -43,7 +43,7 @@ class Store<T> {
      * 获取当前状态
      */
     public getState(): T {
-        return this.state;
+        return { ...this.state }; // 返回浅拷贝，避免外部直接修改内部状态
     }
 
     /**
@@ -52,6 +52,13 @@ class Store<T> {
      */
     public async updateState(partialState: Partial<T>): Promise<void> {
         const newState = { ...this.state, ...partialState };
+        // 移出其中值为的 undefined 属性
+        Object.keys(partialState).forEach(key => {
+            if (partialState[key as keyof T] === undefined) {
+                delete newState[key as keyof T];
+            }
+        });
+        // 更新状态
         this.state = newState;
 
         // 通知相关监听器
@@ -132,5 +139,6 @@ class Store<T> {
 }
 
 // 导出默认的设置存储实例
-export const store = Store.getInstance<WidgetSidebarSettings>('settings', default_settings);
-export const timer = Store.getInstance<Timer>('timer', {}, true);
+export const globalStore = Store.getInstance<WidgetSidebarGlobal>('global', default_settings.global);
+export const sidebarsStore = Store.getInstance<WidgetSidebarsConfig>('sidebars', default_settings.sidebars);
+export const timerStore = Store.getInstance<Timer>('timer', {}, true);

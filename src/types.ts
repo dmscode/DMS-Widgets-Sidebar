@@ -19,14 +19,63 @@ export interface WidgetConfig {
 }
 
 /**
+ * 侧边栏配置接口
+ * @interface SidebarConfig
+ * @description 定义单个侧边栏的配置结构
+ * @property {string} title - 侧边栏标题
+ * @property {string} viewType - 侧边栏唯一标识符
+ * @property {WidgetConfig[]} widgets - 侧边栏包含的小部件配置数组
+ */
+export interface SidebarConfig {
+    title: string;
+    viewType: string;
+    widgets: WidgetConfig[];
+}
+
+/**
  * 侧边栏设置接口
  * @interface WidgetSidebarSettings
+ * @property {string} sidebarStyle - 侧边栏样式
  * @property {WidgetConfig[]} widgets - 小部件配置数组
  */
-export interface WidgetSidebarSettings {
+export interface WidgetSidebarSettings_1 {
     sidebarStyle: string;
     widgets: WidgetConfig[];
 }
+
+/**
+ * 侧边栏全局配置接口
+ * @interface WidgetSidebarGlobal
+ * @property {string} sidebarStyle - 侧边栏全局样式配置
+ */
+export interface WidgetSidebarGlobal {
+    sidebarStyle: string;
+}
+/**
+ * 侧边栏配置映射接口
+ * @interface WidgetSidebarsConfig
+ * @description 用于存储多个侧边栏配置的映射对象，键为侧边栏ID，值为对应的侧边栏配置
+ */
+export interface WidgetSidebarsConfig  {
+    [key: string]: SidebarConfig;
+}
+
+/**
+ * 侧边栏设置接口（版本2）
+ * @interface WidgetSidebarSettings_2
+ * @description 定义插件的主要配置结构，包含版本信息、全局设置和多侧边栏配置
+ * @property {number} configVersion - 配置版本号
+ * @property {Object} global - 全局配置选项
+ * @property {string} global.sidebarStyle - 侧边栏全局样式
+ * @property {Object.<string, SidebarConfig>} sidebars - 多侧边栏配置映射，key为侧边栏ID
+ */
+export interface WidgetSidebarSettings_2 {
+    configVersion: number;
+    global: WidgetSidebarGlobal,
+    sidebars: WidgetSidebarsConfig,
+}
+
+export type WidgetSidebarSettings = WidgetSidebarSettings_1 | WidgetSidebarSettings_2;
 
 /**
  * 设置回调函数类型

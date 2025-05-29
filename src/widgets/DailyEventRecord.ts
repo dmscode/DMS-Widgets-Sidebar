@@ -1,7 +1,8 @@
 import { WidgetComponent } from "../components/widgetComponent";
-import { App, Notice, parseYaml, setIcon, setTooltip, TFile, Modal } from "obsidian";
+import { App, Notice, parseYaml, setIcon, setTooltip, TFile } from "obsidian";
 import { WidgetConfig, voidFunc } from '../types';
 import { getLang } from "../local/lang";
+import { openSimpleEditModal } from "../components/simpleEditModal";
 
 /**
  * 每日事件记录挂件类
@@ -351,8 +352,15 @@ export class DailyEventRecord extends WidgetComponent {
         // 获取当前时间作为默认值
         const currentTime = window.moment().format('HH:mm');
         
-        // 弹出对话框让用户输入时间
-        new EditModal(this.app, currentTime, this.handleAddRecord.bind(this)).open();
+        // 使用通用编辑弹窗
+        openSimpleEditModal(
+            this.app,
+            {
+                value: currentTime,
+                placeholder: 'HH:mm',
+                onSubmit: this.handleAddRecord.bind(this)
+            }
+        );
     }
 
     /**
@@ -418,10 +426,17 @@ export class DailyEventRecord extends WidgetComponent {
         // 获取当前时间值
         const currentTime = this.recordData[todayRecordIndex].times[index];
 
-        // 弹出对话框让用户输入新时间
-        new EditModal(this.app, currentTime, (newTime: string) => {
-            this.handleEditRecord(index, currentTime, newTime);
-        }).open();
+        // 使用通用编辑弹窗
+        openSimpleEditModal(
+            this.app,
+            {
+                value: currentTime,
+                placeholder: 'HH:mm',
+                onSubmit: (newTime: string) => {
+                    this.handleEditRecord(index, currentTime, newTime);
+                }
+            }
+        );
     }
 
     /**
@@ -464,47 +479,4 @@ export class DailyEventRecord extends WidgetComponent {
         // 在这里执行组件卸载时的清理操作，移除所有事件监听器
         this.subscription.forEach(unsubscribe => unsubscribe());
     }
-}
-
-class EditModal extends Modal {
-    private value: string;
-    private subscription: voidFunc[] = [];
-    private input: HTMLInputElement;
-    private callback: (value:string)=>void;
-	constructor(app: App, value: string, callback: (value:string)=>void) {
-		super(app);
-		this.value = value;
-        this.callback = callback;
-	}
-
-	onOpen() {
-		const {contentEl} = this;
-        contentEl.empty();
-        contentEl.classList.add('dms-sidebar-daily-event-record-edit-modal');
-        this.input = contentEl.createEl('input', {
-            type: 'text',
-            value: this.value,
-            cls: 'dms-sidebar-daily-event-record-edit-modal-input',
-            attr: {
-                placeholder: 'HH:mm'
-            }
-        });
-        const saveButton = contentEl.createEl('button', {text: getLang('daily_event_record_modal_save_button_title', '保存')});
-        // 添加事件监听器
-        const saveListener = this.onSubmit.bind(this);
-        saveButton.addEventListener('click', saveListener);
-        this.subscription.push(() => saveButton.removeEventListener('click', saveListener));
-	}
-
-	onSubmit() {
-		this.value = this.input.value;
-        this.callback(this.value);
-        this.close();
-	}
-
-	onClose() {
-		const {contentEl} = this;
-		contentEl.empty();
-        this.subscription.forEach(unsubscribe => unsubscribe());
-	}
 }

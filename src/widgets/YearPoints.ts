@@ -1,7 +1,7 @@
 import { App, moment, setTooltip } from "obsidian";
 import { WidgetComponent } from "../components/widgetComponent";
 import { voidFunc, WidgetConfig } from "../types";
-import { timer } from "../store";
+import { timerStore } from "../store";
 
 /**
  * 年度点阵进度挂件类
@@ -61,15 +61,15 @@ export class YearPoints extends WidgetComponent {
         this.pointsContainer = this.container.createDiv({ cls: 'dms-sidebar-year-points-grid' });
 
         // 初始更新
-        const initialTime = timer.getState().moment;
+        const initialTime = timerStore.getState().moment;
         if (initialTime) {
             this.updateDisplay(initialTime);
         }
 
         // 订阅时间变化，每天更新一次
         this.subscription.push(
-            timer.subscribe('day', () => {
-                const time = timer.getState().moment;
+            timerStore.subscribe('day', () => {
+                const time = timerStore.getState().moment;
                 if (time) {
                     this.updateDisplay(time);
                 }

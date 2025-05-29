@@ -1,18 +1,21 @@
 // 核心依赖
 import { App, ItemView, WorkspaceLeaf, Component } from 'obsidian';
-import { moment } from "obsidian";
 
 // 本地化与状态管理
 import { getLang } from './local/lang';
-import { store } from './store';
-import { timer } from './store';
+import { globalStore, sidebarsStore, timerStore } from './store';
 
 // 组件
 import { getWidgetComponent } from './widgets/widgets';
-import { Timer } from './types';
+import { SidebarConfig, WidgetSidebarGlobal } from './types';
 
-// 定义侧边栏视图的唯一标识符
-export const WidgetSidebarView = 'DMS-Widget-Sidebar-view';
+/**
+ * 生成 DMS Widgets Sidebar 的标准化视图类型字符串。
+ *
+ * @param viewType - 要附加到侧边栏标识符的具体视图类型。
+ * @returns 格式为 `DMS-Widgets-Sidebar-View-{viewType}` 的字符串。
+ */
+export const getSidebarViewType = (viewType: string): string => `DMS-Widgets-Sidebar-View-${viewType}`;
 
 /**
  * 小部件侧边栏视图类
@@ -21,23 +24,32 @@ export const WidgetSidebarView = 'DMS-Widget-Sidebar-view';
 export class SidebarView extends ItemView {
     private container: Element;
     private widgets: Component[] = [];
+    private viewType: string;
+    private sidebarConfig: SidebarConfig;
+    private globalConfig: WidgetSidebarGlobal;
 
-    constructor(leaf: WorkspaceLeaf) {
+    constructor(leaf: WorkspaceLeaf, viewType: string) {
         super(leaf);
         this.container = this.containerEl.children[1];
+        this.viewType = viewType;
         // 订阅 store 的变更，当数据更新时刷新视图
-        store.subscribe('', () => {
+        globalStore.subscribe('', () => {
             this.refreshView();
         });
+        sidebarsStore.subscribe(viewType, () => {
+            this.refreshView();
+        })
+        this.sidebarConfig = sidebarsStore.getState()[this.viewType];
+        this.globalConfig = globalStore.getState();
     }
 
     // ItemView 接口实现
     getViewType(): string {
-        return WidgetSidebarView;
+        return getSidebarViewType(this.viewType);
     }
 
     getDisplayText(): string {
-        return getLang('view_title');
+        return this.sidebarConfig.title;
     }
 
     getIcon(): string {
@@ -46,13 +58,11 @@ export class SidebarView extends ItemView {
 
     // 生命周期方法
     async onOpen(): Promise<void> {
-        this.registerTimer();
         await this.refreshView();
         this.container.addEventListener('click', this.linkClickHandler.bind(this));
     }
 
     async onClose(): Promise<void> {
-        this.unregisterTimer();
         this.container.removeEventListener('click', this.linkClickHandler.bind(this));
         this.unloadWidgets();
     }
@@ -61,70 +71,31 @@ export class SidebarView extends ItemView {
         this.container.setAttr('style',`--dms-sidebar-width: ${this.container.clientWidth + 'px'}`)
     }
 
-    // 计时器管理
-    private registerTimer(): void {
-        // 清除已存在的计时器
-        this.unregisterTimer();
-
-        // 首先进行一次初始化
-        const initialTime = moment();
-        const initialData: Timer = {
-            second: initialTime.second(),
-            minute: initialTime.minute(),
-            hour: initialTime.hour(),
-            day: initialTime.date(),
-            moment: initialTime
-        };
-        timer.updateState(initialData);
-
-        // 创建新的计时器并获取其ID
-        const id = this.registerInterval(window.setInterval(() => {
-            // 获取当前时间
-            const time = moment();
-            const second = time.second();
-            const minute = time.minute();
-            const hour = time.hour();
-
-            // 构建计时器数据，只包含必要的更新
-            const data: Partial<Timer> = {
-                second: second,
-                moment: time,
-                ...(second === 0 ? { minute } : {}),
-                ...(second === 0 && minute === 0 ? { hour } : {}),
-                ...(second === 0 && minute === 0 && hour === 0 ? { day: time.date() } : {})
-            } as Timer;
-
-            // 更新计时器状态
-            timer.updateState(data);
-        }, 1000));
-
-        // 保存计时器ID
-        timer.updateState({id});
-    }
-
-    private unregisterTimer(): void {
-        if(timer.getState().id) {
-            timer.reset();
-        }
-    }
-
     // 小部件管理
     private async refreshView(): Promise<void> {
         this.unloadWidgets();
         // 获取当前设置
-        const settings = store.getState();
-        // 获取容器元素尺寸
-        this.onResize();
+        this.sidebarConfig = sidebarsStore.getState()[this.viewType];
+        this.globalConfig = globalStore.getState();
+        // 如果设置为空，则卸载视图
+        if(!this.sidebarConfig) {
+            this.unload();
+            return;
+        }
         // 清空容器内容
         this.container.empty();
         // 添加侧边栏样式类
         this.container.classList.add('dms-widget-sidebar');
         // 设置侧边栏样式属性
-        this.container.setAttr('data-widget-sidebar-style', settings.sidebarStyle);
+        this.container.setAttr('data-widget-sidebar-style', this.globalConfig.sidebarStyle);
+        // 设置侧边栏视图类型属性
+        this.container.setAttr('data-widget-sidebar-view-type', this.sidebarConfig.viewType);
+        // 获取容器元素尺寸
+        this.onResize();
         // 遍历并创建所有小部件
-        for (const [index, widget] of settings.widgets.entries()) {
+        for (const [index, widget] of this.sidebarConfig.widgets.entries()) {
             const widgetContainer = this.container.createDiv({ cls: 'dms-widget-container', attr: {
-                'data-widget-style': (!widget.style || widget.style==='default') ? settings.sidebarStyle : widget.style,
+                'data-widget-style': (!widget.style || widget.style==='default') ? this.globalConfig.sidebarStyle : widget.style,
                 'data-widget-type': widget.type,
                 'data-widget-index': index.toString(),
             } });
@@ -160,6 +131,4 @@ export class SidebarView extends ItemView {
             }
         }
     }
-
-
 }
