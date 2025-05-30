@@ -43,6 +43,7 @@ export function openSimpleEditModal(app: App, options: SimpleEditModalOptions) {
      */
     onOpen() {
       const { contentEl } = this;
+      contentEl.addClass('dms-sidebar-simple-edit-modal');
       contentEl.empty(); // 清空内容区域
 
       // 如果有标题，创建标题元素

@@ -91,7 +91,14 @@ export class DailyEventRecord extends WidgetComponent {
     private async loadNoteData(): Promise<void> {
         try {
             // 获取笔记文件
-            this.noteFile = this.app.vault.getAbstractFileByPath(this.config.note) as TFile;
+            const noteFile = this.app.vault.getAbstractFileByPath(this.config.note);
+            if( !noteFile || !(noteFile instanceof TFile)) {
+                // 如果笔记文件不存在，尝试创建
+                this.noteFile = await this.app.vault.create(this.config.note, '');
+            } else {
+                // 如果笔记文件存在，直接使用
+                this.noteFile = noteFile;
+            }
 
             if (!this.noteFile) {
                 // 如果笔记不存在，创建新笔记
