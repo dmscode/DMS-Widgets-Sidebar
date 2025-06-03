@@ -57,14 +57,14 @@ export class TimeProgress extends WidgetComponent {
         }));
 
         // 初始化时更新一次进度
-        const initialTime = timerStore.getState().moment;
+        const initialTime = timerStore.getState().moment?.clone();
         if (initialTime) {
             this.updateProgressUI(initialTime);
         }
 
         // 订阅时间状态更新
         this.subscription.push(timerStore.subscribe('minute', () => {
-                const time = timerStore.getState().moment;
+                const time = timerStore.getState().moment?.clone();;
                 if (time) {
                     this.updateProgressUI(time);
                 }

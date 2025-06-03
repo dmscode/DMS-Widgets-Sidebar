@@ -55,12 +55,12 @@ export class WeekCalendar extends WidgetComponent {
         });
 
         // 初始化时更新一次显示
-        this.updateCalendarDisplay(timerStore.getState().moment);
+        this.updateCalendarDisplay(timerStore.getState().moment?.clone());
 
         // 订阅时间状态更新（每小时更新一次）
         this.subscription.push(
             timerStore.subscribe('hours', () => {
-                this.updateCalendarDisplay(timerStore.getState().moment);
+                this.updateCalendarDisplay(timerStore.getState().moment?.clone());
             })
         );
     }

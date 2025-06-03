@@ -106,7 +106,7 @@ export class CountdownDay extends WidgetComponent {
         this.daysUnitEl = this.daysEl.createSpan({ cls: 'dms-sidebar-countdown-day-days-unit' });
 
         // 初始更新
-        const initialTime = timerStore.getState().moment;
+        const initialTime = timerStore.getState().moment?.clone();
         if (initialTime) {
             this.updateDisplay(initialTime);
         }
@@ -114,7 +114,7 @@ export class CountdownDay extends WidgetComponent {
         // 订阅时间变化，每天更新一次
         this.subscription.push(
             timerStore.subscribe('day', () => {
-                const time = timerStore.getState().moment;
+                const time = timerStore.getState().moment?.clone();;
                 if (time) {
                     this.updateDisplay(time);
                 }

@@ -111,9 +111,9 @@ export class WorkingTimeProgress extends ProgressWidgetComponent {
 
     /**
      * 更新显示
-     * @param currentTime 当前时间
-     */
-    private updateDisplay(currentTime: moment.Moment | undefined) {
+    */
+   private updateDisplay() {
+        const currentTime = timerStore.getState().moment?.clone();
         if (!currentTime) return;
         const progress = this.calculateWorkProgress(currentTime);
 
@@ -142,15 +142,12 @@ export class WorkingTimeProgress extends ProgressWidgetComponent {
         this.setDirection('vertical', 'end');
 
         // 初始更新
-        const initialTime = timerStore.getState().moment;
-        if (initialTime) {
-            this.updateDisplay(initialTime);
-        }
+        this.updateDisplay();
 
         // 订阅时间变化
         this.subscription.push(
             timerStore.subscribe('minute', () => {
-                this.updateDisplay(timerStore.getState().moment);
+                this.updateDisplay();
             })
         );
     }

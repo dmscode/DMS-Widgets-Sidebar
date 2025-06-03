@@ -20,7 +20,7 @@ export class DigitalClock extends WidgetComponent {
      * @param time moment对象
      */
     private updateTimeDisplay() {
-        const time = timerStore.getState().moment;
+        const time = timerStore.getState().moment?.clone();
         if (!time) return;
 
         // 更新小时和分钟显示

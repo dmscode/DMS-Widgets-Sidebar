@@ -35,10 +35,10 @@ export default class WidgetSidebar extends Plugin {
      * 插件加载时的初始化函数
      */
     async onload() {
-        // 优先加载核心设置
-        await this.loadSettings();
         // 注册计时器
         this.registerTimer();
+        // 优先加载核心设置
+        await this.loadSettings();
         // 将非核心功能延迟到界面准备就绪后加载
         this.app.workspace.onLayoutReady(() => {
             // 刷新侧边栏视图
@@ -173,7 +173,7 @@ export default class WidgetSidebar extends Plugin {
             minute: initialTime.minute(),
             hour: initialTime.hour(),
             day: initialTime.date(),
-            moment: initialTime
+            moment: initialTime,  // 使用 clone() 确保 moment 对象不会被修改
         };
         timerStore.updateState(initialData);
 
@@ -185,8 +185,8 @@ export default class WidgetSidebar extends Plugin {
             const minute = time.minute();
             const hour = time.hour();
             // 检查是否已经进入过睡眠模式
-            const lastMoment = timerStore.getState().moment;
-            const isSlept = lastMoment && lastMoment.diff(time) > 2000
+            const lastMoment = timerStore.getState().moment?.clone();
+            const isSlept = lastMoment && time.diff(lastMoment) > 2000
 
             // 构建计时器数据，只包含必要的更新
             const data: Partial<Timer> = {
@@ -196,7 +196,6 @@ export default class WidgetSidebar extends Plugin {
                 ...(isSlept || (second === 0 && minute === 0) ? { hour } : {}),
                 ...(isSlept || (second === 0 && minute === 0 && hour === 0) ? { day: time.date() } : {})
             } as Timer;
-
             // 更新计时器状态
             timerStore.updateState(data);
         }, 1000));
