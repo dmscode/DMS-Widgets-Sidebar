@@ -5,6 +5,7 @@ export const en = {
   ribbon_button_title: 'Open default widget sidebar',
   cannot_create_leaf: 'Could not create a new Sidebar',
   command_active_sidebar: 'Activve widget sidebar',
+  // command_active_sidebar: '激活侧边栏',  // 重复
   // settings\defaultSettings.ts
   default_widget_header_1_title: 'Big title',
   default_widget_digital_clcok_title: 'Digital Clock',
@@ -98,6 +99,9 @@ export const en = {
   // daily_event_record
   widget_type_daily_event_record: 'Daily Event Record',
   widget_type_daily_event_record_desc: 'Record and display daily event completion times',
+  // countdown_timer
+  widget_type_countdown_timer: 'Countdown Timer',
+  widget_type_countdown_timer_desc: 'Display a countdown timer, you can set the countdown time. If you want to use presets, please enter the preset times, one per line. If no presets are set, the default presets will be used (1 minute, 3 minutes, 5 minutes).',
   // widgets\CountdownDay.ts
   countdown_unnamed_event: 'Unnamed Event',
   countdown_future_prefix: 'Until ',

@@ -5,6 +5,7 @@ export const zh = {
   ribbon_button_title: '打开默认挂件侧边栏',
   cannot_create_leaf: '无法创建新的侧边栏',
   command_active_sidebar: '激活挂件侧边栏',
+  // command_active_sidebar: '激活侧边栏',  // 重复
   // settings\defaultSettings.ts
   default_widget_header_1_title: '大标题',
   default_widget_digital_clcok_title: '数字时钟',
@@ -98,6 +99,9 @@ export const zh = {
   // daily_event_record
   widget_type_daily_event_record: '日常事件记录',
   widget_type_daily_event_record_desc: '记录并显示日常事件完成时间',
+  // countdown_timer
+  widget_type_countdown_timer: '倒计时器',
+  widget_type_countdown_timer_desc: '显示一个倒计时器，您可以设置倒计时时间。如果需要使用预设时间，请输入每行一个预设时间。如果未设置预设，将使用默认预设（1分钟、3分钟、5分钟）。',
   // widgets\CountdownDay.ts
   countdown_unnamed_event: '未命名事件',
   countdown_future_prefix: '距离 ',

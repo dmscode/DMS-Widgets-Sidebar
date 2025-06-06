@@ -1,6 +1,6 @@
 {
 	"name": "dms-widget-sidebar",
-	"version": "1.16.2",
+	"version": "1.17.0",
 	"description": "A sidebar widget system for Obsidian.",
 	"main": "dist/main.js",
 	"scripts": {
@@ -8,6 +8,7 @@
 		"build": "tsc -noEmit -skipLibCheck && node build-less.mjs && node esbuild.config.mjs production",
 		"build:less": "node build-less.mjs",
 		"watch:less": "node build-less.mjs --watch",
+		"getlang": "node extractLangKeys.js",
 		"version": "node version-bump.mjs",
 		"newver": "yarn version --patch --no-git-tag-version",
 		"pushversion": "git push && git push --tags"

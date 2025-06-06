@@ -22,7 +22,7 @@ import { WorkingTimeProgress } from './WorkingTimeProgress';
 import { RandomNotes } from './RandomNotes';
 import { BatteryStatus } from './BatteryStatus';
 import { DailyEventRecord } from './DailyEventRecord';
-// import { CountdownTimer } from './CountdownTimer';
+import { CountdownTimer } from './CountdownTimer';
 
 // 定义渲染函数的类型接口
 type Render = {
@@ -47,7 +47,7 @@ const render: Render = {
     'random_notes': RandomNotes,
     'battery_status': BatteryStatus,
     'daily_event_record': DailyEventRecord,
-    // 'countdown_timer': CountdownTimer,
+    'countdown_timer': CountdownTimer,
 }
 // 导出组件类型
 export const widgetTypes = Object.keys(render);

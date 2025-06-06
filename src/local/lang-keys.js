@@ -5,6 +5,7 @@ export const langKeys = {
   ribbon_button_title: '打开默认挂件侧边栏',
   cannot_create_leaf: '无法创建新的侧边栏视图',
   command_active_sidebar: '激活侧边栏',
+  // command_active_sidebar: '激活侧边栏',  // 重复
   // settings\defaultSettings.ts
   default_widget_header_1_title: '默认标题',
   default_widget_digital_clcok_title: '数字时钟',
@@ -98,6 +99,9 @@ export const langKeys = {
   // daily_event_record
   widget_type_daily_event_record: '',
   widget_type_daily_event_record_desc: '',
+  // countdown_timer
+  widget_type_countdown_timer: '',
+  widget_type_countdown_timer_desc: '',
   // widgets\CountdownDay.ts
   countdown_unnamed_event: '未命名事件',
   countdown_future_prefix: '距离 ',
