@@ -1,0 +1,49 @@
+// 卡片样式
+// 定义卡片样式的变量
+@stacked_cards_variabilis: {
+    --dms-sidebar-stacked-cards-bottom-shadow: 0px 0px 18px rgba(0, 0, 0, 0.12);
+    --dms-sidebar-stacked-cards-padding: 1rem;
+    --dms-sidebar-stacked-cards-radius: 2px;
+    --dms-sidebar-stacked-cards-bottom-color: var(--text-on-accent);
+    --dms-sidebar-stacked-cards-bottom-bg: var(--interactive-accent);
+
+    --dms-sidebar-stacked-cards-top-padding: .2rem;
+    --dms-sidebar-stacked-cards-top-radius: 6px;
+    --dms-sidebar-stacked-cards-top-shadow: 0px 0px 8px rgba(0, 0, 0, 0.24);
+    --dms-sidebar-stacked-cards-top-color: var(--text-normal);
+    --dms-sidebar-stacked-cards-top-bg: var(--background-primary);
+};
+// note: 以下是对侧边栏的整体设定。
+@stacked_cards_sidebar: {
+    background-color: var(--background-secondary);
+}
+@stacked_cards_widgets: {
+    // 导入小部件样式
+    @import "./stacked_cards/widget.less";             // 小部件容器样式
+    @import "./stacked_cards/header.less";                // 标题样式
+    @import "./stacked_cards/digital_clock.less";         // 数字时钟样式
+    @import "./stacked_cards/time_progress.less";         // 时间进度条样式
+    @import "./stacked_cards/year_points.less";           // 年度进度点阵样式
+    @import "./stacked_cards/countdown_day.less";         // 倒计时天数样式
+    @import "./stacked_cards/week_calendar.less";         // 周历样式
+    @import "./stacked_cards/month_calendar.less";        // 月历样式
+    @import "./stacked_cards/image.less";                 // 图片样式
+    @import "./stacked_cards/quick_nav.less";             // 快捷导航样式
+    @import "./stacked_cards/file_stats.less";            // 文件统计样式
+    @import "./stacked_cards/working_time_progress.less"; // 工作时间进度条样式
+    @import "./stacked_cards/random_notes.less";          // 随机笔记样式
+    @import "./stacked_cards/battery_status.less";        // 电池状态样式
+    @import "./stacked_cards/daily_event_record.less";    // 每日事件记录样式
+    @import "./stacked_cards/countdown_timer.less";       // 倒计时计时器样式
+};
+
+.stacked_top_card {
+    content: "";
+    position: absolute;
+    background-color: var(--dms-sidebar-stacked-cards-top-bg);
+    border-radius: var(--dms-sidebar-stacked-cards-top-radius);
+    box-shadow: var(--dms-sidebar-stacked-cards-top-shadow);
+}
+
+// note: 以下是对小部件的单个设定。
+.widget-style(stacked_cards, @stacked_cards_variabilis, @stacked_cards_sidebar, @stacked_cards_widgets);

@@ -1,37 +1,19 @@
-@vendors: {
-    // 导入小部件样式
-    @import "./card/header.less";
-    @import "./card/digital_clock.less";
-    @import "./card/time_progress.less";
-    @import "./card/year_points.less";
-    @import "./card/countdown_day.less";
-    @import "./card/week_calendar.less";
-    @import "./card/month_calendar.less";
-    @import "./card/image.less";
-    @import "./card/quick_nav.less";
-    @import "./card/file_stats.less";
-    @import "./card/working_time_progress.less";
-    @import "./card/random_notes.less";
-    @import "./card/battery_status.less";
-    @import "./card/daily_event_record.less";
-    @import "./card/countdown_timer.less";
-  };
 // 卡片样式
-&[data-widget-sidebar-style="card"] {
-    --dms-sidebar-card-in-shadow : inset 3px 3px 24px rgba(0, 0, 0, 0.12);
+// 定义卡片样式的变量
+@card_variabilis: {
+    --dms-sidebar-card-in-shadow: inset 3px 3px 24px rgba(0, 0, 0, 0.12);
     --dms-sidebar-card-out-shadow: 2px 2px 6px rgba(0, 0, 0, 0.12);
-    --dms-sidebar-card-padding   : 1rem;
-    --dms-sidebar-card-radius    : 1rem;
-    // 小部件容器样式：添加底部边框和间距
-    > .dms-widget-container {
-        border-radius: var(--dms-sidebar-card-radius);
-        padding: var(--dms-sidebar-card-padding);
-        margin-bottom: .8rem;
-        background-color: var(--background-primary);
-        box-shadow: var(--dms-sidebar-card-in-shadow),
-                    var(--dms-sidebar-card-out-shadow);
-        color: var(--text-normal);
-        font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", "WenQuanYi Micro Hei", sans-serif;
-    }
+    --dms-sidebar-card-padding: 1rem;
+    --dms-sidebar-card-radius: 1rem;
+};
+// note: 以下是对侧边栏的整体设定。
+@card_sidebar: {
+    
 }
-.widget-style(card, @vendors);
+@card_widgets: {
+    // 导入小部件样式
+    @import "./card/widget.less";               // 小部件容器样式
+    @import "./card/quick_nav.less";             // 快捷导航样式
+};
+// note: 以下是对小部件的单个设定。
+.widget-style(card, @card_variabilis, @card_sidebar, @card_widgets);

@@ -5,6 +5,7 @@ import { widgetTypes } from "./widgets/widgets";
  */
 const globalTheme:string[] = [
     'card',
+    'stacked_cards'
 ]
 /**
  * 挂件样式
@@ -13,7 +14,7 @@ const globalTheme:string[] = [
 const widgetStyle:{
     [ke:string]: string[]
 } = {
-    header_1: [ 'test' ]
+    // header_1: [ 'test' ]
 }
 /**
  * 样式与挂件的对应关系
@@ -22,7 +23,7 @@ const widgetStyle:{
 const styleForWidget:{
     [ke:string]: string[]
 } = {
-    "abc": ['header_1', 'header_3']
+    // "abc": ['header_1', 'header_3']
 }
 // 将样式与挂件的对应关系转换为挂件名称与样式的对应关系
 Object.keys(styleForWidget).forEach(key => {
@@ -44,10 +45,10 @@ const ArrayToObject = (arr: string[]) => {
 
 const getWidgetStyleList = (type: string) => {
     return ArrayToObject(
-        ['default'].concat(globalTheme, widgetStyle[type] || [], ['custom', 'none'])
+        ['default'].concat(globalTheme, widgetStyle[type] || [], ['custom', 'base'])
     )
 }
-export const ThemeList = ArrayToObject(globalTheme.concat(['none']))
+export const ThemeList = ArrayToObject(globalTheme.concat(['base']))
 export const widgetStyleList = widgetTypes.reduce((obj, type) => {
     obj[type] = getWidgetStyleList(type)
     return obj

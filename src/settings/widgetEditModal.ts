@@ -93,19 +93,15 @@ export class WidgetEditModal extends Modal {
         return widgetStyleList[type] || {
             default: 'default',
             custom: 'custom',
-            none: 'none',
+            base: 'base',
         }
     }
-    /**
-     * 初始化类型描述区域
-     * 创建包含类型名称和描述的文档片段
-     */
     /**
      * 初始化样式相关组件
      * 设置样式选择和自定义样式输入的初始状态
      */
     private initStyleComponents(): void {
-        // 如果没有设置样式，默认使用'none'
+        // 如果没有设置样式，默认使用'default'
         if (!this.widget.style) {
             this.widget.style = 'default';
         }

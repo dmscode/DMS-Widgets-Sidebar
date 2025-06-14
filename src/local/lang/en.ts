@@ -36,7 +36,7 @@ export const en = {
   // settings.ts
   widget_style_title: 'Widget Style',
   widget_style_selector_title: 'Choice Widget Style',
-  widget_style_selector_desc: 'This only includes some basic style settings. For complex effects, it is recommended to implement them through CSS snippets. `none` means no additional styles (allowing complete customization).',
+  widget_style_selector_desc: 'This only includes some basic style settings. For complex effects, it is recommended to implement them through CSS snippets. `base` means including only basic styles (convenient for personalization through CSS snippets).',
   sidebar_list_title: 'Widget sidebar list',
   add_sidebar_button_title: 'Add new widget sidebar',
   new_view_title: 'New widget sidebar',

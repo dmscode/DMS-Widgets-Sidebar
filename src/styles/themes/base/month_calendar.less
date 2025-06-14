@@ -1,13 +1,13 @@
 // 月历样式
-  &[data-widget-type="month_calendar"] {
+&[data-widget-type="month_calendar"] {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     & > .dms-sidebar-month-calendar-header {
         text-align: center;
         font-weight: bold;
-        font-size: 1.2em;
-        margin-bottom: 0.3rem;
+        font-size: 1.2rem;
+        line-height: 2rem;
     }
     & > .dms-sidebar-month-calendar-weekdays {
         display: flex;
@@ -16,7 +16,14 @@
             width: calc(100% / 7);
             text-align: center;
             opacity: 0.8;
-            font-size: 0.9em;
+            font-size: 0.9rem;
+        }
+        & > span:first-child,
+        & > span:nth-child(7) {
+            color: var(--color-red);
+            &.dms-sidebar-month-calendar-current {
+                background-color: var(--color-red);
+            }
         }
     }
     & > .dms-sidebar-month-calendar-grid {

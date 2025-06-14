@@ -1,0 +1,24 @@
+// 随机笔记样式
+&[data-widget-type="random_notes"] {
+    padding-top: 0;
+    &::before {
+        .stacked_top_card();
+        bottom: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        left: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        width: calc(var(--dms-sidebar-stacked-cards-top-padding) * 2 + 100%);
+        height: calc(100% - 2.88rem + var(--dms-sidebar-stacked-cards-top-padding));
+    }
+
+    & > .dms-sidebar-random-notes-header {
+        & > h3,
+        & > a.dms-sidebar-random-notes-refresh {
+            line-height: 1.6;
+            color: var(--dms-sidebar-stacked-cards-bottom-color);
+        }
+    }
+    & .dms-sidebar-random-notes-content {
+        position: relative;
+        color: var(--dms-sidebar-stacked-cards-top-color);
+        z-index: 10;
+    }
+}

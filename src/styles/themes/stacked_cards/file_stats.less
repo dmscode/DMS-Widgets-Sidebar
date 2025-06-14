@@ -1,0 +1,23 @@
+  // 文件统计样式
+&[data-widget-type="file_stats"] {
+    padding-top: 0;
+    &::before {
+        .stacked_top_card();
+        bottom: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        left: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        width: calc(var(--dms-sidebar-stacked-cards-top-padding) * 2 + 100%);
+        height: calc(100% - 2.88rem + var(--dms-sidebar-stacked-cards-top-padding));
+    }
+    & > .dms-sidebar-file-stat-item {
+        color: var(--dms-sidebar-stacked-cards-top-color);
+    }
+    & > .dms-sidebar-file-stat-item {
+        &:first-child {
+            color: var(--dms-sidebar-stacked-cards-bottom-color);
+            & > .dms-sidebar-file-stat-count {
+                color: var(--dms-sidebar-stacked-cards-bottom-color);
+                opacity: .6;
+            }
+        }
+    }
+}

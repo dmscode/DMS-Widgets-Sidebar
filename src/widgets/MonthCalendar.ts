@@ -5,7 +5,7 @@ import { timerStore } from "../store";
 
 export class MonthCalendar extends WidgetComponent {
     private yearMonthEl: HTMLElement;
-    private dateElements: HTMLElement[][];
+    private dateGrid: HTMLElement;
     private subscription: voidFunc[] = [];
 
     constructor(
@@ -38,41 +38,37 @@ export class MonthCalendar extends WidgetComponent {
         const daysInMonth = time.daysInMonth();
 
         // 清空所有日期单元格
-        this.dateElements.forEach(row => {
-            row.forEach(cell => {
-                cell.setText('');
-                cell.removeClass('dms-sidebar-month-calendar-current');
-                setTooltip(cell, '');
-            });
-        });
+        this.dateGrid.empty();
 
         // 填充日期
-        let day = 1;
+        let day = -firstDayWeekday + 1;
         for (let i = 0; i < 6; i++) { // 最多6行
+            const row = this.dateGrid.createDiv({ cls: 'dms-sidebar-month-calendar-row' });
+            // 如果已经超出当月天数，结束
+            if (day > daysInMonth) {
+                break;
+            }
             for (let j = 0; j < 7; j++) { // 7列，对应周日到周六
-                // 跳过第一行中第一天之前的单元格
-                if (i === 0 && j < firstDayWeekday) {
+                // 创建日期单元格
+                const cell = row.createSpan({ cls: 'dms-sidebar-month-calendar-date' });
+                // 空白
+                if (day<= 0 || day > daysInMonth) {
+                    day++;
                     continue;
-                }
-
-                // 如果已经超出当月天数，结束填充
-                if (day > daysInMonth) {
-                    break;
                 }
 
                 // 填充日期
                 const dateText = String(day).padStart(2, '0');
-                this.dateElements[i][j].setText(dateText);
+                cell.setText(dateText);
 
                 // 设置日期提示
                 const dateObj = firstDayOfMonth.clone().add(day - 1, 'days');
-                setTooltip(this.dateElements[i][j], dateObj.format('YYYY-MM-DD'), { placement: 'top' });
+                setTooltip(cell, dateObj.format('YYYY-MM-DD'), { placement: 'top' });
 
                 // 如果是当天，添加高亮样式
                 if (currentMonth === time.month() && day === currentDate) {
-                    this.dateElements[i][j].addClass('dms-sidebar-month-calendar-current');
+                    cell.addClass('dms-sidebar-month-calendar-current');
                 }
-
                 day++;
             }
 
@@ -95,20 +91,7 @@ export class MonthCalendar extends WidgetComponent {
         });
 
         // 创建日期网格容器
-        const dateGrid = this.container.createDiv({ cls: 'dms-sidebar-month-calendar-grid' });
-
-        // 创建6行7列的日期网格（最多6行可以显示一个月的所有日期）
-        this.dateElements = [];
-        for (let i = 0; i < 6; i++) {
-            const row = dateGrid.createDiv({ cls: 'dms-sidebar-month-calendar-row' });
-            const rowElements: HTMLElement[] = [];
-
-            for (let j = 0; j < 7; j++) {
-                rowElements.push(row.createSpan({ cls: 'dms-sidebar-month-calendar-date' }));
-            }
-
-            this.dateElements.push(rowElements);
-        }
+        this.dateGrid = this.container.createDiv({ cls: 'dms-sidebar-month-calendar-grid' });
 
         // 初始化时更新一次显示
         this.updateCalendarDisplay(timerStore.getState().moment?.clone());

@@ -1,0 +1,23 @@
+& {
+    color: var(--text-normal);
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", "WenQuanYi Micro Hei", sans-serif;
+    & > .dms-widget-container {
+        // 导入小部件样式
+        @import "./base/widget.less";                // 小部件容器样式
+        @import "./base/header.less";                // 标题样式
+        @import "./base/digital_clock.less";         // 数字时钟样式
+        @import "./base/time_progress.less";         // 时间进度条样式
+        @import "./base/year_points.less";           // 年度进度点阵样式
+        @import "./base/countdown_day.less";         // 倒计时天数样式
+        @import "./base/week_calendar.less";         // 周历样式
+        @import "./base/month_calendar.less";        // 月历样式
+        @import "./base/image.less";                 // 图片样式
+        @import "./base/quick_nav.less";             // 快捷导航样式
+        @import "./base/file_stats.less";            // 文件统计样式
+        @import "./base/working_time_progress.less"; // 工作时间进度条样式
+        @import "./base/random_notes.less";          // 随机笔记样式
+        @import "./base/battery_status.less";        // 电池状态样式
+        @import "./base/daily_event_record.less";    // 每日事件记录样式
+        @import "./base/countdown_timer.less";       // 倒计时计时器样式
+    }
+}

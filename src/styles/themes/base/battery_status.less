@@ -1,0 +1,26 @@
+// 电池状态样式
+&[data-widget-type="battery_status"] {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-height: 6rem;
+    max-height: 8rem;
+    color: var(--text-normal);
+
+    &>.dms-sidebar-battery-icon {
+        position: absolute;
+        top: .5rem;
+        left: 1rem;
+        --icon-size: 2rem;
+        z-index: 1;
+        opacity: .6;
+    }
+
+    &>.dms-sidebar-battery-percent {
+        font-weight: bold;
+        font-size: 2.4rem;
+        z-index: 1;
+        opacity: .6;
+    }
+}

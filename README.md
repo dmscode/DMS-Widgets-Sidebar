@@ -11,6 +11,17 @@ A sidebar widget system for Obsidian.
 
 ## Installation
 
+### BRAT
+
+- First, install and enable the BRAT plugin in Obsidian.
+- Then go to BRAT plugin settings — Beta plugins list — Add beta plugin
+- Github repository for beta plugin: `https://github.com/dmscode/DMS-Widgets-Sidebar`
+- Select a version: `Latest version`
+- Check "Enable after installing the plugin", then click "Add plugin" to complete the installation.
+- This method enables automatic plugin updates.
+
+### Manual Download
+
 - Download the latest version from the Releases page and extract it to the `Vault/.obsidian/plugins/dms-widget-sidebar` folder.
 - Enable the plugin in Obsidian.
 

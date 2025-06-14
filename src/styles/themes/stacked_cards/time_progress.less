@@ -1,0 +1,27 @@
+// 时光进度小部件样式
+&[data-widget-type="time_progress"] {
+    &::before {
+        .stacked_top_card();
+        top: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        right: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        // 计算元素的尺寸：
+        // width: 总宽度减去侧边栏和内边距的计算
+        //   - 3.5rem: 标签元素宽度
+        //   - 0.3rem: gap 间距
+        //   - var(--dms-sidebar-stacked-cards-padding): 卡片基本内边距
+        //   + var(--dms-sidebar-stacked-cards-top-padding): 顶部卡片内边距补偿
+        //
+        width: calc(100% - 3.5rem - .3rem - var(--dms-sidebar-stacked-cards-padding) + var(--dms-sidebar-stacked-cards-top-padding));
+        // height: 基于内容高度的自适应计算
+        //   - 包含顶部内边距的两倍
+        //   - 加上100%的内容高度
+        height: calc(var(--dms-sidebar-stacked-cards-top-padding) * 2 + 100%);
+    }
+    & > .dms-time-progress-item {
+        padding-left: 0;
+        padding-right: 0;
+        & > .dms-sidebar-progress-bar-precent {
+            color: var(--dms-sidebar-stacked-cards-top-color);
+        }
+    }
+}

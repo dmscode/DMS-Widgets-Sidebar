@@ -1,0 +1,38 @@
+// 月历样式
+&[data-widget-type="month_calendar"] {
+    gap: 0;
+    &::before {
+        .stacked_top_card();
+        top: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        left: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        width: calc(var(--dms-sidebar-stacked-cards-top-padding) * 2 + 100%);
+        // - 2rem 标题高度
+        // - --dms-sidebar-stacked-cards-padding 卡片内边距
+        // - --dms-sidebar-stacked-cards-top-padding 顶部卡片内边距
+        height: calc(2rem + var(--dms-sidebar-stacked-cards-padding) + var(--dms-sidebar-stacked-cards-top-padding));
+    }
+    &::after {
+        .stacked_top_card();
+        bottom: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        left: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        width: calc(var(--dms-sidebar-stacked-cards-top-padding) * 2 + 100%);
+        // - 2rem 标题高度
+        // - 1.6rem 标签元素高度
+        height: calc(100% - 4.4rem - var(--dms-sidebar-stacked-cards-padding) + var(--dms-sidebar-stacked-cards-top-padding));
+    }
+    & > .dms-sidebar-month-calendar-header,
+    & > .dms-sidebar-month-calendar-grid {
+        color: var(--dms-sidebar-stacked-cards-top-color);
+    }
+    & > .dms-sidebar-month-calendar-weekdays {
+        & > .dms-sidebar-month-calendar-weekday {
+            font-size: 0.8rem;
+            line-height: 2.4rem;
+        }
+        & > span:first-child,
+        & > span:last-child {
+            color: var(--dms-sidebar-stacked-cards-bottom-color);
+            background-color: var(--color-red);
+        }
+    }
+}

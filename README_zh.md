@@ -11,6 +11,17 @@
 
 ## 安装
 
+### BRAT
+
+- 首先在 Obsidian 中安装并启用 BRAT 插件。
+- 然后在 BRAT 插件设置中——Beta plugins list——Add beta plugin
+- Github repository for beta plugin: `https://github.com/dmscode/DMS-Widgets-Sidebar`
+- Select a version: `Latest version`
+- 勾选 Enable after installing the plugin，然后点击 Add plugin 完成安装。
+- 此方法可以实现插件的自动更新。
+
+### 自行下载
+
 - 从 Releases 页面下载最新版本，解压到 `Vault/.obsidian/plugins/dms-widget-sidebar` 文件夹中。
 - 在 Obsidian 中启用插件。
 

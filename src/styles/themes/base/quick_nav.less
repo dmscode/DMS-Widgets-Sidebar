@@ -1,0 +1,32 @@
+// 快速导航样式
+&[data-widget-type="quick_nav"] {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    padding: 0;
+    & > a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 2.4rem;
+        min-width: 2.4rem;
+        text-align: center;
+        padding:0 0.4rem;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: 1.6rem;
+        border-radius: .2rem;
+        background-color: var(--background-primary);
+        &.dms-sidebar-quick-nav-item-img,
+        &.dms-sidebar-quick-nav-item-icon {
+            padding: .4rem;
+            & > svg,
+            & > img {
+                display: block;
+                height: 1.6rem;
+                width: auto;
+                cursor: pointer;
+            }
+        }
+    }
+}

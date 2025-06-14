@@ -1,0 +1,13 @@
+// 小部件容器样式：添加底部边框和间距
+& {
+    padding: var(--dms-sidebar-stacked-cards-padding);
+    margin-bottom: calc(var(--dms-sidebar-stacked-cards-padding) * 2);
+    border-radius: var(--dms-sidebar-stacked-cards-radius);
+    box-shadow: var(--dms-sidebar-stacked-cards-bottom-shadow);
+    background-color: var(--dms-sidebar-stacked-cards-bottom-bg);
+    color: var(--dms-sidebar-stacked-cards-bottom-color);
+    position: relative;
+    & > * {
+        z-index: 1;
+    }
+}

@@ -1,0 +1,19 @@
+// 年度点阵进度样式
+&[data-widget-type="year_points"] {
+    padding-top: 0;
+    gap: var(--dms-sidebar-stacked-cards-padding);
+    &::before {
+        .stacked_top_card();
+        bottom: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        left: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        width: calc(var(--dms-sidebar-stacked-cards-top-padding) * 2 + 100%);
+        height: calc(100% - 3.84rem + var(--dms-sidebar-stacked-cards-top-padding));
+    }
+    & > .dms-sidebar-year-points-grid {
+        & > .dms-sidebar-year-points-day {
+            &.dms-sidebar-year-points-today {
+                z-index: 10;
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+// 数字时钟小部件样式
+&[data-widget-type="digital_clock"] {
+    &::before {
+        .stacked_top_card();
+        top: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        right: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        // 数字时钟组件的宽度设置
+        // 计算方式：侧边栏卡片的内边距 + 顶部卡片内边距 + 54%的基础宽度（3 个文字元素）
+        // 使用CSS变量确保与主题设置保持一致
+        width: calc(var(--dms-sidebar-stacked-cards-padding) + var(--dms-sidebar-stacked-cards-top-padding) + 54%);
+        height: calc(var(--dms-sidebar-stacked-cards-top-padding) * 2 + 100%);
+    }
+    & > .dms-digital-clock-digit {
+        &:nth-child(1),
+        &:nth-child(2) {
+            color: var(--dms-sidebar-stacked-cards-bottom-color);
+        }
+        &:nth-child(3) {
+            margin: 0 var(--dms-sidebar-stacked-cards-padding);
+        }
+        &:nth-child(3),
+        &:nth-child(4),
+        &:nth-child(5) {
+            color: var(--dms-sidebar-stacked-cards-top-color);
+        }
+    }
+}

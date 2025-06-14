@@ -36,7 +36,7 @@ export const zh = {
   // settings.ts
   widget_style_title: '挂件样式',
   widget_style_selector_title: '选择挂件样式',
-  widget_style_selector_desc: '这里只包含一些基础样式设置。对于复杂效果，建议通过CSS片段实现。`none`表示不使用额外样式（允许完全自定义）。',
+  widget_style_selector_desc: '这里只包含一些基础样式设置。对于复杂效果，建议通过CSS片段实现。`base`表示只包含最基本样式（便于通过css片段进行个性化定义）。',
   sidebar_list_title: '挂件边栏列表',
   add_sidebar_button_title: '添加侧边栏',
   new_view_title: '新挂件侧边栏',

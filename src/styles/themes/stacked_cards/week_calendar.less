@@ -1,0 +1,29 @@
+// 周历样式
+&[data-widget-type="week_calendar"] {
+    padding-top: 0;
+    gap: 0;
+    &::before {
+        .stacked_top_card();
+        bottom: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        left: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        width: calc(var(--dms-sidebar-stacked-cards-top-padding) * 2 + 100%);
+        // 计算日历视图的高度
+        // - 2rem: 标签元素高度
+        height: calc(100% - 2rem + var(--dms-sidebar-stacked-cards-top-padding));
+    }
+    & > .dms-sidebar-week-calendar-row:first-child{
+        & > .dms-sidebar-week-calendar-weekday {
+            font-size: 0.8rem;
+            line-height: 2rem;
+        }
+        & > span:first-child,
+        & > span:last-child {
+            color: var(--dms-sidebar-stacked-cards-bottom-color);
+            background-color: var(--color-red);
+        }
+    }
+    & > .dms-sidebar-week-calendar-row:last-child {
+        padding-top: var(--dms-sidebar-stacked-cards-padding);
+        color: var(--dms-sidebar-stacked-cards-top-color);
+    }
+}

@@ -1,0 +1,39 @@
+// 快速导航样式
+&[data-widget-type="quick_nav"] {
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    & > a {
+        justify-content: flex-start;
+        width: calc(50% - 0.4rem);
+        min-width: 8rem;
+        background-color: var(--dms-sidebar-stacked-cards-bottom-bg);
+        color: var(--dms-sidebar-stacked-cards-bottom-color);
+        text-align: left;
+        flex-grow: 1;
+        position: relative;
+        &::before {
+            .stacked_top_card();
+            content: attr(aria-label);
+            top: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+            right: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+            width: calc(var(--dms-sidebar-stacked-cards-top-padding) + 100% - 2.4rem);
+            height: calc(100% + var(--dms-sidebar-stacked-cards-top-padding) * 2);
+            text-align: center;
+            font-size: 1rem;
+            color: var(--dms-sidebar-stacked-cards-top-color);
+            line-height: calc(2.4rem + var(--dms-sidebar-stacked-cards-top-padding) * 2);
+        }
+        &.dms-sidebar-quick-nav-item-img,
+        &.dms-sidebar-quick-nav-item-icon {
+            padding: .4rem;
+            & > svg,
+            & > img {
+                display: block;
+                height: 1.6rem;
+                width: auto;
+                cursor: pointer;
+            }
+        }
+    }
+}

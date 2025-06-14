@@ -1,39 +1,12 @@
 // 快速导航样式
-  &[data-widget-type="quick_nav"] {
-    display: flex;
-    gap: 0.8rem;
-    flex-wrap: wrap;
+&[data-widget-type="quick_nav"] {
     box-shadow: none;
     background: none;
-    margin-bottom: 0;
     padding: 0;
     & > a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        align-items: center;
-        line-height: 2.4rem;
-        min-width: 2.4rem;
-        text-align: center;
-        padding:0 0.4rem;
-        box-sizing: border-box;
-        cursor: pointer;
-        font-size: 1.6rem;
-        border-radius: .2rem;
-        margin-bottom: .8rem;
+        border-radius: calc(var(--dms-sidebar-card-radius) / 5);
         background-color: var(--dms-sidebar-background);
         box-shadow: var(--dms-sidebar-card-in-shadow),
                     var(--dms-sidebar-card-out-shadow);
-        &.dms-sidebar-quick-nav-item-img,
-        &.dms-sidebar-quick-nav-item-icon {
-            padding: .4rem;
-            & > svg,
-            & > img {
-                display: block;
-                height: 1.6rem;
-                width: auto;
-                cursor: pointer;
-            }
-        }
     }
 }

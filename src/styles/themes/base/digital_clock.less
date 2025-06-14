@@ -5,10 +5,14 @@
     justify-content: center;
     align-items: center;
     --dms-siderbar-clock-font-size: calc(var(--dms-sidebar-width) / 4);
-    > .dms-digital-clock-digit {
+    & > .dms-digital-clock-digit {
         aspect-ratio: 1/1.6;
         width: 18%;
         flex-grow: 1;
+        /**
+         * 设置字体大小，使用 clamp() 保证字体在 1.6rem 到 20vw 之间自适应变化，
+         * 并允许通过 CSS 变量 --dms-siderbar-clock-font-size 进行自定义调整。
+         */
         font-size: clamp(1.6rem, var(--dms-siderbar-clock-font-size), 20vw);
         line-height: 1;
         display: flex;

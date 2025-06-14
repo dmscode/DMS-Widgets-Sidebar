@@ -58,10 +58,20 @@ export class DailyEventRecord extends WidgetComponent {
         this.container.addClass('dms-sidebar-daily-event-record');
 
         // 创建标题
-        this.container.createEl('h3', {
-            text: this.config.title,
+        const titleEl = this.container.createEl('h3', {
             cls: 'dms-sidebar-daily-event-record-title'
         });
+
+        // 创建标题链接
+        titleEl.createEl('a', {
+            cls: ['internal-link'],
+            text: this.config.title,
+            href: this.config.note,
+            attr: {
+                rel: 'noopener',
+                target: '_blank',
+            }
+        })
 
         // 如果没有指定笔记，显示提示信息
         if (!this.config.note) {
@@ -320,6 +330,8 @@ export class DailyEventRecord extends WidgetComponent {
         // 如果用户取消或输入为空，则返回
         if (!newTime || newTime.trim() === '') return;
 
+        newTime = newTime.trim();
+
         // 验证时间格式
         if (!this.validateTimeFormat(newTime)) {
             return;
@@ -363,7 +375,7 @@ export class DailyEventRecord extends WidgetComponent {
         openSimpleEditModal(
             this.app,
             {
-                value: currentTime,
+                value: currentTime+' ',
                 placeholder: 'HH:mm',
                 onSubmit: this.handleAddRecord.bind(this)
             }
@@ -437,10 +449,10 @@ export class DailyEventRecord extends WidgetComponent {
         openSimpleEditModal(
             this.app,
             {
-                value: currentTime,
+                value: currentTime + ( /^\d+:\d+$/.test(currentTime) ? ' ' : ''),
                 placeholder: 'HH:mm',
                 onSubmit: (newTime: string) => {
-                    this.handleEditRecord(index, currentTime, newTime);
+                    this.handleEditRecord(index, currentTime, newTime.trim());
                 }
             }
         );

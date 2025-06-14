@@ -1,0 +1,17 @@
+// 倒数日样式
+&[data-widget-type="countdown_day"] {
+    &::before {
+        .stacked_top_card();
+        bottom: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        left: calc(var(--dms-sidebar-stacked-cards-top-padding) * -1);
+        // 数字时钟组件的宽度设置
+        // 计算方式：侧边栏卡片的内边距 + 顶部卡片内边距 + 54%的基础宽度（3 个文字元素）
+        // 使用CSS变量确保与主题设置保持一致
+        width: calc(var(--dms-sidebar-stacked-cards-top-padding) * 2 + 100%);
+        height: calc(100% - var(--dms-sidebar-card-padding) - 1.6rem - .5rem + var(--dms-sidebar-stacked-cards-top-padding));
+    }
+    & > .dms-sidebar-countdown-day-days {
+        padding-top: var(--dms-sidebar-stacked-cards-padding);
+        color: var(--dms-sidebar-stacked-cards-top-color);
+    }
+}
