@@ -1,8 +1,8 @@
 {
 	"id": "widget-sidebar",
 	"name": "Widget Sidebar",
-	"version": "1.17.1",
-	"minAppVersion": "0.15.0",
+	"version": "1.17.2",
+	"minAppVersion": "1.18.0",
 	"description": "A sidebar widget system.",
 	"author": "稻米鼠",
 	"authorUrl": "https://zji.me",

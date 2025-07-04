@@ -4,16 +4,23 @@ import { WidgetConfig, voidFunc } from '../types';
 import { getLang } from "../local/lang";
 import { openSimpleEditModal } from "../components/simpleEditModal";
 
+interface DailyEventRecordConfig {
+    title: string;
+    note: string;
+    rules: string[];
+}
+
 /**
  * 每日事件记录挂件类
  * 用于记录和显示每日事件完成时间
  * @extends WidgetComponent
  */
 export class DailyEventRecord extends WidgetComponent {
-    private config: { title: string; note: string };
+    private config: DailyEventRecordConfig;
     private recordData: { date: string; times: string[] }[] = [];
     private noteFile: TFile | null = null;
     private subscription: voidFunc[] = [];
+    private markRules: ((mark: string) => string)[] = [];
 
     constructor(
         container: HTMLElement,
@@ -29,21 +36,35 @@ export class DailyEventRecord extends WidgetComponent {
      * @param code YAML格式的代码字符串
      * @returns 解析后的配置对象
      */
-    private parseConfig(code: string): { title: string; note: string } {
+    private parseConfig(code: string): DailyEventRecordConfig {
         // 默认值
         const defaultConfig = {
             title: getLang('daily_event_record_default_title', '每日事件记录'),
-            note: ''
+            note: '',
+            rules: [],
         };
 
         if (!code || code.trim() === '') return defaultConfig;
 
         try {
-            const config = parseYaml(code) as { title: string; note: string };
-            return {
-                title: config.title || defaultConfig.title,
-                note: config.note || defaultConfig.note
-            };
+            const config = parseYaml(code) as DailyEventRecordConfig;
+            if(config.rules){
+                if(!Array.isArray(config.rules)) {
+                    config.rules = [];
+                }
+                if(config.rules.length !== 0) {
+                    config.rules = [];
+                    code.split('\n').forEach(line => {
+                        if(/^\s*[-*]\s+.+$/.test(line)) {
+                            const rule = line.replace(/^\s*[-*]\s+/, '').trim();
+                            if (rule) {
+                                config.rules.push(rule);
+                            }
+                        }
+                    })
+                }
+            }
+            return Object.assign({}, defaultConfig, config);
         } catch (error) {
             console.error('解析YAML失败:', error);
             return defaultConfig;
@@ -84,6 +105,9 @@ export class DailyEventRecord extends WidgetComponent {
 
         // 加载笔记数据
         await this.loadNoteData();
+
+        // 创建标记规则
+        this.createMarkRules();
 
         // 创建点阵图
         this.createDotMatrix();
@@ -130,6 +154,25 @@ export class DailyEventRecord extends WidgetComponent {
     }
 
     /**
+     * @private
+     * 遍历配置中的规则，为每个规则动态创建一个函数，并将其添加到 `markRules` 数组中。
+     * 每个生成的函数接收一个 `mark` 参数，并返回根据规则模板生成的字符串。
+     * 
+     * 注意：此方法使用了 `new Function` 动态生成函数，需确保 `rule.mark` 的安全性，避免注入风险。
+     */
+    private createMarkRules(): void {
+        for (const rule of this.config.rules) {
+            const code = `if (mark && mark.trim() !== '') {
+                mark = mark.trim();
+                return ${rule};
+            } else {
+                return '';
+            }`;
+            const ruleFunc = new Function('mark', code) as (mark: string) => string;
+            this.markRules.push(ruleFunc);
+        }
+    }
+    /**
      * 解析记录数据
      * @param content 笔记内容
      */
@@ -161,6 +204,28 @@ export class DailyEventRecord extends WidgetComponent {
     }
 
     /**
+     * 根据传入的时间字符串，提取并返回对应的标记字符串。
+     * 
+     * 该方法首先尝试从时间字符串中移除前缀的“HH:MM ”格式，
+     * 如果移除后没有有效的标记，则返回空字符串。
+     * 随后遍历所有的标记规则（`markRules`），
+     * 并返回第一个匹配到的标记字符串。
+     * 如果没有任何规则匹配，则返回空字符串。
+     * 
+     * @param time - 包含时间和可能标记的字符串（如 "08:00 重要"）
+     * @returns 匹配到的标记字符串，如果没有则返回空字符串
+     */
+    private getDotMark(time:string): string {
+        const desc = time.replace(/^\d{2}:\d{2}\s*/, '');
+        if (!desc || desc.trim() === '' || desc === time) return '';
+        // 遍历所有规则，找到第一个匹配的标记
+        for (const rule of this.markRules) {
+            const mark = rule(desc);
+            if (mark) return mark;
+        }
+        return '';
+    }
+    /**
      * 创建点阵图
      */
     private createDotMatrix(): void {
@@ -184,7 +249,13 @@ export class DailyEventRecord extends WidgetComponent {
 
             // 为每个时间点创建一个方块
             for (const time of record.times) {
-                const dotEl = columnEl.createDiv({ cls: 'dms-sidebar-daily-event-record-dot' });
+                const mark = this.getDotMark(time);
+                const dotEl = columnEl.createDiv({
+                    cls: 'dms-sidebar-daily-event-record-dot',
+                    attr: {
+                        style: mark ? `background-color: ${mark};` : ''
+                    }
+                });
 
                 // 设置悬停提示
                 setTooltip(dotEl, `${time}`);
